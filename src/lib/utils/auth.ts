@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import redis from '../db/upstash'
 import { json } from '@sveltejs/kit'
 import { env } from '$env/dynamic/private'
+import { parse as parseCookies } from 'cookie-es'
 
 // Generate a random token
 export function generateRandomToken() {
@@ -47,22 +48,6 @@ export function decodeCookie(token: string) {
   } catch (error) {
     return null
   }
-}
-
-// Parse cookies from a cookie header
-export function parseCookies(cookieHeader: any) {
-  const cookies = {}
-  if (cookieHeader && typeof cookieHeader === 'string') {
-    cookieHeader.split(';').forEach((cookie) => {
-      const parts = cookie.split('=')
-      if (parts.length === 2) {
-        const name = parts[0].trim()
-        const value = parts[1].trim()
-        cookies[name] = value
-      }
-    })
-  }
-  return cookies
 }
 
 // Get the user session based on a JWT cookie from a request

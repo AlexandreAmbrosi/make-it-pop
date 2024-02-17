@@ -22,7 +22,7 @@ export async function POST(event: RequestEvent) {
   const mail = await resend.emails.send({
     text: context.text,
     subject: context.subject,
-    from: 'Rishi Raj Jain <emails@rishi.app>',
+    from: 'LaunchFa.st Demo <verification@launchfa.st>',
     to: typeof context.to === 'string' ? [context.to] : context.to,
   })
   // Store the email's ID sent in your Redis

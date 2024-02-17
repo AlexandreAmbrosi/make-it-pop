@@ -37,7 +37,8 @@ export async function GET(event: RequestEvent) {
       // Store the generated token in the Redis database associated with the 'email'
       await redis.hset('tokens', { [email]: token })
       // Construct the email verification URL
-      const verificationUrl = `https://launchfast-sveltekit.vercel.app/api/email/verify?token=${token}`
+      const verificationUrl = new URL(env.EMAIL_VERIFICATION_ENDPOINT_URL)
+      verificationUrl.searchParams.set('token', token)
       // Send an email with the verification link to the user
       const emailResponse = await fetch(new URL('/api/email/resend', new URL(event.request.url).origin).toString(), {
         method: 'POST',
@@ -48,7 +49,7 @@ export async function GET(event: RequestEvent) {
         body: JSON.stringify({
           to: email,
           subject: 'Verify email address',
-          text: `Click the following link to verify your email address:\n${verificationUrl}`,
+          text: `Click the following link to verify your email address: ${verificationUrl.toString()}`,
         }),
       })
       // Check if the email was sent successfully (HTTP status 200-299)
