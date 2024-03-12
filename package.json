@@ -44,6 +44,7 @@
     "resend": "^1.1.0",
     "sitemap": "^7.1.1",
     "stripe": "^14.1.0",
+    "twitter-api-sdk": "^1.2.1",
     "uuid": "^9.0.1"
   }
 }

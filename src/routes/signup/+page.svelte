@@ -1,9 +1,12 @@
 <script>
   import SignInWithGoogle from '@/components/Sign-In-With-Google.svelte'
+  import SignInWithTwitter from '@/components/Sign-In-With-Twitter.svelte'
 </script>
 
 <div class="my-8 flex flex-col items-center px-6 py-12 lg:px-8">
   <SignInWithGoogle />
+  <span class="my-4"></span>
+  <SignInWithTwitter />
   <span class="my-4 text-slate-400">OR</span>
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <h2 class="text-center text-2xl font-bold tracking-tight text-gray-900">Sign Up</h2>

@@ -15,8 +15,8 @@ export async function GET(event: RequestEvent) {
   // Check if a valid session exists
   if (session) {
     // Extract the 'email' property from the session
-    const { email, google } = session
-    if (google && google === 1) {
+    const { email, google, twitter } = session
+    if ((google && google === 1) || (twitter && twitter === 1)) {
       // Set the user as verified in DB
       // await redis.hset('approved', { [email]: 1 })
       // Return a success response with a status code of 200

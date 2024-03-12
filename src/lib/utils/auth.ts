@@ -68,6 +68,9 @@ export function getSession(request: Request) {
         if (decodedCookieValue['google']) {
           session['google'] = decodedCookieValue.google
         }
+        if (decodedCookieValue['twitter']) {
+          session['twitter'] = decodedCookieValue.twitter
+        }
         return session
       }
     }
