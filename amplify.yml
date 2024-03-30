@@ -3,13 +3,11 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm i -g pnpm
-        - pnpm config set store-dir .pnpm-store
-        - pnpm i
+        - npm ci
     build:
       commands:
         - env >> .env
-        - pnpm build
+        - npm run build
         - node write_amplify.mjs
         - mv build/client/**/* ./.amplify-hosting/static/
         - rm -rf build/client
