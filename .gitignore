@@ -12,3 +12,4 @@ firebaseConfig.ts
 .vercel
 .netlify
 .env*.local
+.amplify-hosting

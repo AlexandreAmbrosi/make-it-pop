@@ -1,0 +1,26 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm i -g pnpm
+        - pnpm config set store-dir .pnpm-store
+        - pnpm i
+    build:
+      commands:
+        - env >> .env
+        - pnpm build
+        - node write_amplify.mjs
+        - mv build/client/**/* ./.amplify-hosting/static/
+        - rm -rf build/client
+        - mv build/**/* ./.amplify-hosting/compute/default
+        - rm -rf build
+        - mv node_modules ./.amplify-hosting/compute/default
+        - mv .env ./.amplify-hosting/compute/default/.env
+  artifacts:
+    baseDirectory: .amplify-hosting
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*

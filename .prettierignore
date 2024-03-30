@@ -20,5 +20,6 @@ pnpm-debug.log*
 # Deployment
 .vercel
 .netlify
+.amplify-hosting
 
 README.md
