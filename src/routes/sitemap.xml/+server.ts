@@ -5,9 +5,7 @@ export async function GET() {
   const smStream = new SitemapStream({ hostname })
   const slugs = ['/signin', '/signup', '/terms', '/careers', '/privacy']
   try {
-    slugs.forEach((url) => {
-      smStream.write({ url, changefreq: 'daily', priority: 1 })
-    })
+    slugs.forEach((url) => smStream.write({ url, changefreq: 'daily', priority: 1 }))
     smStream.end()
     const sitemap = await streamToPromise(smStream)
     return new Response(sitemap, {
