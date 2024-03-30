@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, mkdirSync } from 'node:fs';
 
 const deployManifestConfig = {
     version: 1,
@@ -40,6 +40,11 @@ const deployManifestConfig = {
         version: "1.20.4",
     },
 };
+
+mkdirSync(join(process.cwd(), '.amplify-hosting'))
+mkdirSync(join(process.cwd(), '.amplify-hosting', 'static'))
+mkdirSync(join(process.cwd(), '.amplify-hosting', 'compute'))
+mkdirSync(join(process.cwd(), '.amplify-hosting', 'compute', 'default'))
 
 const functionsConfigPath = join(
     process.cwd(),
