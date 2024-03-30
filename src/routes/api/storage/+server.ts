@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid'
 import { json, error } from '@sveltejs/kit'
 import type { RequestEvent } from './$types'
-// import { initializeApp } from 'firebase/app'
+import { initializeApp } from 'firebase/app'
 import { getSession } from '@/lib/utils/auth'
-// import fireBaseConfig from '@/lib/db/firebaseConfig'
-// import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
+import fireBaseConfig from '@/lib/db/firebaseConfig'
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 
 // Define an asynchronous function named GET that accepts a request object.
 export async function GET(event: RequestEvent) {
@@ -23,19 +23,19 @@ export async function GET(event: RequestEvent) {
   if (file) {
     try {
       // Initialize the Firebase app with the provided configuration.
-      // const app = initializeApp(fireBaseConfig)
+      const app = initializeApp(fireBaseConfig)
 
       // Get a reference to the Firebase storage.
-      // const storage = getStorage(app)
+      const storage = getStorage(app)
 
       // Create a reference to the specified file in storage.
-      // const fileRef = ref(storage, file)
+      const fileRef = ref(storage, file)
 
       // Get the download URL of the file.
-      // const filePublicURL = await getDownloadURL(fileRef)
+      const filePublicURL = await getDownloadURL(fileRef)
 
       // Return a JSON response with the file's public URL and a 200 status code.
-      // return json({ filePublicURL })
+      return json({ filePublicURL })
     } catch (e) {
       // If an error occurs, log the error message and return a JSON response with a 500 status code.
       throw error(500, { message: e.message || e.toString() })
@@ -57,9 +57,9 @@ export async function POST(event: RequestEvent) {
   // Check if the user has an email (an additional check for authentication)
   if (user.email) {
     // Initialize the Firebase app with the provided configuration
-    // const app = initializeApp(fireBaseConfig)
+    const app = initializeApp(fireBaseConfig)
     // Get a reference to the Firebase Storage and parse the request data as a FormData object
-    // const storage = getStorage(app)
+    const storage = getStorage(app)
     const data = await event.request.formData()
     // Get the 'file' field from the form data
     const file = data.get('file')
@@ -79,23 +79,23 @@ export async function POST(event: RequestEvent) {
       // Generate a unique fileId (assuming uuidv4 is defined elsewhere)
       const fileId = uuidv4()
       // Create a reference to the Firebase Storage location where the file will be stored
-      // const storageRef = ref(storage, `uploads/${fileId}/${file.name}`)
+      const storageRef = ref(storage, `uploads/${fileId}/${file.name}`)
       // Read the file as an array buffer
       const fileBuffer = await file.arrayBuffer()
       // Upload the file to Firebase Storage and retrieve metadata
-      // const { metadata } = await uploadBytes(storageRef, new Uint8Array(fileBuffer))
-      // const { fullPath } = metadata
-      // if (!fullPath) {
+      const { metadata } = await uploadBytes(storageRef, new Uint8Array(fileBuffer))
+      const { fullPath } = metadata
+      if (!fullPath) {
         // If there was an error during the upload, return a 403 response with an error message
-        // throw error(403, {
-        //   message: `<span>There was some error while uploading the file.</span> <span class="mt-1 text-xs text-gray-500">Report an issue with the current URL that you are on and with the code XXX.</span>`,
-        // })
-      // }
+        throw error(403, {
+          message: `<span>There was some error while uploading the file.</span> <span class="mt-1 text-xs text-gray-500">Report an issue with the current URL that you are on and with the code XXX.</span>`,
+        })
+      }
       // Generate a non-publicly accessible URL for the uploaded file
       // Use this url to perform a GET to this endpoint with file query param valued as below
-      // const fileURL = `https://storage.googleapis.com/${storageRef.bucket}/${storageRef.fullPath}`
+      const fileURL = `https://storage.googleapis.com/${storageRef.bucket}/${storageRef.fullPath}`
       // Return a success response with a message
-      // return json({ message: 'Uploaded Successfully', fileURL })
+      return json({ message: 'Uploaded Successfully', fileURL })
     } catch (e) {
       // If there was an error during the upload process, return a 403 response with the error message
       throw error(403, { message: e.message || e.toString() })
