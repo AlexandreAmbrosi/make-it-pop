@@ -8,7 +8,7 @@ frontend:
       commands:
         - env >> .env
         - npm run build
-        - node write_amplify.mjs
+        - node amplify.mjs
         - mv .env ./.amplify-hosting/compute/default/.env
   artifacts:
     baseDirectory: .amplify-hosting
