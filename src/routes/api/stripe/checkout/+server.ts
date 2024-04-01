@@ -2,7 +2,6 @@ import Stripe from 'stripe'
 import { env } from '$env/dynamic/private'
 import { json, error } from '@sveltejs/kit'
 import type { RequestEvent } from './$types'
-import { parse as parseCookies } from 'cookie-es'
 
 export async function GET(event: RequestEvent) {
   return await createCheckout(event)
@@ -14,23 +13,11 @@ export async function POST(event: RequestEvent) {
 
 async function createCheckout(event: RequestEvent) {
   // Verify if the Stripe secret key is present
-  if (!env.STRIPE_SECRET_KEY) {
-    throw error(500)
-  }
-  // Set the metadata to contain reflio affiliate id
-  let metadata = {}
-  const cookies = parseCookies(event.request.headers.get('Cookie'))
-  if (cookies && cookies['reflioData']) {
-    try {
-      const tmp = JSON.parse(cookies['reflioData'])
-      metadata = { reflio_referral_id: tmp['referral_id'] }
-    } catch (e) { }
-  }
+  if (!env.STRIPE_SECRET_KEY) throw error(500)
   // Create a Stripe instance
   const stripe = new Stripe(env.STRIPE_SECRET_KEY, { apiVersion: '2023-10-16' })
   // Create a Stripe checkout using custom fields
   const session = await stripe.checkout.sessions.create({
-    metadata,
     mode: 'payment',
     payment_method_configuration: 'pmc_1O2qH3SE9voLRYpuz5FLmkvn',
     // Mentioning the item you want to show up in the checkout

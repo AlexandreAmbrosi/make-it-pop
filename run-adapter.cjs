@@ -4,7 +4,7 @@ const { spawn } = require('child_process')
 
 async function preview() {
   try {
-    let command
+    let command, args
     if (process.env.DEPLOYMENT_PLATFORM === 'vercel' || process.env.DEPLOYMENT_PLATFORM === 'netlify') {
       command = 'vite'
       args = ['preview']
@@ -13,18 +13,10 @@ async function preview() {
       args = ['-r', 'dotenv/config', 'build']
     }
     const childProcess = spawn(command, args)
-    childProcess.stdout.on('data', (data) => {
-      process.stdout.write(data)
-    })
-    childProcess.stderr.on('data', (data) => {
-      process.stderr.write(data)
-    })
+    childProcess.stdout.on('data', (data) => process.stdout.write(data))
+    childProcess.stderr.on('data', (data) => process.stderr.write(data))
     childProcess.on('close', (code) => {
-      if (code === 0) {
-        console.log('Command executed successfully')
-      } else {
-        console.error(`Command failed with code ${code}`)
-      }
+      if (code !== 0) console.error(`Command failed with code ${code}`)
     })
   } catch (e) {
     console.log(e)
