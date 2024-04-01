@@ -1,3 +1,5 @@
+// File: amplify.mjs
+
 import { join } from 'node:path'
 import { nodeFileTrace } from '@vercel/nft'
 import { sync as prependSync } from 'prepend-file'
@@ -91,6 +93,4 @@ async function computeDependencies(paths = []) {
 
 prependSync(join('build', 'index.js'), `import 'dotenv/config'\n`)
 
-computeDependencies(['./build/index.js']).then(() => {
-  prependSync(join(amplifyDirectories[3], 'build', 'index.js'), `import 'dotenv/config'\n`)
-})
+computeDependencies(['./build/index.js'])
