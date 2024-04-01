@@ -1,6 +1,22 @@
 import { join } from 'node:path';
 import { nodeFileTrace } from '@vercel/nft';
-import { writeFileSync, mkdirSync, existsSync, cpSync } from 'node:fs';
+import { sync as prependSync } from 'prepend-file';
+import { writeFileSync, mkdirSync, existsSync, cpSync, rmSync } from 'node:fs';
+
+// Define all the Amplify related directories
+const amplifyDirectories = [
+    join(process.cwd(), '.amplify-hosting'),
+    join(process.cwd(), '.amplify-hosting', 'static'),
+    join(process.cwd(), '.amplify-hosting', 'compute'),
+    join(process.cwd(), '.amplify-hosting', 'compute', 'default'),
+    join(process.cwd(), '.amplify-hosting', 'compute', 'default', 'node_modules'),
+]
+
+// Create directories if they do no exist already
+if (existsSync(amplifyDirectories[0])) rmSync(amplifyDirectories[0], { force: true, recursive: true })
+
+// Create directories if they do no exist already
+amplifyDirectories.forEach((i => mkdirSync(i)))
 
 const deployManifestConfig = {
     version: 1,
@@ -32,8 +48,8 @@ const deployManifestConfig = {
     computeResources: [
         {
             name: "default",
-            entrypoint: "build/index.js",
             runtime: "nodejs18.x",
+            entrypoint: "build/index.js",
         },
     ],
     framework: {
@@ -42,25 +58,9 @@ const deployManifestConfig = {
     },
 };
 
-const amplifyDirectories = [
-    join(process.cwd(), '.amplify-hosting'),
-    join(process.cwd(), '.amplify-hosting', 'static'),
-    join(process.cwd(), '.amplify-hosting', 'compute'),
-    join(process.cwd(), '.amplify-hosting', 'compute', 'default'),
-    join(process.cwd(), '.amplify-hosting', 'compute', 'default', 'node_modules'),
-]
-
-amplifyDirectories.forEach((i => {
-    if (!existsSync(i)) mkdirSync(i)
-}))
-
-const functionsConfigPath = join(
-    process.cwd(),
-    "/.amplify-hosting/deploy-manifest.json",
-);
-
+// Write the config to .amplify-hosting/deploy-manifest.json
 writeFileSync(
-    functionsConfigPath,
+    join(process.cwd(), ".amplify-hosting", "deploy-manifest.json"),
     JSON.stringify(deployManifestConfig),
 );
 
@@ -86,17 +86,18 @@ async function computeDependencies(paths = []) {
             let temp = i.replace('node_modules/', '')
             temp = temp.substring(0, temp.indexOf('/'))
             packages[`node_modules/${temp}`] = true
-        } else
-            packages[i] = true
+        } else packages[i] = true
     })
     // Sort the set of packages by name (for easier difference comparison with git)
-    packages = Object.keys(packages)
-        .sort()
     // Dump the list of the computed packages for further references while deploying the app
-    packages.forEach(i => {
+    Object.keys(packages).sort().forEach(i => {
         cpSync(i, join(amplifyDirectories[3], i), { recursive: true })
     })
 
 }
 
-computeDependencies(['./build/index.js'])
+prependSync(join('build', 'index.js'), `import 'dotenv/config'\n`)
+
+computeDependencies(['./build/index.js']).then(() => {
+    prependSync(join(amplifyDirectories[3], 'build', 'index.js'), `import 'dotenv/config'\n`)
+})

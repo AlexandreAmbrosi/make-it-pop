@@ -9,7 +9,6 @@ frontend:
         - env >> .env
         - npm run build
         - node amplify.mjs
-        - mv .env ./.amplify-hosting/compute/default/.env
   artifacts:
     baseDirectory: .amplify-hosting
     files:
