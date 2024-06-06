@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { PUBLIC_FONT_NAME } from '$env/static/public'
-
   /*
     A component that can be used anywhere in your app
     Add this in the head of the page if you want to use it globally
@@ -15,7 +13,7 @@
   */
 
   export let display = 'swap'
-  export let name = PUBLIC_FONT_NAME || 'Archivo'
+  export let name = 'Archivo'
   export let weights = [100, 200, 300, 400, 500, 600, 700, 800]
 
   const fontURL = new URL('/css2', 'https://fonts.googleapis.com')

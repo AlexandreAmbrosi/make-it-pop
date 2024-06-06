@@ -12,8 +12,12 @@
 <section id="testimonials">
   <div class="mx-auto mt-12 flex max-w-7xl flex-col gap-12 px-8">
     <div class="flex flex-col text-left">
-      <p class="text-base-content text-3xl font-extrabold text-launchfast sm:text-4xl">Our growing wall of love 💜</p>
-      <span class="mt-3 text-white/50">These are some of the heartfelt testimonials about LaunchFa.st ✨</span>
+      <a href="/#testimonials" class="bg-astro block max-w-max -rotate-1 scale-[102.5%] rounded px-4 py-1 text-2xl font-medium text-white shadow">Our growing wall of love 🤍</a>
+      <span class="mt-4 text-xl text-gray-600">
+        Join
+        <b>30+ builders</b>
+        who launch fast using LaunchFa.st Boilerplates ✨
+      </span>
       <div class="relative mt-8 columns-1 gap-4 sm:columns-2 md:columns-3">
         {#each testimonialData as i}
           <Testimonial {...i} />

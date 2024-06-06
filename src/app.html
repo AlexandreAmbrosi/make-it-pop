@@ -3,10 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Parity Deals CSS -->
+    <style>
+      .parity-banner-has-logo {
+        z-index: 50;
+        bottom: 0 !important;
+        width: 100vw !important;
+        position: fixed !important;
+      }
+      .parity-banner-logo {
+        display: none !important;
+      }
+      .parity-banner.parity-banner-has-logo {
+        padding-left: 0px !important;
+      }
+    </style>
     %sveltekit.head%
   </head>
-  <body class="font-display" data-sveltekit-preload-data="hover">
+  <body class="mt-3 overflow-x-hidden font-display" data-sveltekit-preload-data="hover">
     <div class="contents">%sveltekit.body%</div>
+    <!-- Parity Deals JS -->
+    <!-- <script src="https://cdn.paritydeals.com/banner.js"></script> -->
     <script>
       // Utility to handle both new and old ways of copying HTML
       // Call window.copyTextToClipboard('text') anywhere in your code

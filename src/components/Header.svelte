@@ -8,23 +8,14 @@
   export let logo: string = '/purple-icon.png'
 
   import { slug } from 'github-slugger'
-  import IconCross from './Icon-Cross.svelte'
-  import IconHamburger from './Icon-Hamburger.svelte'
+  import IconCross from 'virtual:icons/mdi/close'
+  import IconHamburger from 'virtual:icons/mdi/hamburger'
   import ButtonCheckout from './Button-Checkout.svelte'
 
   const header = {
     viewID: slug('header'),
     labelID: 'view-' + slug('header'),
   }
-
-  const css = `<style>
-#${header['viewID']} {
-  display: none;
-}
-#${header['labelID']}:checked + #${header['viewID']} {
-  display: flex;
-}
-</style>`
 </script>
 
 <div class="relative mx-auto flex max-w-7xl flex-row items-center justify-between px-8 pt-2">
@@ -59,5 +50,3 @@
     </div>
   </div>
 </div>
-
-<!-- {@html `<style>${css}</style>`} -->

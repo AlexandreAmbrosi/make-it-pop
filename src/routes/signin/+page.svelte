@@ -3,52 +3,53 @@
   import SignInWithTwitter from '@/components/Sign-In-With-Twitter.svelte'
 </script>
 
-<div class="my-8 flex flex-col items-center px-6 py-12 lg:px-8">
-  <SignInWithGoogle />
-  <span class="my-4"></span>
-  <SignInWithTwitter />
-  <span class="my-4 text-slate-400">OR</span>
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <h2 class="text-center text-2xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
-  </div>
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form class="space-y-6" action="/api/sign/in" method="POST">
-      <div>
-        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-        <div class="mt-2">
+<div class="w-full py-8 lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+  <div class="flex items-center justify-center py-12">
+    <div class="mx-auto grid w-[350px] gap-6">
+      <div class="grid gap-2 text-center">
+        <h1 class="text-3xl font-bold">Sign In</h1>
+        <p class="text-muted-foreground text-balance">Enter your email below to sign in to your account.</p>
+      </div>
+      <form method="POST" class="grid gap-4" action="/api/sign/in">
+        <div class="grid gap-2">
+          <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="email">Email</label>
           <input
             required
             id="email"
             name="email"
             type="email"
             autocomplete="email"
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            placeholder="m@example.com"
+            class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           />
         </div>
-      </div>
-      <div>
-        <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-        </div>
-        <div class="mt-2">
+        <div class="grid gap-2">
+          <div class="flex items-center">
+            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="password">Password</label>
+            <a href="/forgot-password" class="ml-auto inline-block text-sm underline"> Forgot your password? </a>
+          </div>
           <input
             required
             id="password"
             name="password"
             type="password"
-            autocomplete="current-password"
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            autocomplete="off"
+            class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           />
         </div>
-      </div>
-      <div>
         <button
           type="submit"
-          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          class="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-10 w-full items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
         >
-          Sign in
+          Sign In
         </button>
-      </div>
-    </form>
+      </form>
+      <SignInWithTwitter />
+      <SignInWithGoogle />
+      <div class="mt-4 text-center text-sm">Don't have an account? <a href="/signup" class="underline"> Sign up </a></div>
+    </div>
+  </div>
+  <div class="hidden lg:block">
+    <img alt="Finder" width="4000" height="6000" src="https://images.pexels.com/photos/1194775/pexels-photo-1194775.jpeg" class="h-[98vh] w-full object-cover" />
   </div>
 </div>
