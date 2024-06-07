@@ -1,7 +1,8 @@
+import { env } from '$env/dynamic/private'
 import { SitemapStream, streamToPromise } from 'sitemap'
 
 export async function GET() {
-  const hostname = 'https://www.launchfa.st'
+  const hostname = env.SITE_URL
   const smStream = new SitemapStream({ hostname })
   const slugs = ['/signin', '/signup', '/terms', '/careers', '/privacy']
   try {
