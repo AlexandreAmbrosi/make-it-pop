@@ -1,13 +1,13 @@
 import { getCode } from '@/lib/db'
-import { getSession } from '@/lib/utils/auth'
 import { redirect } from '@sveltejs/kit'
 import type { RequestEvent } from './$types'
+import { getSession } from '@/lib/utils/auth'
 
-export async function load(event: RequestEvent) {
-  const session = getSession(event.cookies)
+export async function load({ cookies, request }: RequestEvent) {
+  const session = getSession(cookies)
   if (session) throw redirect(302, '/')
   let validCode = false
-  const code = new URL(event.request.url).searchParams.get('code')
+  const code = new URL(request.url).searchParams.get('code')
   try {
     if (code) validCode = await getCode(code)
   } catch (e) {}

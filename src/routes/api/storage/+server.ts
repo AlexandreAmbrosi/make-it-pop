@@ -91,7 +91,7 @@ export async function POST(event: RequestEvent) {
       return webJson({ message: 'Uploaded Successfully', fileURL }, 200, {})
     } catch (e) {
       // If there was an error during the upload process, return a 403 response with the error message
-      // @ts-ignore
+
       const message = e.message || e.toString()
       return webJson({ message }, 403, {})
     }

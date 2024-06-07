@@ -14,7 +14,6 @@ export async function POST(event: RequestEvent) {
     // Return a response to acknowledge receipt of the event
     return webJson({ message: 'received' }, 200, {})
   } catch (e) {
-    // @ts-ignore
     const message = e.message || e.toString()
     return webJson({ message }, 500, {})
   }

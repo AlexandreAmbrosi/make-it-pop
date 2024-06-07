@@ -2,6 +2,8 @@
 // for information about these interfaces
 declare global {
   interface Window {
+    // copy to clipboard utility
+    copyTextToClipboard: any
     // crisp global selector
     $crisp: any
     // google analytics data layer

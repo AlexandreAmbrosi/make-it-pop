@@ -16,7 +16,6 @@
   </a>
   <button
     on:click={() => {
-      // @ts-ignore
       window.copyTextToClipboard(url)
     }}
     id="share-link"

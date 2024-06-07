@@ -24,7 +24,6 @@ export async function GET({ cookies, request }: RequestEvent) {
     cookies.set('custom_auth', cookie, { path: '/', httpOnly: true })
     return webRedirect('/api/email/verify/send', 302, {})
   } catch (e) {
-    // @ts-ignore
     const message = e.message || e.toString()
     return webJson({ message }, 500, {})
   }

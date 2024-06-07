@@ -40,7 +40,6 @@ export async function POST(event: RequestEvent) {
     }
     return webJson({ message: JSON.stringify(eventStripe) }, 404, {})
   } catch (e) {
-    // @ts-ignore
     const message = e.message || e.toString()
     return webJson({ message }, 500, {})
   }
