@@ -1,6 +1,5 @@
 // File: svelte.config.js
 
-import 'dotenv/config'
 import path from 'path'
 import adapter from './adapter.mjs'
 import { vitePreprocess } from '@sveltejs/kit/vite'

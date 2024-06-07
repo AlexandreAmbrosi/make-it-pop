@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const { spawn } = require('child_process')
 
 async function preview() {
@@ -9,8 +7,8 @@ async function preview() {
       command = 'vite'
       args = ['preview']
     } else {
-      command = 'node'
-      args = ['-r', 'dotenv/config', 'build']
+      command = 'dotenv'
+      args = ['--', 'node', 'build']
     }
     const childProcess = spawn(command, args)
     childProcess.stdout.on('data', (data) => process.stdout.write(data))

@@ -1,15 +1,9 @@
-import { json } from '@sveltejs/kit'
+import { webRedirect } from '@/lib/utils/web'
+import type { RequestEvent } from './$types'
 
-export async function GET() {
+export async function GET(event: RequestEvent) {
+  // Clear the authentication cookie
+  event.cookies.set('custom_auth', '', { path: '/', httpOnly: true, expires: new Date('Thu, 01 Jan 1970 00:00:00 GMT') })
   // Create a response that performs logout by setting an empty cookie with an expiration date in the past
-  return json(
-    {},
-    {
-      status: 302, // Redirect status code
-      headers: {
-        Location: '/', // Redirect to the home page
-        'Set-Cookie': `custom_auth=""; expires=Thu, 01 Jan 1970 00:00:00 GMT; Path=/; HttpOnly`, // Clear the authentication cookie
-      },
-    },
-  )
+  return webRedirect('/', 302, {})
 }

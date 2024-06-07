@@ -1,5 +1,5 @@
-import { json } from '@sveltejs/kit'
 import oauth2Client from '@/lib/google/oauth2'
+import { webRedirect } from '@/lib/utils/web'
 
 export async function GET() {
   const authorizationUrl = oauth2Client.generateAuthUrl({
@@ -7,13 +7,5 @@ export async function GET() {
     scope: 'openid email profile',
     prompt: 'consent',
   })
-  return json(
-    {},
-    {
-      status: 302,
-      headers: {
-        Location: authorizationUrl,
-      },
-    },
-  )
+  return webRedirect(authorizationUrl, 302, {})
 }

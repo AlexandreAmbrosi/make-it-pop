@@ -1,11 +1,12 @@
-import { json, error } from '@sveltejs/kit'
-import type { RequestEvent } from './$types'
-import { createCookie } from '@/lib/utils/auth'
 import { authClient, client } from '@/lib/twitter/config'
+import { createCookie } from '@/lib/utils/auth'
+import { webJson, webRedirect } from '@/lib/utils/web'
+import type { RequestEvent } from './$types'
 
-export async function GET(event: RequestEvent) {
-  const code = new URL(event.request.url).searchParams.get('code')
+export async function GET({ cookies, request }: RequestEvent) {
+  const code = new URL(request.url).searchParams.get('code')
   try {
+    if (!code) throw new Error('No code query param found.')
     authClient.generateAuthURL({
       state: 'state',
       code_challenge: 'challenge',
@@ -25,21 +26,11 @@ export async function GET(event: RequestEvent) {
     // }
     const { name, profile_image_url: picture } = userInfo
     const cookie = createCookie({ name, picture, twitter: 1 })
-    return json(
-      {},
-      {
-        status: 302,
-        headers: {
-          Location: '/api/email/verify/send',
-          'Set-Cookie': `custom_auth=${cookie}; Path=/; HttpOnly`,
-        },
-      },
-    )
+    cookies.set('custom_auth', cookie, { path: '/', httpOnly: true })
+    return webRedirect('/api/email/verify/send', 302, {})
   } catch (e) {
-    const err = e.message || e.toString()
-    console.log(err)
-    throw error(500, {
-      message: err,
-    })
+    // @ts-ignore
+    const message = e.message || e.toString()
+    return webJson({ message }, 500, {})
   }
 }

@@ -1,29 +1,19 @@
-import crypto from 'crypto'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import redis from '../db/upstash'
-import { json } from '@sveltejs/kit'
+import type { Cookies } from '@sveltejs/kit'
 import { env } from '$env/dynamic/private'
-import { parse as parseCookies } from 'cookie-es'
+import { createHash, randomBytes } from 'node:crypto'
+import { setPassword } from '../db'
+import { webRedirect } from './web'
 
 // Generate a random token
 export function generateRandomToken() {
-  return crypto.randomBytes(20).toString('hex')
+  return randomBytes(20).toString('hex')
 }
 
 // Generate a random string based on an input value
 export function generateRandomString(inputValue: string) {
-  return crypto.createHash('sha256').update(String(inputValue)).digest('hex')
-}
-
-// Set the password for a given email in Redis
-export async function setPassword(email: string, password: string) {
-  return await redis.hset('login', { [email]: password })
-}
-
-// Get the password for a given email from Redis
-export async function getPassword(email: string) {
-  return await redis.hget('login', email)
+  return createHash('sha256').update(String(inputValue)).digest('hex')
 }
 
 // Hash a password using bcrypt
@@ -42,7 +32,7 @@ export function createCookie(body) {
 }
 
 // Decode a JWT cookie
-export function decodeCookie(token: string) {
+export function decodeJWTCookie(token: string) {
   try {
     return jwt.verify(token, env.SECRET_KEY)
   } catch (error) {
@@ -51,46 +41,30 @@ export function decodeCookie(token: string) {
 }
 
 // Get the user session based on a JWT cookie from a request
-export function getSession(request: Request) {
+export function getSession(cookies: Cookies): { [k: string]: string | number } | null {
   try {
     const session = {}
-    const cookies = parseCookies(request.headers.get('Cookie'))
-    if (cookies && cookies['custom_auth']) {
-      const decodedCookieValue = decodeCookie(cookies['custom_auth'])
+    const authCookie = cookies.get('custom_auth')
+    if (authCookie) {
+      const decodedCookieValue = decodeJWTCookie(authCookie)
       if (decodedCookieValue && new Date(decodedCookieValue.exp * 1000).getTime() >= new Date().getTime()) {
         session['email'] = decodedCookieValue.email
-        if (decodedCookieValue['name']) {
-          session['name'] = decodedCookieValue.name
-        }
-        if (decodedCookieValue['picture']) {
-          session['picture'] = decodedCookieValue.picture
-        }
-        if (decodedCookieValue['google']) {
-          session['google'] = decodedCookieValue.google
-        }
-        if (decodedCookieValue['twitter']) {
-          session['twitter'] = decodedCookieValue.twitter
-        }
+        if (decodedCookieValue['name']) session['name'] = decodedCookieValue.name
+        if (decodedCookieValue['picture']) session['picture'] = decodedCookieValue.picture
+        if (decodedCookieValue['google']) session['google'] = decodedCookieValue.google
+        if (decodedCookieValue['twitter']) session['twitter'] = decodedCookieValue.twitter
         return session
       }
     }
   } catch (e) {
-    console.log(e.message || e.toString())
+    console.log(e)
   }
 }
 
 // Sign up a user by setting their password, creating a JWT cookie, and redirecting to an email send endpoint
-export async function signUp(email: string, password: string) {
+export async function signUp(cookies: Cookies, email, password) {
   await setPassword(email, password)
   const cookie = createCookie({ email })
-  return json(
-    {},
-    {
-      status: 302,
-      headers: {
-        Location: '/api/email/verify/send',
-        'Set-Cookie': `custom_auth=${cookie}; Path=/; HttpOnly`,
-      },
-    },
-  )
+  cookies.set('custom_auth', cookie, { path: '/', httpOnly: true })
+  return webRedirect('/api/email/verify/send', 302, {})
 }

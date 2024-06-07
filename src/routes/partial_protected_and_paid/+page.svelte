@@ -1,6 +1,7 @@
 <script lang="ts">
-  // Use the value returned by +page.server.ts
-  export let data
+  import type { PageData } from './$types'
+
+  export let data: PageData
 </script>
 
 <div class="relative mx-auto flex max-w-7xl flex-col px-8 py-8">

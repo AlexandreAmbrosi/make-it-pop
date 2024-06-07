@@ -1,6 +1,6 @@
+import { setAccess } from '@/lib/db'
+import { webJson } from '@/lib/utils/web'
 import Stripe from 'stripe'
-import redis from '@/lib/db/upstash'
-import { json, error } from '@sveltejs/kit'
 import type { RequestEvent } from './$types'
 
 // Stripe API Reference
@@ -10,9 +10,7 @@ export async function POST(event: RequestEvent) {
     // Verify if the Stripe secret key and webhook signature key is present
     const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
     const STRIPE_WEBHOOK_SIG = process.env.STRIPE_WEBHOOK_SIG
-    if (!STRIPE_SECRET_KEY || !STRIPE_WEBHOOK_SIG) {
-      throw error(500, { message: 'Stripe keys not found.' })
-    }
+    if (!STRIPE_SECRET_KEY || !STRIPE_WEBHOOK_SIG) return webJson({ message: 'Stripe keys not found.' }, 500, {})
     // Create a Stripe instance
     const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2023-10-16' })
     // Obtain the raw body of the request to be used in Stripe for verification
@@ -24,7 +22,7 @@ export async function POST(event: RequestEvent) {
       eventStripe = stripe.webhooks.constructEvent(rawBody, sig, STRIPE_WEBHOOK_SIG)
     } catch (err) {
       console.log(err.message)
-      throw error(400, { message: `Webhook Error: ${err.message}` })
+      return webJson({ message: `Webhook Error: ${err.message}` }, 400, {})
     }
     // Two events in Stripe point to succesful payment,
     // so use them below to send an email that the purchase was complete
@@ -33,21 +31,17 @@ export async function POST(event: RequestEvent) {
       const customerEmail = eventStripe.data.object?.customer_details?.email
       if (customerEmail) {
         // Do some process say adding access to this user
-        // Check if the 'redis' module is available
-        if (redis) {
-          // Add the 'email' to the access list in Redis
-          await redis.hset('access', { [customerEmail]: 1 })
-          return json({ message: 'approved user access' })
-        }
-        // if the redis instance isn't there
-        throw error(500, { message: 'redis instance not found' })
+        // Add the 'email' to the access list in the database
+        await setAccess(customerEmail, '1')
+        return webJson({ message: 'approved user access' }, 200, {})
       }
       // if no email in the checkout instance is found
-      return json({ message: 'no email of the user is found' })
+      return webJson({ message: 'no email of the user is found' }, 200, {})
     }
-    throw error(404, { message: JSON.stringify(eventStripe) })
+    return webJson({ message: JSON.stringify(eventStripe) }, 404, {})
   } catch (e) {
-    console.log(e)
-    throw error(500, { message: e.message || e.toString() })
+    // @ts-ignore
+    const message = e.message || e.toString()
+    return webJson({ message }, 500, {})
   }
 }

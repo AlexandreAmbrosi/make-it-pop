@@ -25,7 +25,7 @@
     <div class="mt-8 flex flex-row flex-wrap gap-y-3 sm:gap-x-3 sm:gap-y-0">
       <a
         href="/#pricing"
-        class="from-branding max-w-max rounded-lg bg-gradient-to-br to-svelte px-5 py-3 text-center text-lg text-white shadow-2xl transition duration-200 sm:text-xl"
+        class="max-w-max rounded-lg bg-gradient-to-br from-branding to-svelte px-5 py-3 text-center text-lg text-white shadow-2xl transition duration-200 sm:text-xl"
       >
         Get LaunchFast Starter Kits&nbsp;&nbsp;&rarr;
       </a>

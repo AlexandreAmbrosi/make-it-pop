@@ -1,17 +1,10 @@
-import Stripe from 'stripe'
 import { env } from '$env/dynamic/private'
-import { json, error } from '@sveltejs/kit'
+import { webRedirect, webResponse } from '@/lib/utils/web'
+import { error } from '@sveltejs/kit'
+import Stripe from 'stripe'
 import type { RequestEvent } from './$types'
 
-export async function GET(event: RequestEvent) {
-  return await createCheckout(event)
-}
-
 export async function POST(event: RequestEvent) {
-  return await createCheckout(event)
-}
-
-async function createCheckout(event: RequestEvent) {
   // Verify if the Stripe secret key is present
   if (!env.STRIPE_SECRET_KEY) throw error(500)
   // Create a Stripe instance
@@ -50,23 +43,13 @@ async function createCheckout(event: RequestEvent) {
       },
     ],
     // Mentioning the URL where user would land up when they cancel the transaction
-    cancel_url: 'https://www.launchfa.st/api/stripe/cancel',
+    cancel_url: new URL('/api/stripe/cancel', env.SITE_URL).toString(),
     // Mentioning the URL where user would land up when they complete the transaction succesfully
-    success_url: 'https://www.launchfa.st/api/stripe/success',
+    success_url: new URL('/api/stripe/success', env.SITE_URL).toString(),
   })
   // Redirect the user to the Stripe checkout created above
-  if (session.url) {
-    return json(
-      {},
-      {
-        status: 303,
-        headers: {
-          Location: session.url,
-        },
-      },
-    )
-  } else {
-    console.log(session)
-    throw error(500, { message: 'failed to create a checkout url' })
-  }
+  if (session.url) return webRedirect(session.url, 303, {})
+  // Else log what went wrong
+  console.log(session)
+  return webResponse('failed to create a checkout url', 500, {})
 }

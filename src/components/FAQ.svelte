@@ -1,47 +1,68 @@
 <script lang="ts">
   /*
     A component that can be used anywhere in your app
-    
-    <Features />
+
+    Use anywhere in your app like the following:
+
+    <FAQ
+      data={
+        [
+          { question: `Hey, who's this?`, answer: `It's me, ma!` },
+          { question: `Hey, who's this agan?`, answer: `Hey ma, it's me again!` }
+        ]
+      }
+    />
   */
 
+  import PlusIcon from '~icons/mdi/plus'
+  import MinusIcon from '~icons/mdi/minus'
+  import faqs from '@/lib/data/faqs'
   import { slug } from 'github-slugger'
-  import features from '@/lib/data/features'
+
+  interface FAQProps {
+    question: string
+    answer: string
+    labelID?: string
+    viewID?: string
+  }
+
+  export let data: FAQProps[] = faqs
+
+  data.forEach((i, _) => {
+    data[_]['labelID'] = slug(i['question'])
+    data[_]['viewID'] = 'view-' + data[_]['labelID']
+  })
 </script>
 
-<div id="features" class="mx-auto flex max-w-7xl flex-col gap-8 px-8">
-  <div class="flex flex-col text-left">
-    <a href="/#features" class="text-3xl font-extrabold text-launchfast/75 sm:text-4xl">
-      Your Time-Saving <span class="bg-astro whitespace-nowrap px-2 text-white shadow-2xl">Web Development</span> Starter Kit(s)
-    </a>
-    <p class="mt-3 text-xl text-gray-600">
-      Save lot of time using baked-in countless integrations, API Routes, and components to send emails, setup blogs, login users, protect routes, track user events, accept
-      payments worldwide, let user upload files, capture waitlists, start supporting customers and more ✨
-    </p>
-  </div>
-  {#each features as feature}
-    <a href={`#${slug(feature.heading)}`} id={slug(feature.heading)} class="mt-8 flex flex-col text-left text-2xl font-semibold text-launchfast">
-      {feature.heading}
-    </a>
-    <div class="flex flex-col">
-      {#if feature.images}
-        <div class={'grid grid-cols-1 grid-rows-1 sm:grid-cols-2 ' + (feature.images.length === 2 ? 'sm:grid-rows-1' : 'sm:grid-rows-2')}>
-          {#each feature.images as i, idx}
-            <img alt={idx.toString()} src={i} width="1600" height="900" loading="lazy" decoding="async" class={(idx === 0 ? '' : 'hidden sm:block') + ' h-auto w-full'} />
-          {/each}
-        </div>
-      {/if}
-      <div class="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {#each feature.products as benefit}
-          <div class="flex flex-col">
-            <img alt={benefit.name} class="h-[30px] w-[30px] bg-white" loading="lazy" width="30" height="30" src={benefit.logo} />
-            <span class="mt-3 font-bold">{benefit.name}</span>
-            {#if benefit.description}
-              <span class="text-gray-600">{benefit.description}</span>
-            {/if}
-          </div>
-        {/each}
-      </div>
+<section id="faq">
+  <div class="mx-auto flex max-w-7xl flex-col gap-8 px-8 py-24">
+    <div class="flex flex-col text-left">
+      <p class="text-base-content text-3xl font-extrabold text-launchfast sm:text-4xl">Questions and Answers</p>
     </div>
-  {/each}
-</div>
+    <ul class="basis-1/2">
+      {#each data as i}
+        <li class="group">
+          <div class="border-base-content/10 relative flex w-full cursor-pointer items-center gap-2 border-t py-5 text-left text-base font-semibold md:text-lg">
+            <span class="text-base-content flex-1 font-medium">{i.question}</span>
+            <div id={`icon-minus-${i.labelID}`} class="ml-auto hidden h-4 w-4 flex-shrink-0 fill-current">
+              <MinusIcon />
+            </div>
+            <div id={`icon-plus-${i.labelID}`} class="ml-auto block h-4 w-4 flex-shrink-0 fill-current">
+              <PlusIcon />
+            </div>
+          </div>
+          <input class="hidden" type="checkbox" id={i.labelID} />
+          <div id={i.viewID} class="mb-5 overflow-hidden whitespace-pre-line">
+            {i.answer}
+          </div>
+        </li>
+      {/each}
+      <div class="text-base-content/80 border-t pt-4">
+        Got more? Send me a DM on
+        <a class="text-base-content border-b border-launchfast" target="_blank" href="https://twitter.com/rishi_raj_jain_">Twitter</a>
+        or by
+        <a href="mailto:jain71000@gmail.com" target="_blank" class="text-base-content border-b border-launchfast">email</a>.
+      </div>
+    </ul>
+  </div>
+</section>

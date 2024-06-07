@@ -1,5 +1,5 @@
-import { json, error } from '@sveltejs/kit'
 import type { RequestEvent } from './$types'
+import { webJson } from '@/lib/utils/web'
 
 // Lemon Squeezy API Reference
 // https://docs.lemonsqueezy.com/guides/tutorials/webhooks-logsnag
@@ -12,10 +12,10 @@ export async function POST(event: RequestEvent) {
     // Handle each event based on
     // https://docs.lemonsqueezy.com/guides/developer-guide/webhooks
     // Return a response to acknowledge receipt of the event
-    return json({ message: 'received' })
+    return webJson({ message: 'received' }, 200, {})
   } catch (e) {
-    throw error(500, {
-      message: e.message || e.toString(),
-    })
+    // @ts-ignore
+    const message = e.message || e.toString()
+    return webJson({ message }, 500, {})
   }
 }

@@ -1,22 +1,18 @@
-import nodemailer from 'nodemailer'
-import isAdmin from '@/lib/utils/admin'
 import { env } from '$env/dynamic/private'
-import { json, error } from '@sveltejs/kit'
+import isAdmin from '@/lib/utils/admin'
+import { webJson } from '@/lib/utils/web'
+import nodemailer from 'nodemailer'
 import type { RequestEvent } from './$types'
 
 export async function POST(event: RequestEvent) {
   // Parse the JSON data from the request body
   const context = await event.request.json()
   // Check if the 'nodemailer' module is available
-  if (!nodemailer) {
-    // If 'nodemailer' is not available, return a 500 Internal Server Error response
-    throw error(500)
-  }
+  // If 'nodemailer' is not available, return a 500 Internal Server Error response
+  if (!nodemailer) return webJson({}, 500, {})
   // Check if the requester is an admin
-  if (!isAdmin(event.request)) {
-    // If the requester is not an admin, return a 403 Forbidden response
-    throw error(403)
-  }
+  // If the requester is not an admin, return a 403 Forbidden response
+  if (!isAdmin(event.cookies, event.request)) return webJson({}, 403, {})
   // Send an email using nodemailer
   // https://www.smtp2go.com/setupguide/node-js-script/
   const smtpTransport = nodemailer.createTransport({
@@ -34,5 +30,5 @@ export async function POST(event: RequestEvent) {
     to: typeof context.to === 'string' ? [context.to] : context.to,
   })
   // Return a successful response with a status code of 200
-  return json({}, { status: 200 })
+  return webJson({}, 200, {})
 }

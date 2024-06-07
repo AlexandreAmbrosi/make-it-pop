@@ -16,7 +16,7 @@
   <div class="flex flex-col text-left">
     <a href="/#pricing" class="text-3xl sm:text-4xl">
       <span class="border px-2 text-launchfast">Pay once</span>,
-      <span class="bg-astro whitespace-nowrap px-2 font-bold text-white shadow-2xl">use forever</span>
+      <span class="whitespace-nowrap bg-astro px-2 font-bold text-white shadow-2xl">use forever</span>
     </a>
     <p class="mt-3 text-xl text-gray-600">
       LaunchFa.st Astro, Next.js and SvelteKit Starter Kits are each a one-time purchase. You get *all* the good things in a single purchase. <span class="text-launchfast">
@@ -40,10 +40,10 @@
       <div class="flex flex-row flex-wrap divide-x divide-white/25 border border-gray-100">
         <div class="flex flex-col p-8">
           <span class="ml-1 text-3xl font-semibold text-black/25 line-through">$150</span>
-          <span class="text-astro ml-1 text-7xl font-bold">$75</span>
+          <span class="ml-1 text-7xl font-bold text-astro">$75</span>
           <a class="ls-button mt-12" href="https://code-templates.lemonsqueezy.com/buy/97fc7fb0-990d-48da-b924-d40d556105d7">
             <input class="hidden" type="text" name="template" value="astro" />
-            <button class="bg-astro max-w-max -rotate-1 rounded border px-4 py-1 text-xl font-medium text-white"> Get Astro Starter Kit &rarr; </button>
+            <button class="max-w-max -rotate-1 rounded border bg-astro px-4 py-1 text-xl font-medium text-white"> Get Astro Starter Kit &rarr; </button>
             <a href="https://launchfast-astro-ts.vercel.app/" target="_blank" class="mt-4 block max-w-max -rotate-1 rounded border px-4 py-1 text-xl font-medium text-black">
               View Demo &rarr;
             </a>
@@ -113,7 +113,7 @@
         <span class="ml-1 inline-block text-7xl font-bold text-black">$199</span>
         <a class="ls-button mt-12" href="https://code-templates.lemonsqueezy.com/buy/c6c9383b-4053-4096-bc4a-30230290bf29">
           <input class="hidden" type="text" name="template" value="bundle" />
-          <button class="from-branding inline-block max-w-max -rotate-1 rounded bg-gradient-to-br to-svelte px-4 py-1 text-xl font-medium">
+          <button class="inline-block max-w-max -rotate-1 rounded bg-gradient-to-br from-branding to-svelte px-4 py-1 text-xl font-medium">
             <span class="text-white">Get The Bundle &rarr;</span>
           </button>
         </a>

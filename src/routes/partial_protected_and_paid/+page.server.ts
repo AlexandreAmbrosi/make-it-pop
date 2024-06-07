@@ -1,9 +1,10 @@
-import redis from '@/lib/db/upstash'
+import { getAccess } from '@/lib/db'
 import type { RequestEvent } from './$types'
 import { getSession } from '@/lib/utils/auth'
 
 export async function load(event: RequestEvent) {
-  const session = getSession(event.request)
-  const paid = session?.email ? await redis.hget('access', session?.email) : 0
+  const session = getSession(event.cookies)
+  let paid
+  if (session?.email) paid = await getAccess(session.email.toString())
   return { session, paid }
 }
