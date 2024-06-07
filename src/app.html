@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Parity Deals CSS -->
     <style>
+      /* Parity Deals CSS */
       .parity-banner-has-logo {
         z-index: 50;
         bottom: 0 !important;
@@ -17,10 +17,37 @@
       .parity-banner.parity-banner-has-logo {
         padding-left: 0px !important;
       }
+      /* Shiki CSS */
+      .line {
+        display: inline;
+        padding-bottom: 0;
+      }
+      .diff {
+        display: inline-block;
+        width: 100vw;
+        margin: 0 -12px;
+        padding: 0 12px;
+      }
+      .diff.add {
+        background-color: #0505;
+      }
+      .diff.remove {
+        background-color: #8005;
+      }
+      .diff:before {
+        position: absolute;
+        left: 40px;
+      }
+      .has-focused .line {
+        filter: blur(0.095rem);
+      }
+      .has-focused .focused {
+        filter: blur(0);
+      }
     </style>
     %sveltekit.head%
   </head>
-  <body class="mt-3 overflow-x-hidden font-display" data-sveltekit-preload-data="hover">
+  <body class="font-display mt-3 overflow-x-hidden" data-sveltekit-preload-data="hover">
     <div class="contents">%sveltekit.body%</div>
     <!-- Parity Deals JS -->
     <!-- <script src="https://cdn.paritydeals.com/banner.js"></script> -->
