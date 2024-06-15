@@ -61,7 +61,7 @@
     "jsonwebtoken": "^9.0.2",
     "litellm": "^0.12.0",
     "nodemailer": "^6.9.6",
-    "pg": "^8.12.0",
+    "pg": "^8.11.5",
     "posthog-js": "^1.84.2",
     "resend": "^1.1.0",
     "sitemap": "^7.1.1",

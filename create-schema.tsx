@@ -1,8 +1,8 @@
-import { Pool } from 'pg'
+import pg from 'pg'
 
 if (!process.env.POSTGRES_URL) throw new Error(`POSTGRES_URL environment variable is not set.`)
 
-const pool = new Pool({ connectionString: process.env.POSTGRES_URL })
+const pool = new pg.Pool({ connectionString: process.env.POSTGRES_URL })
 
 async function createSchema() {
   await Promise.all([
