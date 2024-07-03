@@ -1,6 +1,7 @@
 import { getPassword } from '@/lib/db'
 import { comparePassword, createCookie, generateRandomString, getSession, hashPassword } from '@/lib/utils/auth'
 import { webJson, webRedirect } from '@/lib/utils/web'
+import { getLatestSession } from '../../auth/session/latest'
 import type { RequestEvent } from './$types'
 
 export async function POST(event: RequestEvent) {
@@ -10,8 +11,8 @@ export async function POST(event: RequestEvent) {
   // If no form data is found, return a 400 Bad Request response
   if (!context) return webJson({ message: 'Invalid body.' }, 400, {})
   // Extract the user's email and password from the form data
-  const userEmail = context.get('email')
-  const userPassword = context.get('password')
+  const userEmail = context.get('email') as string
+  const userPassword = context.get('password') as string
   // Check if both email and password are provided
   // If either email or password is missing, return a 400 Bad Request response
   if (!userEmail || !userPassword) return webJson({ message: 'No user details submitted.' }, 400, {})
@@ -30,8 +31,9 @@ export async function POST(event: RequestEvent) {
       // Compare the hashed randomized password with the original password
       const isPasswordCorrect = await comparePassword(originalPassword, hashedPassword)
       if (isPasswordCorrect) {
+        const tmpSession = await getLatestSession(event.cookies, { email: userEmail })
         // If the passwords match, create a session cookie for the user
-        const cookie = createCookie({ email: userEmail })
+        const cookie = createCookie(tmpSession)
         // Return a redirect response with a status code of 302 and the session cookie
         event.cookies.set('custom_auth', cookie, { path: '/', httpOnly: true })
         return webRedirect('/', 302, {})

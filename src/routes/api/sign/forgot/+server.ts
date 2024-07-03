@@ -1,4 +1,4 @@
-import { getCode, getPassword, removeCode, setCode, setPassword } from '@/lib/db'
+import { getCode, ifUserExists, removeCode, setCode, setPassword } from '@/lib/db'
 import resend from '@/lib/email/resend'
 import { generateRandomString, generateRandomToken } from '@/lib/utils/auth'
 import { webRedirect, webResponse } from '@/lib/utils/web'
@@ -33,7 +33,7 @@ export async function POST({ request }: RequestEvent) {
     }
   } else {
     // Attempt to retrieve the original password associated with the user's email
-    const originalPassword = await getPassword(userEmail)
+    const originalPassword = await ifUserExists(userEmail)
     // If the user does not exist with the given email, redirect to sign up
     if (!originalPassword) return webRedirect('/signup', 302, {})
     const token = 'forgot_' + generateRandomToken()
