@@ -1,6 +1,9 @@
-import { defineConfig } from 'vite'
-import Icons from 'unplugin-icons/vite'
 import { sveltekit } from '@sveltejs/kit/vite'
+import { spawnSync } from 'child_process'
+import { existsSync } from 'fs'
+import { join } from 'path'
+import Icons from 'unplugin-icons/vite'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [
@@ -8,6 +11,29 @@ export default defineConfig({
     Icons({
       compiler: 'svelte',
     }),
+    {
+      name: 'pagefind',
+      closeBundle() {
+        console.log('[LaunchFa.st]: Indexing blogs...')
+        const sourcePath =
+          process.env.DEPLOYMENT_PLATFORM === 'vercel'
+            ? join('.vercel', 'output', 'static', 'blog')
+            : process.env.DEPLOYMENT_PLATFORM === 'netlify'
+              ? join('build', 'blog')
+              : join('build', 'prerendered', 'blog')
+        if (existsSync(sourcePath)) {
+          const destinationPath =
+            process.env.DEPLOYMENT_PLATFORM === 'vercel'
+              ? join('.vercel', 'output', 'static', 'pagefind')
+              : process.env.DEPLOYMENT_PLATFORM === 'netlify'
+                ? join('build', 'pagefind')
+                : join('build', 'client', 'pagefind')
+          console.log(`[LaunchFa.st]: Executing "npx -y pagefind --site ${sourcePath} --output-path ${destinationPath}"`)
+          spawnSync('npx', [`-y pagefind --site ${sourcePath} --output-path ${destinationPath}`], { stdio: 'inherit', shell: true })
+          console.log('[LaunchFa.st]: Blogs indexed succesfully!')
+        }
+      },
+    },
   ],
   server: {
     port: 3000,

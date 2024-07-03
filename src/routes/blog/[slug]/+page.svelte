@@ -10,11 +10,11 @@
   $: component = data.component as unknown as C
 </script>
 
-<div class="relative mx-auto flex max-w-2xl flex-col px-8 py-8">
+<div data-pagefind-body class="relative mx-auto flex max-w-2xl flex-col px-8 py-8">
   <h1 class="text-3xl font-extrabold text-branding">{data.frontmatter.title}</h1>
   {#if data?.frontmatter?.show_author !== false}
     <div class="flex flex-row items-center justify-between">
-      <Author name="Rishi Raj Jain" image="https://ik.imagekit.io/vjeqenuhn/1677584426725_O0mYlJuu_.jpeg" />
+      <Author name="Rishi Raj Jain" image="https://ik.imagekit.io/vjeqenuhn/static/headshot.jpeg" />
       <SocialSharing title={data.frontmatter.title} url={new URL(`/blog/${data.frontmatter.slug}`, 'https://www.launchfa.st').toString()} />
     </div>
   {/if}
