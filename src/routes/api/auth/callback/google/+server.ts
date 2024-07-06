@@ -21,7 +21,7 @@ export async function GET({ cookies, request }: RequestEvent) {
     //   picture: 'https://lh3.googleusercontent.com/a/ACg8ocJ4yjSGVhWDjRAzx2YZ_RCQ-lADhqG7OmRwi2Hu2I2gZFM=s96-c',
     // }
     const { email, name, picture, verified_email } = userInfo
-    const tmpSession = await getLatestSession(cookies, { email, name, picture, verified_email })
+    const tmpSession = await getLatestSession(cookies, { email, name, picture, google: verified_email ? 1 : 0 })
     const cookie = createCookie(tmpSession)
     cookies.set('custom_auth', cookie, { path: '/', httpOnly: true })
     return webRedirect('/api/email/verify/send', 302, {})
