@@ -1,13 +1,8 @@
-import { env } from '$env/dynamic/private'
-import { getFirebaseObject, uploadFirebaseObject } from '@/lib/storage/firebase'
-import { getS3Object, uploadS3Object } from '@/lib/storage/s3'
-import { getSupabaseObject, uploadSupabaseObject } from '@/lib/storage/supabase'
+import storage from '@/lib/storage'
 import { getSession } from '@/lib/utils/auth'
 import { webJson } from '@/lib/utils/web'
 import { error } from '@sveltejs/kit'
 import type { RequestEvent } from './$types'
-
-const STORAGE_PROVIDER = env.STORAGE_PROVIDER
 
 // Define an asynchronous function named GET that accepts a request object.
 export async function GET(event: RequestEvent) {
@@ -21,7 +16,7 @@ export async function GET(event: RequestEvent) {
   // Check if the 'file' parameter exists in the URL.
   if (file) {
     try {
-      const filePublicURL = STORAGE_PROVIDER === 's3' ? await getS3Object(file) : STORAGE_PROVIDER === 'firebase' ? await getFirebaseObject(file) : await getSupabaseObject(file)
+      const filePublicURL = await storage.retrieve(file)
       // Return a JSON response with the file's public URL and a 200 status code.
       return webJson({ filePublicURL }, 200, {})
     } catch (e) {
@@ -56,7 +51,7 @@ export async function POST(event: RequestEvent) {
     try {
       // Generate a non-publicly accessible URL for the uploaded file
       // Use this url to perform a GET to this endpoint with file query param valued as below
-      const fileURL = STORAGE_PROVIDER === 's3' ? await uploadS3Object(file) : STORAGE_PROVIDER === 'firebase' ? await uploadFirebaseObject(file) : await uploadSupabaseObject(file)
+      const fileURL = await storage.upload(file)
       // Return a success response with a message
       return webJson({ message: 'Uploaded Successfully', fileURL }, 200, {})
     } catch (e) {
