@@ -1,9 +1,17 @@
 <script lang="ts">
   import '@/app.css'
+  import 'nprogress/nprogress.css'
+  import NProgress from 'nprogress'
+  import { navigating } from '$app/stores'
   import Footer from '@/components/Footer.svelte'
   import Header from '@/components/Header.svelte'
   import Divider from '@/components/Divider.svelte'
   import LemonSqueezyScript from '@/components/Scripts/LemonSqueezy.svelte'
+
+  $: {
+    if ($navigating) NProgress.start()
+    else NProgress.done()
+  }
 </script>
 
 <Header />

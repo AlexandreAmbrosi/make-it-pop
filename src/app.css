@@ -76,3 +76,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+#nprogress .bar {
+  background: #8714bd !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #8714bd !important;
+  border-left-color: #8714bd !important;
+}

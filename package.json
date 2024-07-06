@@ -53,6 +53,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.609.0",
     "@aws-sdk/s3-request-presigner": "^3.609.0",
+    "@types/nprogress": "^0.2.3",
     "bcryptjs": "^2.4.3",
     "date-fns": "^2.30.0",
     "firebase": "^10.12.2",
@@ -63,6 +64,7 @@
     "jsonwebtoken": "^9.0.2",
     "litellm": "^0.12.0",
     "nodemailer": "^6.9.6",
+    "nprogress": "^0.2.0",
     "pg": "^8.11.5",
     "posthog-js": "^1.84.2",
     "resend": "^1.1.0",
