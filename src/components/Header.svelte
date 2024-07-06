@@ -27,15 +27,7 @@
   </a>
   <div class="hidden flex-row items-center gap-x-8 sm:flex">
     <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/#pricing"> Pricing </a>
-    <a target="_blank" class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="https://launchfast-nextjs-ts.vercel.app"> Demo </a>
     <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/blog"> Blogs </a>
-    <a
-      class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline"
-      href="https://affiliates.lemonsqueezy.com/programs/code-templates"
-      target="_blank"
-    >
-      Affiliates (40%)
-    </a>
   </div>
   <User />
   <label class="sm:hidden" for={header.labelID}>
