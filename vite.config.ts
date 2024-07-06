@@ -14,7 +14,6 @@ export default defineConfig({
     {
       name: 'pagefind',
       closeBundle() {
-        console.log('[LaunchFa.st]: Indexing blogs...')
         const sourcePath =
           process.env.DEPLOYMENT_PLATFORM === 'vercel'
             ? join('.vercel', 'output', 'static', 'blog')
@@ -22,6 +21,7 @@ export default defineConfig({
               ? join('build', 'blog')
               : join('build', 'prerendered', 'blog')
         if (existsSync(sourcePath)) {
+          console.log('[LaunchFa.st]: Indexing blogs...')
           const destinationPath =
             process.env.DEPLOYMENT_PLATFORM === 'vercel'
               ? join('.vercel', 'output', 'static', 'pagefind')

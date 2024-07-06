@@ -1,9 +1,12 @@
 import { env } from '$env/dynamic/private'
 import { Redis } from 'ioredis'
 import pg from 'pg'
+import { MongoClient, Db } from 'mongodb'
 
 let pool: pg.Pool | null = null
 let redis: Redis | null = null
+let mongoClient: MongoClient
+let db: Db
 
 const type = env?.['DATABASE_TYPE'] || 'redis'
 
@@ -15,6 +18,16 @@ if (type === 'redis') {
   if (connectionString) pool = new pg.Pool({ connectionString })
 }
 
+async function getMongoDB() {
+  if (db) return
+  const connectionString = env?.['MONGODB_URL']
+  if (connectionString) {
+    mongoClient = new MongoClient(connectionString)
+    await mongoClient.connect()
+    db = mongoClient.db(env?.['MONGODB_DB'] || 'launchfast')
+  }
+}
+
 export async function getAccess(email: string) {
   if (type === 'redis' && redis) {
     return await redis.hget('access', email)
@@ -24,6 +37,10 @@ export async function getAccess(email: string) {
       values: [email],
     })
     return rows[0]?.['code']
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    const result = await db.collection('access').findOne({ email })
+    return result?.['code']
   }
 }
 
@@ -35,6 +52,9 @@ export async function setAccess(email: string, code: string) {
       text: 'INSERT INTO access (email, code) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET code = $2',
       values: [email, code],
     })
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    return await db.collection('access').updateOne({ email }, { $set: { code } }, { upsert: true })
   }
 }
 
@@ -47,6 +67,10 @@ export async function getCode(email: string) {
       values: [email],
     })
     return rows[0]?.['code']
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    const result = await db.collection('tokens').findOne({ email })
+    return result?.['code']
   }
 }
 
@@ -58,6 +82,9 @@ export async function setCode(email: string, code: string) {
       text: 'INSERT INTO tokens (email, code) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET code = $2',
       values: [email, code],
     })
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    return await db.collection('tokens').updateOne({ email }, { $set: { code } }, { upsert: true })
   }
 }
 
@@ -69,10 +96,12 @@ export async function removeCode(email: string) {
       text: 'DELETE FROM tokens WHERE email = $1',
       values: [email],
     })
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    return await db.collection('tokens').deleteOne({ email })
   }
 }
 
-// Set the password for a given email in Redis
 export async function setPassword(email: any, password: any) {
   if (type === 'redis' && redis) {
     return await redis.hset('login', { [email]: password })
@@ -81,6 +110,9 @@ export async function setPassword(email: any, password: any) {
       text: 'INSERT INTO login (email, password) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET password = $2',
       values: [email, password],
     })
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    return await db.collection('login').updateOne({ email }, { $set: { password } }, { upsert: true })
   }
 }
 
@@ -93,6 +125,10 @@ export async function ifUserExists(email: string) {
       values: [email],
     })
     return rowCount
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    const count = await db.collection('login').countDocuments({ email })
+    return count > 0
   }
 }
 
@@ -105,6 +141,10 @@ export async function getPassword(email: string) {
       values: [email],
     })
     return rows[0]?.['password']
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    const result = await db.collection('login').findOne({ email })
+    return result?.['password']
   }
 }
 
@@ -116,6 +156,9 @@ export async function setMailVerified(email: string, code: string) {
       text: 'INSERT INTO emails_verified (email, code) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET code = $2',
       values: [email, code],
     })
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    return await db.collection('emails_verified').updateOne({ email }, { $set: { code } }, { upsert: true })
   }
 }
 
@@ -127,6 +170,9 @@ export async function setUserImageRef(email: string, image_ref: string) {
       text: 'INSERT INTO user_info (email, image_ref) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET image_ref = $2',
       values: [email, image_ref],
     })
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    return await db.collection('user_info').updateOne({ email }, { $set: { image_ref } }, { upsert: true })
   }
 }
 
@@ -138,6 +184,9 @@ export async function setUserName(email: string, name: string) {
       text: 'INSERT INTO user_info (email, name) VALUES ($1, $2) ON CONFLICT (email) DO UPDATE SET name = $2',
       values: [email, name],
     })
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    return await db.collection('user_info').updateOne({ email }, { $set: { name } }, { upsert: true })
   }
 }
 
@@ -155,6 +204,9 @@ export async function removeUser(email: string) {
         values: [email],
       }),
     ])
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    return await Promise.all([db.collection('user_info').deleteOne({ email }), db.collection('login').deleteOne({ email })])
   }
 }
 
@@ -167,6 +219,10 @@ export async function getUserImageRef(email: string) {
       values: [email],
     })
     return rows[0]?.['image_ref']
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    const result = await db.collection('user_info').findOne({ email })
+    return result?.['image_ref']
   }
 }
 
@@ -179,6 +235,10 @@ export async function getUserName(email: string) {
       values: [email],
     })
     return rows[0]?.['name']
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    const result = await db.collection('user_info').findOne({ email })
+    return result?.['name']
   }
 }
 
@@ -192,6 +252,10 @@ export async function getUser(email: string) {
       values: [email],
     })
     return rows[0]
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    const result = await db.collection('user_info').findOne({ email })
+    return { name: result?.['name'], image_ref: result?.['image_ref'] }
   }
 }
 
@@ -203,5 +267,8 @@ export async function addToWaitlist(email: string) {
       text: 'INSERT INTO waitlist (email) VALUES ($1) ON CONFLICT (email) DO NOTHING',
       values: [email],
     })
+  } else if (type === 'mongodb') {
+    await getMongoDB()
+    return await db.collection('waitlist').updateOne({ email }, { $setOnInsert: { email } }, { upsert: true })
   }
 }
