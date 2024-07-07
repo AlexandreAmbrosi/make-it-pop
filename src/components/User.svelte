@@ -25,7 +25,7 @@
       />
     </PopoverTrigger>
     <PopoverContent class="flex max-w-max flex-col px-0">
-      {#if $userProfile.name}
+      {#if $userProfile?.name}
         <span class="px-5 font-medium">{$userProfile.name}</span>
         <span class="mt-1 px-5 text-sm text-gray-400">{$userProfile.email}</span>
       {:else}
@@ -35,7 +35,7 @@
       <a class="mt-3 border-t px-5 pt-3" href="/partial_protected_and_paid"> Partial Protected and Paid </a>
       <a class="mt-3 border-t px-5 pt-3" href="/protected_and_paid"> Protected and Paid </a>
       <a class="mt-3 border-t px-5 pt-3" href="/dashboard"> Settings </a>
-      {#if $userProfile.name}
+      {#if $userProfile?.name}
         <a class="mt-3 border-t px-5 pt-3" href="/api/sign/out"> Sign Out </a>
       {/if}
     </PopoverContent>
