@@ -14,9 +14,9 @@
   export let description =
     'The SvelteKit, Stripe, TailwindCSS, Resend, Upstash boilerplate with all the stuff you need to get your product in front of customers. Launch your SaaS, AI projects, or web apps from concept to web heck faster with this SvelteKit boilerplate 🚀'
   export let url = 'https://www.launchfa.st'
-  export let image = 'https://www.launchfa.st/seo.png'
+  export let image = 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/seo.png'
   export let preloads: { as: string; href: string }[] = []
-  export let icon = 'https://www.launchfa.st/purple-icon.png'
+  export let icon = 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png'
   export let slackPreviewLabels: { title: string; href: string }[] = []
 
   const can = new URL(url)

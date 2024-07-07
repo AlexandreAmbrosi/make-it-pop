@@ -34,6 +34,7 @@
       <a class="mt-3 border-t px-5 pt-3" href="/protected"> Protected </a>
       <a class="mt-3 border-t px-5 pt-3" href="/partial_protected_and_paid"> Partial Protected and Paid </a>
       <a class="mt-3 border-t px-5 pt-3" href="/protected_and_paid"> Protected and Paid </a>
+      <a class="mt-3 border-t px-5 pt-3" href="/dashboard"> Settings </a>
       {#if $userProfile.name}
         <a class="mt-3 border-t px-5 pt-3" href="/api/sign/out"> Sign Out </a>
       {/if}

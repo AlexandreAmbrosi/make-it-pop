@@ -56,7 +56,7 @@
   <img
     loading="lazy"
     alt="LaunchFast Logo"
-    src="/purple-icon.png"
+    src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png"
     width={minimal ? '24' : '30'}
     height={minimal ? '24' : '30'}
     class={minimal ? 'h-[24px] w-[24px]' : 'h-[30px] w-[30px]'}
