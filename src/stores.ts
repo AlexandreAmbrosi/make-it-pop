@@ -1,3 +1,3 @@
 import { writable } from 'svelte/store'
 
-export const userProfile = writable<{ name?: string; email?: string; picture?: string }>()
+export const userProfile = writable<{ name?: string; email?: string; image?: string }>()

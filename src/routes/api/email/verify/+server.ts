@@ -1,6 +1,5 @@
 import { getCode, removeCode, setMailVerified } from '@/lib/db'
 import resend from '@/lib/email/resend'
-import { getSession } from '@/lib/utils/auth'
 import { webJson, webRedirect } from '@/lib/utils/web'
 import type { RequestEvent } from './$types'
 
@@ -10,7 +9,7 @@ export async function GET(event: RequestEvent) {
   // Extract the 'token' query parameter from the URL
   const token_from_url = url.searchParams.get('token')
   // Get the user session from the 'request'
-  const session = getSession(event.cookies)
+  const session = await event.locals.auth()
   // Check if a valid session exists
   if (session) {
     // Extract the 'email' property from the session

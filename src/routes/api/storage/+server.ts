@@ -1,5 +1,4 @@
 import storage from '@/lib/storage'
-import { getSession } from '@/lib/utils/auth'
 import { webJson } from '@/lib/utils/web'
 import { error } from '@sveltejs/kit'
 import type { RequestEvent } from './$types'
@@ -7,9 +6,9 @@ import type { RequestEvent } from './$types'
 // Define an asynchronous function named GET that accepts a request object.
 export async function GET(event: RequestEvent) {
   // Check if the user is authenticated using the getSession function
-  const user = getSession(event.cookies)
+  const user = await event.locals.auth()
   // If the user is not authenticated, return a 403 (Forbidden) response
-  if (!user) throw error(403)
+  if (!user?.user?.email) throw error(403)
   // Extract the 'file' parameter from the request URL.
   const url = new URL(event.request.url)
   const file = url.searchParams.get('file')
@@ -34,11 +33,11 @@ export async function GET(event: RequestEvent) {
 // Define an asynchronous function to handle POST requests
 export async function POST(event: RequestEvent) {
   // Check if the user is authenticated using the getSession function
-  const user = getSession(event.cookies)
+  const user = await event.locals.auth()
   // If the user is not authenticated, return a 403 (Forbidden) response
-  if (!user) throw error(403)
+  if (!user?.user?.email) throw error(403)
   // Check if the user has an email (an additional check for authentication)
-  if (user.email) {
+  if (user.user.email) {
     const data = await event.request.formData()
     // Get the 'file' field from the form data
     const file = data.get('file')

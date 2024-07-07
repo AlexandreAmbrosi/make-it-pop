@@ -10,7 +10,7 @@
   import User from './User.svelte'
   import { slug } from 'github-slugger'
   import IconCross from '~icons/mdi/close'
-  import IconHamburger from '~icons/mdi/hamburger'
+  import IconHamburger from '~icons/radix-icons/hamburger-menu'
 
   const header = {
     viewID: slug('header'),
@@ -28,8 +28,9 @@
   <div class="hidden flex-row items-center gap-x-8 sm:flex">
     <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/#pricing"> Pricing </a>
     <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/blog"> Blogs </a>
+    <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/dashboard"> Dashboard </a>
+    <User />
   </div>
-  <User />
   <label class="sm:hidden" for={header.labelID}>
     <IconHamburger />
   </label>
@@ -45,12 +46,9 @@
       </label>
     </div>
     <div class="flex flex-col gap-y-4 p-5">
-      <a target="_blank" class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="https://launchfast-nextjs-ts.vercel.app"> Demo </a>
+      <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/pricing"> Pricing </a>
       <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/blog"> Blogs </a>
-      <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="https://affiliates.lemonsqueezy.com/programs/code-templates">
-        Affiliates (40%)
-      </a>
-      <a href="/#pricing" class="rounded bg-branding px-2 py-1 text-center text-white transition duration-200 hover:-rotate-1 hover:scale-105"> Get LaunchFast &rarr; </a>
+      <User />
     </div>
   </div>
 </div>

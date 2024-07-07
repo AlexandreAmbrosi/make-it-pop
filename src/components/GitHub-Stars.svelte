@@ -31,7 +31,7 @@
   <div class="mx-auto w-full border-b border-t px-2.5 pb-8 pt-16 md:px-20">
     <div class="mx-auto max-w-md text-center sm:max-w-xl">
       <h2
-        class="bg-gradient-to-br from-blue-600 via-blue-900 to-blue-600 bg-clip-text font-display text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight"
+        class="font-display bg-gradient-to-br from-blue-600 via-blue-900 to-blue-600 bg-clip-text text-4xl font-extrabold leading-tight text-transparent sm:text-5xl sm:leading-tight"
       >
         Proudly open-source
       </h2>

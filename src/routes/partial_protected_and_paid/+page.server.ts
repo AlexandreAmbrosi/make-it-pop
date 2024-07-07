@@ -1,10 +1,9 @@
 import { getAccess } from '@/lib/db'
 import type { RequestEvent } from './$types'
-import { getSession } from '@/lib/utils/auth'
 
-export async function load({ cookies }: RequestEvent) {
-  const session = getSession(cookies)
+export async function load({ locals }: RequestEvent) {
   let paid
-  if (session?.email) paid = await getAccess(session.email.toString())
+  const session = await locals.auth()
+  if (session?.user?.email) paid = await getAccess(session.user.email.toString())
   return { session, paid }
 }

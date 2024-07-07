@@ -1,0 +1,114 @@
+import type { Provider } from '@auth/core/providers'
+import Credentials from '@auth/core/providers/credentials'
+import GitHub from '@auth/core/providers/github'
+import Google from '@auth/core/providers/google'
+import Facebook from '@auth/core/providers/facebook'
+import { SvelteKitAuth, User } from '@auth/sveltekit'
+import { getPassword, getUser, setPassword } from './lib/db'
+import { getFirebaseObject } from './lib/storage/firebase'
+import { getS3Object } from './lib/storage/s3'
+import { getSupabaseObject } from './lib/storage/supabase'
+import { comparePassword, generateRandomString, hashPassword } from './lib/utils/auth'
+
+const providers: Provider[] = [
+  Google,
+  Facebook,
+  GitHub,
+  Credentials({
+    name: 'Credentials',
+    credentials: {
+      username: { label: 'Email', type: 'email', placeholder: 'contact@launchfa.st' },
+      password: { label: 'Password', type: 'password', placeholder: '*********' },
+    },
+    async authorize(credentials, _) {
+      if (typeof credentials?.username !== 'string') return null
+      if (typeof credentials?.password !== 'string') return null
+      // Add your own email validation logic
+      const doesUserExist = await getPassword(credentials.username)
+      // Sign In
+      if (doesUserExist) {
+        // console.log('Signing In', credentials.username)
+        // Generate a randomized password based on the user's input password
+        const randomizedPassword = generateRandomString(credentials.password)
+        // Hash the randomized password
+        const hashedPassword = await hashPassword(randomizedPassword)
+        // Compare the hashed randomized password with the original password
+        const isPasswordCorrect = await comparePassword(doesUserExist, hashedPassword)
+        if (isPasswordCorrect) {
+          const sessionObj: User = { email: credentials.username }
+          const user_details = await getUser(credentials.username)
+          const { image_ref, name } = user_details
+          if (name?.length > 0) sessionObj['name'] = name
+          if (image_ref?.length > 0) {
+            if (image_ref.includes('storage.googleapis.com')) {
+              sessionObj['image'] = await getFirebaseObject(image_ref)
+            } else if (image_ref.includes('supabase.co')) {
+              sessionObj['image'] = await getSupabaseObject(image_ref)
+            } else if (image_ref.startsWith('s3_')) {
+              sessionObj['image'] = await getS3Object(image_ref)
+            } else {
+              sessionObj['image'] = image_ref
+            }
+          }
+          if (!sessionObj.name) sessionObj['name'] = 'Placeholder Name'
+          if (!sessionObj.image) sessionObj['image'] = 'https://github.com/shadcn.png'
+          // If the passwords match, create a session cookie for the user
+          return sessionObj
+        }
+        // console.log('Password did not match.')
+        return null
+      } else {
+        // Sign Up
+        const sessionObj: User = { email: credentials.username }
+        const randomizedPassword = generateRandomString(credentials.password)
+        await setPassword(credentials.username, randomizedPassword)
+        if (!sessionObj.name) sessionObj['name'] = 'Placeholder Name'
+        if (!sessionObj.image) sessionObj['image'] = 'https://github.com/shadcn.png'
+        // await sendVerificationEmail(credentials.username)
+        return sessionObj
+      }
+    },
+  }),
+]
+
+export const providerMap = providers.map((provider) => {
+  if (typeof provider === 'function') {
+    const providerData = provider()
+    return { id: providerData.id, name: providerData.name }
+  } else {
+    return { id: provider.id, name: provider.name }
+  }
+})
+
+export const { handle, signIn, signOut } = SvelteKitAuth({
+  pages: {
+    signIn: '/signin',
+    signOut: '/signout',
+  },
+  providers,
+  trustHost: true,
+  useSecureCookies: false,
+  callbacks: {
+    async session({ session }) {
+      if (session?.user?.email) {
+        const user_details = await getUser(session.user.email)
+        if (user_details) {
+          const { image_ref, name } = user_details
+          if (name?.length > 0) session.user.name = name
+          if (image_ref?.length > 0) {
+            if (image_ref.includes('storage.googleapis.com')) {
+              session.user.image = await getFirebaseObject(image_ref)
+            } else if (image_ref.includes('supabase.co')) {
+              session.user.image = await getSupabaseObject(image_ref)
+            } else if (image_ref.startsWith('s3_')) {
+              session.user.image = await getS3Object(image_ref)
+            } else {
+              session.user.image = image_ref
+            }
+          }
+        }
+      }
+      return session
+    },
+  },
+})

@@ -1,8 +1,13 @@
-import { getSession } from '@/lib/utils/auth'
-import type { RequestEvent } from './$types'
+import { providerMap, signIn } from '@/auth'
 import { redirect } from '@sveltejs/kit'
+import type { Actions, RequestEvent } from './$types'
 
-export async function load({ cookies }: RequestEvent) {
-  const session = getSession(cookies)
+export async function load({ locals }: RequestEvent) {
+  const session = await locals.auth()
   if (session) throw redirect(302, '/')
+  return { providerMap }
 }
+
+export const actions = {
+  default: signIn,
+} satisfies Actions

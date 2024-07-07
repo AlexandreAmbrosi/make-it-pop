@@ -22,5 +22,3 @@
 <Divider className="mt-3 border-none" />
 <Footer twitter="rishi_raj_jain_" brand_name="launchfa.st" />
 <LemonSqueezyScript />
-<!-- <ChatPopUp /> -->
-<!-- <Crisp CRISP_WEBSITE_ID="your-crisp-id" /> -->

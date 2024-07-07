@@ -1,9 +1,8 @@
 import { error } from '@sveltejs/kit'
 import type { RequestEvent } from './$types'
-import { getSession } from '@/lib/utils/auth'
 
-export async function load({ cookies }: RequestEvent) {
-  const session = getSession(cookies)
+export async function load({ locals }: RequestEvent) {
+  const session = await locals.auth()
   if (!session) throw error(403, { message: 'Unauthorized' })
   return session
 }

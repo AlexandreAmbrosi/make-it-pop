@@ -1,14 +1,13 @@
 import { getUser, removeUser, setUserImageRef, setUserName } from '@/lib/db'
-import { getSession } from '@/lib/utils/auth'
 import { webJson, webResponse } from '@/lib/utils/web'
 import type { RequestEvent } from './$types'
 
-export async function POST({ cookies, request }: RequestEvent) {
+export async function POST({ locals, request }: RequestEvent) {
   // Check if the user is authenticated using the getSession function
-  const tmpSession = getSession(cookies)
+  const tmpSession = await locals.auth()
   // If the user is not authenticated, return a 403 (Forbidden) response
-  if (typeof tmpSession?.email !== 'string') return webResponse('unauthenticated', 403, {})
-  const userEmail = tmpSession.email
+  if (typeof tmpSession?.user?.email !== 'string') return webResponse('unauthenticated', 403, {})
+  const userEmail = tmpSession.user?.email
   const session = await getUser(userEmail)
   try {
     const { name, image_ref, deleteAccount, message } = await request.json()
@@ -28,7 +27,7 @@ export async function POST({ cookies, request }: RequestEvent) {
       //     subject: '[LaunchFa.st]: Successful account deletion.',
       //     text: `Hello,\n\nYou have succesfully deleted your account on LaunchFa.st account associated with this email address (${userEmail}) successfully.\n\nThanks,\n\nLaunchFa.st`,
       //   })
-      return webJson({ redirect: '/api/sign/out' }, 200, {})
+      return webJson({ redirect: '/auth/signout' }, 200, {})
     }
     return webResponse(null, 200, {})
   } catch (e: any) {

@@ -1,6 +1,6 @@
 import resend from '@/lib/email/resend'
 import isAdmin from '@/lib/utils/admin'
-import { webJson, webResponse } from '@/lib/utils/web'
+import { webResponse } from '@/lib/utils/web'
 import type { RequestEvent } from './$types'
 
 export async function POST({ cookies, request }: RequestEvent) {
@@ -22,17 +22,4 @@ export async function POST({ cookies, request }: RequestEvent) {
   })
   // Return a successful response with a status code of 200
   return webResponse(null, 200, {})
-}
-
-// A function to get an email from it's Resend Generated ID
-// Read more on https://resend.com/docs/api-reference/emails/retrieve-email
-export async function GET({ cookies, request }: RequestEvent) {
-  // Check if the 'x-email-id' header is missing
-  // If the header is missing, return a 400 Bad Request response
-  const xEmailID = request.headers.get('x-email-id')
-  if (!xEmailID) return webResponse(null, 400, {})
-  // Retrieve the email using Resend's 'get' method
-  const email = await resend.emails.get(xEmailID)
-  // Return the email as a JSON response with a status code of 200
-  return webJson(email, 200, {})
 }

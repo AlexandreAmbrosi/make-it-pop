@@ -1,6 +1,17 @@
-<script>
-  import SignInWithGoogle from '@/components/Sign-In-With-Google.svelte'
-  import SignInWithTwitter from '@/components/Sign-In-With-Twitter.svelte'
+<script lang="ts">
+  import { page } from '$app/stores'
+  import { signIn } from '@auth/sveltekit/client'
+  import GoogleIcon from '~icons/devicon/google'
+  import GitHubIcon from '~icons/devicon/github'
+  import FacebookIcon from '~icons/devicon/facebook'
+
+  const providers: { id: string; name: string }[] = $page.data.providerMap
+
+  const signInUser = () => {
+    const username = (document.getElementById('email') as HTMLInputElement).value
+    const password = (document.getElementById('password') as HTMLInputElement).value
+    signIn('credentials', { username, password })
+  }
 </script>
 
 <div class="w-full py-8 lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
@@ -10,7 +21,7 @@
         <h1 class="text-3xl font-bold">Sign In</h1>
         <p class="text-balance text-muted-foreground">Enter your email below to sign in to your account.</p>
       </div>
-      <form method="POST" class="grid gap-4" action="/api/sign/in">
+      <div class="grid gap-4">
         <div class="grid gap-2">
           <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="email">Email</label>
           <input
@@ -38,18 +49,33 @@
           />
         </div>
         <button
-          type="submit"
+          on:click={signInUser}
           class="inline-flex h-10 w-full items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
         >
           Sign In
         </button>
-      </form>
-      <SignInWithGoogle />
-      <SignInWithTwitter />
+      </div>
+      {#each providers.filter((item) => item.id !== 'credentials') as provider}
+        <button
+          on:click={() => signIn(provider.id)}
+          class="flex h-10 w-full items-center justify-center gap-x-3 whitespace-nowrap rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+        >
+          {#if provider.id === 'google'}
+            <GoogleIcon />
+          {/if}
+          {#if provider.id === 'github'}
+            <GitHubIcon />
+          {/if}
+          {#if provider.id === 'facebook'}
+            <FacebookIcon />
+          {/if}
+          <span> Continue with {provider.name}</span>
+        </button>
+      {/each}
       <div class="mt-4 text-center text-sm">Don't have an account? <a href="/signup" class="underline"> Sign up </a></div>
     </div>
   </div>
   <div class="hidden lg:block">
-    <img alt="Finder" width="4000" height="6000" src="https://images.pexels.com/photos/1194775/pexels-photo-1194775.jpeg" class="h-[98vh] w-full object-cover" />
+    <img alt="Cover" width="4000" height="6000" src="https://images.pexels.com/photos/1194775/pexels-photo-1194775.jpeg" class="h-[98vh] w-full object-cover" />
   </div>
 </div>

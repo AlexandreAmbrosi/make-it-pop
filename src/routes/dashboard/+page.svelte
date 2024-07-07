@@ -20,9 +20,11 @@
       .then((res) => {
         if (res?.set) {
           toast('Username updated succesfully.')
-          fetch('/api/auth/session')
+          fetch('/auth/session')
             .then((res) => res.json())
-            .then(userProfile.set)
+            .then((res) => {
+              if (res?.user) userProfile.set(res.user)
+            })
         } else {
           toast('Failed to update your username.')
         }
@@ -99,9 +101,11 @@
                     .then((res) => {
                       if (res?.set) {
                         toast('Avatar registration succesful!')
-                        fetch('/api/auth/session')
+                        fetch('/auth/session')
                           .then((res) => res.json())
-                          .then(userProfile.set)
+                          .then((res) => {
+                            if (res?.user) userProfile.set(res.user)
+                          })
                       } else {
                         toast('Failed to register your avatar.')
                       }
@@ -139,7 +143,7 @@
               on:click={() => invokeFile()}
               class="inline-flex h-auto w-[90px] items-center justify-center whitespace-nowrap rounded-full bg-secondary text-sm font-medium text-secondary-foreground outline-none !ring-0 ring-offset-background transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
             >
-              <img alt={$userProfile.name} loading="lazy" class="aspect-square cursor-pointer rounded-full" src={$userProfile.picture} />
+              <img alt={$userProfile.name} loading="lazy" class="aspect-square cursor-pointer rounded-full" src={$userProfile.image} />
             </button>
           </div>
           <div class="flex items-center p-6 pt-0">
