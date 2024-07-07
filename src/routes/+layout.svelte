@@ -6,6 +6,7 @@
   import Footer from '@/components/Footer.svelte'
   import Header from '@/components/Header.svelte'
   import Divider from '@/components/Divider.svelte'
+  import { Toaster } from '$lib/components/ui/sonner'
   import LemonSqueezyScript from '@/components/Scripts/LemonSqueezy.svelte'
 
   $: {
@@ -14,6 +15,7 @@
   }
 </script>
 
+<Toaster />
 <Header />
 <Divider className="mt-3 border-none" />
 <slot />

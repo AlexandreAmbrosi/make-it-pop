@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ['class'],
-  content: ['./src/**/*'],
   prefix: '',
+  darkMode: 'false',
+  content: ['./src/**/*'],
   theme: {
     container: {
       center: true,

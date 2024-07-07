@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { toast } from 'svelte-sonner'
   import { userProfile } from '@/stores'
 
   const invokeFile = () => {
@@ -6,7 +7,7 @@
   }
 
   const updateUsername = () => {
-    // showToast('Requesting username update...')
+    toast('Requesting username update...')
     fetch('/api/user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -18,18 +19,18 @@
       })
       .then((res) => {
         if (res?.set) {
-          // showToast('Username updated succesfully.')
+          toast('Username updated succesfully.')
           fetch('/api/auth/session')
             .then((res) => res.json())
             .then(userProfile.set)
         } else {
-          // showToast('Failed to update your username.')
+          toast('Failed to update your username.')
         }
       })
   }
 
   const deleteAccount = () => {
-    // showToast('Requesting account deletion...')
+    toast('Requesting account deletion...')
     fetch('/api/user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -45,12 +46,12 @@
       })
       .then((res) => {
         if (res?.redirect) {
-          // showToast('Account deleted succesfully.')
+          toast('Account deleted succesfully.')
           setTimeout(() => {
             window.location.href = res.redirect
           }, 1000)
         } else {
-          // showToast('Please enter matching entries.')
+          toast('Please enter matching entries.')
         }
       })
   }
@@ -59,13 +60,13 @@
     const formData = new FormData()
     const fileList = e.target.files
     if (!fileList?.length) {
-      // showToast('No new file attached.')
+      toast('No new file attached.')
       return
     }
     formData.append('file', fileList[0])
     const reader = new FileReader()
     reader.onload = async () => {
-      // showToast('Uploading your avatar...')
+      toast('Uploading your avatar...')
       const storageEndpoint = new URL('/api/storage', window.location.origin)
       fetch(storageEndpoint.toString(), {
         method: 'POST',
@@ -77,13 +78,13 @@
         })
         .then((res) => {
           if (res?.fileURL) {
-            // showToast('Avatar uploaded succesfully!')
+            toast('Avatar uploaded succesfully!')
             storageEndpoint.searchParams.set('file', res.fileURL)
             fetch(storageEndpoint.toString())
               .then((res_) => res_.json())
               .then((res_) => {
                 if (res_?.filePublicURL) {
-                  // showToast('Registering avatar update...')
+                  toast('Registering avatar update...')
                   const imageElement = document.getElementById('picture_value') as HTMLImageElement
                   imageElement.src = res_.filePublicURL
                   fetch('/api/user', {
@@ -97,18 +98,18 @@
                     })
                     .then((res) => {
                       if (res?.set) {
-                        // showToast('Avatar registration succesful!')
+                        toast('Avatar registration succesful!')
                         fetch('/api/auth/session')
                           .then((res) => res.json())
                           .then(userProfile.set)
                       } else {
-                        // showToast('Failed to register your avatar.')
+                        toast('Failed to register your avatar.')
                       }
                     })
                 }
               })
           } else {
-            // showToast('Failed to upload your avatar.')
+            toast('Failed to upload your avatar.')
           }
         })
     }
