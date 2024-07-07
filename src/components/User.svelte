@@ -6,9 +6,7 @@
   onMount(() => {
     fetch('/api/auth/session')
       .then((res) => res.json())
-      .then((res) => {
-        userProfile.set(res)
-      })
+      .then(userProfile.set)
   })
 </script>
 
