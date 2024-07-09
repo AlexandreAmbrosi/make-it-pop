@@ -59,6 +59,10 @@ To enable blog search, set `BLOG_SEARCH` to `enable` in the `.env` file.
 
 To enable AI powered Chatbot, define the `OPENAI_API_KEY` in the `.env` file.
 
+### Telegram Bot
+
+To respond to Telegram via Webhooks, define the `TELEGRAM_BOT_TOKEN` in the `.env` file.
+
 ### Deployment Platform
 
 Define `DEPLOYMENT_PLATFORM` value to one of the following: `netlify`, `vercel`, `fly.io`, `render`, `amplify`, `node` in the `.env` file.
