@@ -14,23 +14,25 @@ export default defineConfig({
     {
       name: 'pagefind',
       closeBundle() {
-        const sourcePath =
-          process.env.DEPLOYMENT_PLATFORM === 'vercel'
-            ? join('.vercel', 'output', 'static', 'blog')
-            : process.env.DEPLOYMENT_PLATFORM === 'netlify'
-              ? join('build', 'blog')
-              : join('build', 'prerendered', 'blog')
-        if (existsSync(sourcePath)) {
-          console.log('[LaunchFa.st]: Indexing blogs...')
-          const destinationPath =
+        if (process.env.BLOG_SEARCH === 'enable') {
+          const sourcePath =
             process.env.DEPLOYMENT_PLATFORM === 'vercel'
-              ? join('.vercel', 'output', 'static', 'pagefind')
+              ? join('.vercel', 'output', 'static', 'blog')
               : process.env.DEPLOYMENT_PLATFORM === 'netlify'
-                ? join('build', 'pagefind')
-                : join('build', 'client', 'pagefind')
-          console.log(`[LaunchFa.st]: Executing "npx -y pagefind --site ${sourcePath} --output-path ${destinationPath}"`)
-          spawnSync('npx', [`-y pagefind --site ${sourcePath} --output-path ${destinationPath}`], { stdio: 'inherit', shell: true })
-          console.log('[LaunchFa.st]: Blogs indexed succesfully!')
+                ? join('build', 'blog')
+                : join('build', 'prerendered', 'blog')
+          if (existsSync(sourcePath)) {
+            console.log('[LaunchFa.st]: Indexing blogs...')
+            const destinationPath =
+              process.env.DEPLOYMENT_PLATFORM === 'vercel'
+                ? join('.vercel', 'output', 'static', 'pagefind')
+                : process.env.DEPLOYMENT_PLATFORM === 'netlify'
+                  ? join('build', 'pagefind')
+                  : join('build', 'client', 'pagefind')
+            console.log(`[LaunchFa.st]: Executing "npx -y pagefind --site ${sourcePath} --output-path ${destinationPath}"`)
+            spawnSync('npx', [`-y pagefind --site ${sourcePath} --output-path ${destinationPath}`], { stdio: 'inherit', shell: true })
+            console.log('[LaunchFa.st]: Blogs indexed succesfully!')
+          }
         }
       },
     },
