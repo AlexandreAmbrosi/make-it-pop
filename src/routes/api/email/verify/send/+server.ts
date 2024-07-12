@@ -1,6 +1,6 @@
 import { env } from '$env/dynamic/private'
 import { setCode } from '@/lib/db'
-import { generateRandomToken } from '@/lib/utils/auth'
+import { generateRandomToken } from '@/lib/utils/auth.server'
 import { sendEmail } from '@/lib/utils/email'
 import { webRedirect } from '@/lib/utils/web'
 import type { RequestEvent } from './$types'

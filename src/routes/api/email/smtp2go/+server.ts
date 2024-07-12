@@ -1,4 +1,4 @@
-import isAdmin from '@/lib/utils/admin'
+import { isAdmin } from '@/lib/utils/auth.server'
 import { sendEmail } from '@/lib/utils/email'
 import { webJson } from '@/lib/utils/web'
 import type { RequestEvent } from './$types'

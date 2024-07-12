@@ -8,7 +8,7 @@ import { getPassword, getUser, setPassword } from './lib/db'
 import { getFirebaseObject } from './lib/storage/firebase'
 import { getS3Object } from './lib/storage/s3'
 import { getSupabaseObject } from './lib/storage/supabase'
-import { comparePassword, generateRandomString, hashPassword } from './lib/utils/auth'
+import { comparePassword, generateRandomString, hashPassword } from '@/lib/utils/auth.server'
 
 const providers: Provider[] = [
   Google,

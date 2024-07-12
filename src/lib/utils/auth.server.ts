@@ -1,3 +1,5 @@
+import { env } from '$env/dynamic/private'
+import type { Cookies } from '@sveltejs/kit'
 import bcrypt from 'bcryptjs'
 import { createHash, randomBytes } from 'node:crypto'
 
@@ -19,4 +21,12 @@ export async function hashPassword(password: string) {
 // Compare a password with its hash using bcrypt
 export async function comparePassword(password: string, hash: string) {
   return await bcrypt.compare(password, hash)
+}
+
+// A function to assess whether a user is admin based on the header value
+export function isAdmin(cookies: Cookies, request: Request) {
+  // const session = await getSession(cookies)
+  const xAccessKey = request.headers.get('x-access-key')
+  if (xAccessKey) return xAccessKey === env.PRIVATE_ACCESS_KEY
+  return false
 }
