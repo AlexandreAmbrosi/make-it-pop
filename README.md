@@ -10,8 +10,8 @@
 
 ### Email
 
-- To use Resend, set `EMAIL_PROVIDER` value as `resend`, and the `RESEND_API_KEY` value in the `.env` file.
-- To use SMTP2GO or any service compatible with nodemailer, set `EMAIL_PROVIDER` value as `nodemailer`, and the the `SMTP2GO_USERNAME` and `SMTP2GO_PASSWORD` values in the `.env` file.
+- To use Resend, set the `EMAIL_PROVIDER` to `resend`, and `RESEND_API_KEY` value in the `.env` file.
+- To use SMTP2GO or any service compatible with nodemailer, set the `EMAIL_PROVIDER` to `nodemailer`, and `SMTP2GO_USERNAME` and `SMTP2GO_PASSWORD` values in the `.env` file.
 
 Once done, set the following two values in the `.env` file:
 
