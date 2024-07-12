@@ -1,9 +1,9 @@
+import { env } from '$env/dynamic/private'
 import { getCode, ifUserExists, removeCode, setCode, setPassword } from '@/lib/db'
-import resend from '@/lib/email/resend'
 import { generateRandomString, generateRandomToken } from '@/lib/utils/auth'
+import { sendEmail } from '@/lib/utils/email'
 import { webRedirect, webResponse } from '@/lib/utils/web'
 import type { RequestEvent } from './$types'
-import { env } from '$env/dynamic/private'
 
 export async function POST({ request }: RequestEvent) {
   // Parse the incoming form data from the 'request'
@@ -23,7 +23,7 @@ export async function POST({ request }: RequestEvent) {
     if (validCode === userEmail) {
       if (!userPassword) return webResponse('No password submitted.', 400, {})
       await setPassword(userEmail, generateRandomString(userPassword))
-      await resend.emails.send({
+      await sendEmail({
         from: 'LaunchFa.st Demo <verification@launchfa.st>',
         to: userEmail,
         subject: '[LaunchFa.st]: Successful password reset.',
@@ -40,7 +40,7 @@ export async function POST({ request }: RequestEvent) {
     // Store the generated token in the database associated with the 'email'
     await setCode(token, userEmail)
     // If the user is found, send them an email with special `code` parameter to reset password
-    await resend.emails.send({
+    await sendEmail({
       from: 'LaunchFa.st Demo <verification@launchfa.st>',
       to: userEmail,
       subject: '[LaunchFa.st]: Instructions for changing your LaunchFa.st password',

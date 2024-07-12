@@ -1,7 +1,7 @@
 import { env } from '$env/dynamic/private'
 import { setCode } from '@/lib/db'
-import resend from '@/lib/email/resend'
 import { generateRandomToken } from '@/lib/utils/auth'
+import { sendEmail } from '@/lib/utils/email'
 import { webRedirect } from '@/lib/utils/web'
 import type { RequestEvent } from './$types'
 
@@ -19,7 +19,7 @@ export async function GET({ locals, setHeaders }: RequestEvent) {
     const verificationUrl = new URL(env.EMAIL_VERIFICATION_ENDPOINT_URL)
     verificationUrl.searchParams.set('token', token)
     // Send an email with the verification link to the user
-    const emailResponse = await resend.emails.send({
+    await sendEmail({
       from: 'LaunchFa.st Demo <verification@launchfa.st>',
       to: session.user.email,
       subject: 'Verify email address',
@@ -27,12 +27,10 @@ export async function GET({ locals, setHeaders }: RequestEvent) {
     })
     // Check if the email was sent successfully (HTTP status 200-299)
     // If the email was sent successfully, return a redirect response with a status code of 302
-    if (emailResponse.id) {
-      setHeaders({
-        'email-sent': 'true',
-      })
-      return webRedirect('/', 302, {})
-    }
+    setHeaders({
+      'email-sent': 'true',
+    })
+    return webRedirect('/', 302, {})
   }
   // If no valid session or email was found, return a redirect response with a status code of 302
   // and 'email-sent' set to false

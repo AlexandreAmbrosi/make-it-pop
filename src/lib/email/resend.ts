@@ -1,4 +1,8 @@
-import { Resend } from 'resend'
 import { env } from '$env/dynamic/private'
+import { Resend } from 'resend'
 
-export default new Resend(env.RESEND_KEY)
+let resend: Resend | null = null
+
+if (env?.RESEND_KEY) resend = new Resend(env.RESEND_KEY)
+
+export default resend
