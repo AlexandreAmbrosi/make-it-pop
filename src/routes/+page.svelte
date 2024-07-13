@@ -6,9 +6,9 @@
     <h1 class="max-w-4xl text-3xl font-extrabold leading-[2.5rem] text-branding sm:text-4xl md:text-5xl md:!leading-[4rem]">
       Skip building from scratch, prioritize your launch with LaunchFast.
     </h1>
-    <h2 class="mt-4 text-gray-400">Maximize Your Productivity with LaunchFa.st Next.js Starter Kit</h2>
+    <h2 class="mt-4 text-gray-400">Maximize Your Productivity with LaunchFa.st SvelteKit Starter Kit</h2>
     <p class="mt-2 text-xl text-gray-600">
-      This is a demo application built with LaunchFa.st Next.js Starter Kit. It saves you time and effort, letting you focus on innovation instead of groundwork for your next web
+      This is a demo application built with LaunchFa.st SvelteKit Starter Kit. It saves you time and effort, letting you focus on innovation instead of groundwork for your next web
       application.
     </p>
     <div class="mt-8 flex flex-row flex-wrap gap-y-3 sm:gap-x-3 sm:gap-y-0">
