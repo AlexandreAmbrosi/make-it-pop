@@ -7,10 +7,11 @@
 
   export let logo: string = 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png'
 
-  import User from './User.svelte'
+  import { Popover, PopoverContent, PopoverTrigger } from '@/lib/components/ui/popover'
   import { slug } from 'github-slugger'
   import IconCross from '~icons/mdi/close'
   import IconHamburger from '~icons/radix-icons/hamburger-menu'
+  import User from './User.svelte'
 
   const header = {
     viewID: slug('header'),
@@ -26,9 +27,26 @@
     <span class="text-2xl font-semibold text-branding">LaunchFast</span>
   </a>
   <div class="hidden flex-row items-center gap-x-8 sm:flex">
-    <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/#pricing"> Pricing </a>
     <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/blog"> Blogs </a>
     <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/dashboard"> Dashboard </a>
+    <Popover>
+      <PopoverTrigger>
+        <div class="flex cursor-pointer flex-row items-center gap-x-3">
+          <span>Pages</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20">
+            <path
+              fill="currentColor"
+              d="M10.103 12.778L16.81 6.08a.69.69 0 0 1 .99.012a.726.726 0 0 1-.012 1.012l-7.203 7.193a.69.69 0 0 1-.985-.006L2.205 6.72a.727.727 0 0 1 0-1.01a.69.69 0 0 1 .99 0z"
+            ></path>
+          </svg>
+        </div>
+      </PopoverTrigger>
+      <PopoverContent class="flex max-w-max flex-col px-0">
+        <a class="px-5" href="/protected"> Protected </a>
+        <a class="mt-3 border-t px-5 pt-3" href="/partial_protected_and_paid"> Partial Protected and Paid </a>
+        <a class="mt-3 border-t px-5 pt-3" href="/protected_and_paid"> Protected and Paid </a>
+      </PopoverContent>
+    </Popover>
     <User />
   </div>
   <label class="sm:hidden" for={header.labelID}>
