@@ -27,7 +27,7 @@
     <span class="text-2xl font-semibold text-branding">LaunchFast</span>
   </a>
   <div class="hidden flex-row items-center gap-x-8 sm:flex">
-    <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/blog"> Blogs </a>
+    <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/blog"> Blog </a>
     <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/dashboard"> Dashboard </a>
     <Popover>
       <PopoverTrigger>
@@ -65,7 +65,7 @@
     </div>
     <div class="flex flex-col gap-y-4 p-5">
       <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/pricing"> Pricing </a>
-      <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/blog"> Blogs </a>
+      <a class="flex flex-row items-center gap-x-2 text-gray-800 hover:text-launchfast hover:underline" href="/blog"> Blog </a>
       <User />
     </div>
   </div>
