@@ -79,8 +79,9 @@
       </div>
     </div>
   </div>
-  <div class="mt-8 flex w-full flex-col lg:w-1/2">
-    <img class="h-[70vh] w-auto rounded" src="https://images.pexels.com/photos/3916063/pexels-photo-3916063.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" />
+  <div class="mt-8 flex w-full flex-col items-center justify-center bg-gray-100/50 py-8 lg:w-1/2 lg:py-0">
+    <span>Built with</span>
+    <img src="https://cdn.svgporn.com/logos/svelte.svg" class="mt-3 px-10" />
   </div>
 </div>
 <div class="mt-12 flex flex-col items-center md:mt-24">
