@@ -1,20 +1,11 @@
 <script lang="ts">
-  /*
-    A component that can be used anywhere in your app
-    Add this in the head of the page if you want to use it globally
+  interface Props {
+    display?: string
+    name?: string
+    weights?: any
+  }
 
-    <GoogleFonts
-      name="Inter"
-      display="Optional"
-      weights={[200, 300]}
-    />
-
-    Also, don't forget to change the name in the file: tailwind.config.cjs
-  */
-
-  export let display = 'swap'
-  export let name = 'Archivo'
-  export let weights = [100, 200, 300, 400, 500, 600, 700, 800]
+  let { display = 'swap', name = 'Archivo', weights = [100, 200, 300, 400, 500, 600, 700, 800] }: Props = $props()
 
   const fontURL = new URL('/css2', 'https://fonts.googleapis.com')
   fontURL.searchParams.set('display', display)

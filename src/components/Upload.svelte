@@ -7,7 +7,7 @@
 
   import { onMount } from 'svelte'
 
-  let fileInput
+  let fileInput = $state()
   let file: any = null
 
   async function uploadFile() {
@@ -35,7 +35,7 @@
 </script>
 
 <button
-  on:click={() => {
+  onclick={() => {
     document.getElementById('fileInput')?.click()
   }}
   class="flex appearance-none flex-row items-center gap-x-3 fill-[#858699] p-1 text-[#858699] hover:bg-gray-100/5 hover:fill-white hover:text-white"
@@ -46,4 +46,4 @@
   <span> Upload </span>
 </button>
 
-<input class="hidden" type="file" id="fileInput" on:change={handleFileChange} bind:this={fileInput} />
+<input class="hidden" type="file" id="fileInput" onchange={handleFileChange} bind:this={fileInput} />

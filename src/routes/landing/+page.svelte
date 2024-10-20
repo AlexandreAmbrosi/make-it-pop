@@ -32,51 +32,11 @@
     </div>
     <div class="mt-12 flex flex-row flex-wrap gap-x-3">
       <div class="flex flex-row -space-x-3">
-        <img
-          loading="lazy"
-          decoding="async"
-          width="40"
-          height="40"
-          alt="vm"
-          src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/vm.jpeg?tr=h-40"
-          class="size-[40px] rounded-full"
-        />
-        <img
-          loading="lazy"
-          decoding="async"
-          width="40"
-          height="40"
-          alt="am"
-          src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/am.jpeg?tr=h-40"
-          class="size-[40px] rounded-full"
-        />
-        <img
-          loading="lazy"
-          decoding="async"
-          width="40"
-          height="40"
-          alt="pm"
-          src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/pm.jpeg?tr=h-40"
-          class="size-[40px] rounded-full"
-        />
-        <img
-          loading="lazy"
-          decoding="async"
-          width="40"
-          height="40"
-          alt="jm"
-          src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/jm.png?tr=h-40"
-          class="size-[40px] rounded-full"
-        />
-        <img
-          loading="lazy"
-          decoding="async"
-          width="40"
-          height="40"
-          alt="um"
-          src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/um.jpeg?tr=h-40"
-          class="size-[40px] rounded-full"
-        />
+        <img decoding="async" width="40" height="40" alt="vm" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/vm.jpeg?tr=h-40" class="size-[40px] rounded-full" />
+        <img decoding="async" width="40" height="40" alt="am" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/am.jpeg?tr=h-40" class="size-[40px] rounded-full" />
+        <img decoding="async" width="40" height="40" alt="pm" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/pm.jpeg?tr=h-40" class="size-[40px] rounded-full" />
+        <img decoding="async" width="40" height="40" alt="jm" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/jm.png?tr=h-40" class="size-[40px] rounded-full" />
+        <img decoding="async" width="40" height="40" alt="um" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/um.jpeg?tr=h-40" class="size-[40px] rounded-full" />
       </div>
       <div class="flex flex-col items-start gap-y-1">
         <div class="flex flex-row items-center gap-x-1">
@@ -94,7 +54,6 @@
     <img
       width="800"
       height="800"
-      loading="lazy"
       class="rounded"
       decoding="async"
       fetchpriority="high"

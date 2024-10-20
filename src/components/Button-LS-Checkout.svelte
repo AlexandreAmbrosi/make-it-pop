@@ -10,12 +10,21 @@
   import { onMount } from 'svelte'
   import { slug } from 'github-slugger'
 
-  export let minimal: boolean = false
-  export let brand_name: string = 'LaunchFast'
-  export let className: string = 'bg-launchfast'
-  export let product_url: string = 'https://launchfast.lemonsqueezy.com/checkout/buy/30dd570f-3598-440d-a29a-1e002bda0eb6?checkout[discount_code]=M0OTIWMA'
+  interface Props {
+    minimal?: boolean
+    brand_name?: string
+    className?: string
+    product_url?: string
+  }
 
-  $: BUTTON_ID = slug(product_url)
+  let {
+    minimal = false,
+    brand_name = 'LaunchFast',
+    className = 'bg-launchfast',
+    product_url = 'https://launchfast.lemonsqueezy.com/checkout/buy/30dd570f-3598-440d-a29a-1e002bda0eb6?checkout[discount_code]=M0OTIWMA',
+  }: Props = $props()
+
+  let BUTTON_ID = $derived(slug(product_url))
 
   onMount(() => {
     const buttonElement = document.querySelectorAll('#' + BUTTON_ID)
@@ -54,7 +63,6 @@
 
 <button id={BUTTON_ID} class={['flex flex-row items-center justify-center gap-x-2 rounded-full text-white', minimal ? 'py-1 pl-2 pr-4' : 'px-10 py-3', className].join(' ')}>
   <img
-    loading="lazy"
     alt="LaunchFast Logo"
     src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png"
     width={minimal ? '24' : '30'}

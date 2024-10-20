@@ -9,7 +9,7 @@ export async function POST(event: RequestEvent) {
   // Extract the 'email' from the form data
   const email = context.get('email')
   // If 'email' is missing, return a 400 Bad Request response
-  if (!email || typeof email !== 'string') throw error(400)
+  if (!email || typeof email !== 'string') error(400)
   // Add the 'email' to the waitlist in the database
   await addToWaitlist(email)
   // Return a successful response with a status code of 200

@@ -41,13 +41,13 @@
         <div class="flex flex-col p-8">
           <span class="ml-1 text-3xl font-semibold text-black/25 line-through">$150</span>
           <span class="ml-1 text-7xl font-bold text-astro">$75</span>
-          <a class="ls-button mt-12" href="https://code-templates.lemonsqueezy.com/buy/97fc7fb0-990d-48da-b924-d40d556105d7">
+          <div class="ls-button mt-12" href="https://code-templates.lemonsqueezy.com/buy/97fc7fb0-990d-48da-b924-d40d556105d7">
             <input class="hidden" type="text" name="template" value="astro" />
             <button class="max-w-max -rotate-1 rounded border bg-astro px-4 py-1 text-xl font-medium text-white"> Get Astro Starter Kit &rarr; </button>
             <a href="https://launchfast-astro-ts.vercel.app/" target="_blank" class="mt-4 block max-w-max -rotate-1 rounded border px-4 py-1 text-xl font-medium text-black">
               View Demo &rarr;
             </a>
-          </a>
+          </div>
         </div>
         <div class="flex flex-col p-8 text-xl">
           <div class="flex flex-row items-center gap-x-3">
@@ -64,13 +64,13 @@
         <div class="flex flex-col p-8">
           <span class="ml-1 text-3xl font-semibold text-black/25 line-through">$150</span>
           <span class="ml-1 text-7xl font-bold text-black">$75</span>
-          <a class="ls-button mt-12" href="https://code-templates.lemonsqueezy.com/buy/ad99ba38-1fd3-459d-9381-695b6cdd61f2">
+          <div class="ls-button mt-12" href="https://code-templates.lemonsqueezy.com/buy/ad99ba38-1fd3-459d-9381-695b6cdd61f2">
             <input class="hidden" type="text" name="template" value="nextjs" />
             <button class="max-w-max -rotate-1 rounded border bg-black px-4 py-1 text-xl font-medium text-white"> Get Next.js Starter Kit &rarr; </button>
             <a href="https://launchfast-nextjs-ts.vercel.app/" target="_blank" class="mt-4 block max-w-max -rotate-1 rounded border px-4 py-1 text-xl font-medium text-black">
               View Demo &rarr;
             </a>
-          </a>
+          </div>
         </div>
         <div class="flex flex-col p-8 text-xl text-black">
           <div class="flex flex-row items-center gap-x-3">
@@ -87,13 +87,13 @@
         <div class="flex flex-col p-8">
           <span class="ml-1 text-3xl font-semibold text-black/25 line-through">$150</span>
           <span class="ml-1 text-7xl font-bold text-svelte">$75</span>
-          <a class="ls-button mt-12" href="https://code-templates.lemonsqueezy.com/buy/b6d0f0d2-7b21-4a13-9a29-0821cf51e1bf">
+          <div class="ls-button mt-12" href="https://code-templates.lemonsqueezy.com/buy/b6d0f0d2-7b21-4a13-9a29-0821cf51e1bf">
             <input class="hidden" type="text" name="template" value="sveltekit" />
             <button class="max-w-max -rotate-1 rounded border bg-svelte px-4 py-1 text-xl font-medium text-white"> Get SvelteKit Starter Kit &rarr; </button>
             <a href="https://launchfast-sveltekit.vercel.app/" target="_blank" class="mt-4 block max-w-max -rotate-1 rounded border px-4 py-1 text-xl font-medium text-black">
               View Demo &rarr;
             </a>
-          </a>
+          </div>
         </div>
         <div class="flex flex-col p-8 text-xl text-black">
           <div class="flex flex-row items-center gap-x-3">
@@ -111,12 +111,12 @@
       <div class="flex grow flex-col p-8 md:grow-0">
         <span class="ml-1 text-3xl font-semibold text-black/25 line-through">$450</span>
         <span class="ml-1 inline-block text-7xl font-bold text-black">$199</span>
-        <a class="ls-button mt-12" href="https://code-templates.lemonsqueezy.com/buy/c6c9383b-4053-4096-bc4a-30230290bf29">
+        <div class="ls-button mt-12" href="https://code-templates.lemonsqueezy.com/buy/c6c9383b-4053-4096-bc4a-30230290bf29">
           <input class="hidden" type="text" name="template" value="bundle" />
           <button class="inline-block max-w-max -rotate-1 rounded bg-gradient-to-br from-branding to-svelte px-4 py-1 text-xl font-medium">
             <span class="text-white">Get The Bundle &rarr;</span>
           </button>
-        </a>
+        </div>
       </div>
       <div class="flex grow flex-col p-8 text-xl text-black">
         <div class="flex flex-row items-center gap-x-3">

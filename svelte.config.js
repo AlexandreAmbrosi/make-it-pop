@@ -1,10 +1,10 @@
 // File: svelte.config.js
 
-import path from 'path'
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import { mdsvex } from 'mdsvex'
+import path from 'path'
 import adapter from './adapter.mjs'
 import mdsvexConfig from './mdsvex.config.js'
-import { vitePreprocess } from '@sveltejs/kit/vite'
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {

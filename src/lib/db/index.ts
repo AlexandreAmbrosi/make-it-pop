@@ -1,8 +1,10 @@
+import { building } from '$app/environment'
 import { env } from '$env/dynamic/private'
-import { Redis } from 'ioredis'
-import pg from 'pg'
-import { MongoClient, Db } from 'mongodb'
+import { DATABASE_TYPE } from '$env/static/private'
 import { type Client, createClient } from '@libsql/client'
+import { Redis } from 'ioredis'
+import { Db, MongoClient } from 'mongodb'
+import pg from 'pg'
 
 let pool: pg.Pool
 let redis: Redis
@@ -10,17 +12,17 @@ let mongoClient: MongoClient
 let db: Db
 let sqlite: Client
 
-const type = env?.['DATABASE_TYPE'] || 'redis'
+const type = DATABASE_TYPE || 'redis'
 
 if (type === 'redis') {
-  const connectionString = env?.['REDIS_URL']
+  const connectionString = building ? null : env?.['REDIS_URL']
   if (connectionString) redis = new Redis(connectionString)
 } else if (type === 'pg') {
-  const connectionString = env?.['POSTGRES_URL']
+  const connectionString = building ? null : env?.['POSTGRES_URL']
   if (connectionString) pool = new pg.Pool({ connectionString })
 } else if (type === 'sqlite') {
-  const connectionString = env?.['SQLITE_URL']
-  const connectionToken = env?.['SQLITE_AUTH_TOKEN']
+  const connectionString = building ? null : env?.['SQLITE_URL']
+  const connectionToken = building ? 'tmp_build_value' : env?.['SQLITE_AUTH_TOKEN']
   if (connectionString) sqlite = createClient({ url: connectionString, authToken: connectionToken })
 }
 

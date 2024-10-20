@@ -1,5 +1,5 @@
-import type { RequestEvent } from './$types'
 import { webJson } from '@/lib/utils/web'
+import type { RequestEvent } from './$types'
 
 // Lemon Squeezy API Reference
 // https://docs.lemonsqueezy.com/guides/tutorials/webhooks-logsnag

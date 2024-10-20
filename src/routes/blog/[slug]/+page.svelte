@@ -4,10 +4,16 @@
   import Author from '@/components/Author.svelte'
   import SocialSharing from '@/components/Social-Sharing.svelte'
 
-  export let data: PageData
+  interface Props {
+    data: PageData
+  }
+
+  let { data }: Props = $props()
 
   type C = $$Generic<typeof SvelteComponent<any, any, any>>
-  $: component = data.component as unknown as C
+  let component = $derived(data.component as unknown as C)
+
+  const SvelteComponent_1 = $derived(component)
 </script>
 
 <div data-pagefind-body class="relative mx-auto flex max-w-2xl flex-col px-8 py-8">
@@ -19,7 +25,7 @@
     </div>
   {/if}
   <article class="prose">
-    <svelte:component this={component} />
+    <SvelteComponent_1 />
   </article>
   <div class="mt-8 h-[1px] w-full bg-gray-100"></div>
 </div>

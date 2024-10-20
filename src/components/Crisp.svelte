@@ -8,7 +8,11 @@
 
   import { onMount } from 'svelte'
 
-  export let CRISP_WEBSITE_ID: string
+  interface Props {
+    CRISP_WEBSITE_ID: string
+  }
+
+  let { CRISP_WEBSITE_ID }: Props = $props()
 
   onMount(() => {
     if (!(window['enabled_crisp'] === 1)) {

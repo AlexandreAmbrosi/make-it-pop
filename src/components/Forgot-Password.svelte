@@ -1,6 +1,10 @@
 <script lang="ts">
-  export let code: any
-  export let validCode: any
+  interface Props {
+    code: any
+    validCode: any
+  }
+
+  let { code, validCode }: Props = $props()
 </script>
 
 <form class="flex flex-col" action="/api/sign/forgot" method="POST">

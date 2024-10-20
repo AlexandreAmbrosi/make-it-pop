@@ -14,8 +14,10 @@
     <div class="mt-8 flex flex-row flex-wrap gap-y-3 sm:gap-x-3 sm:gap-y-0">
       <a
         class="max-w-max rounded-lg bg-gradient-to-br from-branding to-svelte px-5 py-3 text-center text-lg text-white shadow-2xl transition duration-200 sm:text-xl"
-        href="/dashboard">Get Started →</a
+        href="/dashboard"
       >
+        Get Started →
+      </a>
     </div>
     <div class="mt-8 flex flex-row flex-wrap gap-x-3">
       <div class="flex flex-row -space-x-3">
@@ -23,7 +25,6 @@
           alt="vm"
           width="40"
           height="40"
-          loading="lazy"
           decoding="async"
           class="size-[40px] rounded-full"
           src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/vm.jpeg?tr=h-40"
@@ -31,7 +32,6 @@
           alt="am"
           width="40"
           height="40"
-          loading="lazy"
           decoding="async"
           class="size-[40px] rounded-full"
           src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/am.jpeg?tr=h-40"
@@ -39,7 +39,6 @@
           alt="pm"
           width="40"
           height="40"
-          loading="lazy"
           decoding="async"
           class="size-[40px] rounded-full"
           src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/pm.jpeg?tr=h-40"
@@ -47,7 +46,6 @@
           alt="jm"
           width="40"
           height="40"
-          loading="lazy"
           decoding="async"
           class="size-[40px] rounded-full"
           src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/jm.png?tr=h-40"
@@ -55,7 +53,6 @@
           alt="um"
           width="40"
           height="40"
-          loading="lazy"
           decoding="async"
           class="size-[40px] rounded-full"
           src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/builders/um.jpeg?tr=h-40"
@@ -81,16 +78,17 @@
   </div>
   <div class="mt-8 flex w-full flex-col items-center justify-center bg-gray-100/50 py-8 lg:w-1/2 lg:py-0">
     <span>Built with</span>
-    <img src="https://cdn.svgporn.com/logos/svelte.svg" class="mt-3 px-10" />
+    <img alt="svelte" src="https://cdn.svgporn.com/logos/svelte.svg" class="mt-3 px-10" />
   </div>
 </div>
 <div class="mt-12 flex flex-col items-center md:mt-24">
   <span class="text-xl font-semibold md:text-2xl">Lorem Ipsum is simply dummy text</span>
   <div class="mt-12 flex flex-row flex-wrap items-center justify-center gap-8">
-    <img src="https://cdn.svgporn.com/logos/apidog.svg" class="h-[40px]" /><img src="https://cdn.svgporn.com/logos/json-schema.svg" class="h-[40px]" /><img
-      src="https://cdn.svgporn.com/logos/gradio.svg"
-      class="h-[40px]"
-    /><img src="https://cdn.svgporn.com/logos/mistral-ai.svg" class="h-[40px]" /><img src="https://cdn.svgporn.com/logos/stability-ai.svg" class="h-[40px]" />
+    <img alt="apidog" src="https://cdn.svgporn.com/logos/apidog.svg" class="h-[40px]" />
+    <img alt="json-schema" src="https://cdn.svgporn.com/logos/json-schema.svg" class="h-[40px]" />
+    <img alt="gradio" src="https://cdn.svgporn.com/logos/gradio.svg" class="h-[40px]" />
+    <img alt="mistral-ai" src="https://cdn.svgporn.com/logos/mistral-ai.svg" class="h-[40px]" />
+    <img alt="stability-ai" src="https://cdn.svgporn.com/logos/stability-ai.svg" class="h-[40px]" />
   </div>
 </div>
 <div class="mx-auto mt-12 flex flex-row flex-wrap px-8 md:mt-24 lg:max-w-7xl">
@@ -239,15 +237,16 @@
   <span class="mt-4 text-gray-600">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
   <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
     <div class="flex w-[300px] flex-col rounded border pl-5 pt-5 duration-300 hover:bg-gray-100/50 hover:shadow-sm hover:shadow-white">
-      <span class="text-lg font-medium">Lorem Ipsum</span><span class="mt-3 pr-5 text-lg leading-relaxed"
-        >Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span
-      ><img
+      <span class="text-lg font-medium">Lorem Ipsum</span><span class="mt-3 pr-5 text-lg leading-relaxed">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      </span>
+      <img
         class="mt-8 transform-gpu rounded-l-md object-cover text-transparent transition will-change-auto"
         width="280"
         height="200"
         src="https://images.pexels.com/photos/965345/pexels-photo-965345.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800"
-        loading="lazy"
         decoding="async"
+        alt="Projects"
       />
     </div>
     <div class="flex w-[300px] flex-col rounded border pl-5 pt-5 duration-300 hover:bg-gray-100/50 hover:shadow-sm hover:shadow-white">
@@ -259,7 +258,6 @@
         width="280"
         height="200"
         src="https://images.pexels.com/photos/965345/pexels-photo-965345.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800"
-        loading="lazy"
         decoding="async"
       />
     </div>
@@ -272,7 +270,6 @@
         width="280"
         height="200"
         src="https://images.pexels.com/photos/965345/pexels-photo-965345.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800"
-        loading="lazy"
         decoding="async"
       />
     </div>
@@ -285,7 +282,6 @@
         width="280"
         height="200"
         src="https://images.pexels.com/photos/965345/pexels-photo-965345.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800"
-        loading="lazy"
         decoding="async"
       />
     </div>

@@ -6,7 +6,7 @@ import type { RequestEvent } from './$types'
 
 export async function POST(event: RequestEvent) {
   // Verify if the Stripe secret key is present
-  if (!env.STRIPE_SECRET_KEY) throw error(500)
+  if (!env.STRIPE_SECRET_KEY) error(500)
   // Create a Stripe instance
   const stripe = new Stripe(env.STRIPE_SECRET_KEY, { apiVersion: '2023-10-16' })
   // Create a Stripe checkout using custom fields

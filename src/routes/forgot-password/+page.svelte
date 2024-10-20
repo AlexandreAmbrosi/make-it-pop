@@ -2,7 +2,11 @@
   import type { PageData } from './$types'
   import ForgotPasswordComponent from '@/components/Forgot-Password.svelte'
 
-  export let data: PageData
+  interface Props {
+    data: PageData
+  }
+
+  let { data }: Props = $props()
 </script>
 
 <div class="w-full py-8 lg:grid lg:min-h-[600px] lg:grid-cols-2">

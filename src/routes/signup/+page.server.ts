@@ -4,7 +4,7 @@ import type { Actions, RequestEvent } from './$types'
 
 export async function load({ locals }: RequestEvent) {
   const session = await locals.auth()
-  if (session) throw redirect(302, '/')
+  if (session) redirect(302, '/')
   return { providerMap }
 }
 

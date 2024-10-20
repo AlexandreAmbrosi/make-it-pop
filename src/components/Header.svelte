@@ -1,29 +1,28 @@
 <script lang="ts">
-  /*
-    A component that can be used anywhere in your app
-
-    <Header logo="https://rishi.app/static/favicon-image.jpg" />
-  */
-
-  export let logo: string = 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png'
-
   import { Popover, PopoverContent, PopoverTrigger } from '@/lib/components/ui/popover'
   import { slug } from 'github-slugger'
   import IconCross from '~icons/mdi/close'
   import IconHamburger from '~icons/radix-icons/hamburger-menu'
   import User from './User.svelte'
+  interface Props {
+    /*
+    A component that can be used anywhere in your app
 
+    <Header logo="https://rishi.app/static/favicon-image.jpg" />
+  */
+    logo?: string
+  }
+  let { logo = 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png' }: Props = $props()
   const header = {
     viewID: slug('header'),
     labelID: 'view-' + slug('header'),
   }
-
   const css = `#${header['viewID']} {display: none;}#${header['labelID']}:checked + #${header['viewID']} {display: flex;}`
 </script>
 
 <div class="relative mx-auto flex max-w-7xl flex-row items-center justify-between px-8 pt-2">
   <a href="/" class="flex flex-row items-center gap-x-2">
-    <img alt="LaunchFast Logo" height="30" width="30" src={logo} class="h-[30px] w-[30px] rounded-full bg-gray-100" loading="lazy" />
+    <img alt="LaunchFast Logo" height="30" width="30" src={logo} class="h-[30px] w-[30px] rounded-full bg-gray-100" />
     <span class="text-2xl font-semibold text-branding">LaunchFast</span>
   </a>
   <div class="hidden flex-row items-center gap-x-8 sm:flex">

@@ -137,13 +137,13 @@
                 Click on the avatar to upload a custom one from your files.
               </p>
             </div>
-            <input on:change={(e) => uploadFile(e)} id="change_picture" type="file" class="hidden" />
+            <input onchange={(e) => uploadFile(e)} id="change_picture" type="file" class="hidden" />
             <button
               id="picture_value"
-              on:click={() => invokeFile()}
+              onclick={() => invokeFile()}
               class="inline-flex h-auto w-[90px] items-center justify-center whitespace-nowrap rounded-full bg-secondary text-sm font-medium text-secondary-foreground outline-none !ring-0 ring-offset-background transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
             >
-              <img alt={$userProfile.name} loading="lazy" class="aspect-square cursor-pointer rounded-full" src={$userProfile.image} />
+              <img alt={$userProfile.name} class="aspect-square cursor-pointer rounded-full" src={$userProfile.image} />
             </button>
           </div>
           <div class="flex items-center p-6 pt-0">
@@ -178,7 +178,7 @@
           <div class="flex items-center border-t p-6 px-6 py-4">
             <button
               id="change_username"
-              on:click={() => updateUsername()}
+              onclick={() => updateUsername()}
               class="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
             >
               Save
@@ -233,7 +233,7 @@
                     class="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground ring-offset-background transition-colors hover:bg-destructive/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                     type="submit"
                     id="continue_delete_button"
-                    on:click={() => deleteAccount()}
+                    onclick={() => deleteAccount()}
                   >
                     Continue
                   </button>

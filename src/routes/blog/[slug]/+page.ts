@@ -21,7 +21,7 @@ export const load: PageLoad = async ({ params }) => {
     }
   }
   const post = await match?.resolver?.()
-  if (!post || !post.metadata.published) throw error(404)
+  if (!post || !post.metadata.published) error(404)
   return {
     component: post.default,
     frontmatter: post.metadata,

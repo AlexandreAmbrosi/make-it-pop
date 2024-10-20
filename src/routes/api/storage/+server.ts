@@ -8,7 +8,7 @@ export async function GET(event: RequestEvent) {
   // Check if the user is authenticated using the getSession function
   const user = await event.locals.auth()
   // If the user is not authenticated, return a 403 (Forbidden) response
-  if (!user?.user?.email) throw error(403)
+  if (!user?.user?.email) error(403)
   // Extract the 'file' parameter from the request URL.
   const url = new URL(event.request.url)
   const file = url.searchParams.get('file')
@@ -27,7 +27,7 @@ export async function GET(event: RequestEvent) {
     }
   }
   // If the 'file' parameter is not found in the URL, return a JSON response with a 400 status code.
-  throw error(400, { message: 'Invalid Request.' })
+  error(400, { message: 'Invalid Request.' })
 }
 
 // Define an asynchronous function to handle POST requests
@@ -35,18 +35,18 @@ export async function POST(event: RequestEvent) {
   // Check if the user is authenticated using the getSession function
   const user = await event.locals.auth()
   // If the user is not authenticated, return a 403 (Forbidden) response
-  if (!user?.user?.email) throw error(403)
+  if (!user?.user?.email) error(403)
   // Check if the user has an email (an additional check for authentication)
   if (user.user.email) {
     const data = await event.request.formData()
     // Get the 'file' field from the form data
     const file = data.get('file')
     // Check if a file was provided
-    if (!file) throw error(400, { message: 'No File Provided.' })
+    if (!file) error(400, { message: 'No File Provided.' })
     // Check if the 'file' object is an instance of File (not necessary)
-    if (!(file instanceof File)) throw error(400, { message: 'Uploaded file is not an instance of valid file.' })
+    if (!(file instanceof File)) error(400, { message: 'Uploaded file is not an instance of valid file.' })
     // Check if the file size exceeds the limit of 5 MB
-    if (file.size > 5 * 1024 * 1024) throw error(400, { message: 'File size exceeds the limit of 5 MB.' })
+    if (file.size > 5 * 1024 * 1024) error(400, { message: 'File size exceeds the limit of 5 MB.' })
     try {
       // Generate a non-publicly accessible URL for the uploaded file
       // Use this url to perform a GET to this endpoint with file query param valued as below
@@ -62,5 +62,5 @@ export async function POST(event: RequestEvent) {
     }
   }
   // If the user doesn't have an email or there was an issue with authentication, return a 403 response
-  throw error(403)
+  error(403)
 }

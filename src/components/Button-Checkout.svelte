@@ -1,19 +1,21 @@
 <script lang="ts">
-  /*
+  interface Props {
+    /*
     A component that can be used anywhere in your app to open a Stripe checkout
     
     <ButtonCheckout />
   */
+    minimal?: boolean
+    brand_name?: string
+    className?: string
+  }
 
-  export let minimal: boolean = false
-  export let brand_name: string = 'LaunchFast'
-  export let className: string = 'bg-launchfast'
+  let { minimal = false, brand_name = 'LaunchFast', className = 'bg-launchfast' }: Props = $props()
 </script>
 
 <form method="post" action="/api/stripe/checkout">
   <button class={['flex cursor-pointer flex-row items-center justify-center gap-x-2 rounded-full text-white', minimal ? 'py-1 pl-2 pr-4' : 'px-10 py-3', className].join(' ')}>
     <img
-      loading="lazy"
       alt="LaunchFast Logo"
       src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png"
       width={minimal ? '24' : '30'}

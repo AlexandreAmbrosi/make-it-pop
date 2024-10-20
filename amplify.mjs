@@ -1,9 +1,9 @@
 // File: amplify.mjs
 
-import { join } from 'node:path'
 import { nodeFileTrace } from '@vercel/nft'
+import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { sync as prependSync } from 'prepend-file'
-import { writeFileSync, mkdirSync, existsSync, cpSync, rmSync } from 'node:fs'
 
 // Define all the Amplify related directories
 const amplifyDirectories = [

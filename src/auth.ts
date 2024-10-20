@@ -1,14 +1,14 @@
+import { comparePassword, generateRandomString, hashPassword } from '@/lib/utils/auth.server'
 import type { Provider } from '@auth/core/providers'
 import Credentials from '@auth/core/providers/credentials'
+import Facebook from '@auth/core/providers/facebook'
 import GitHub from '@auth/core/providers/github'
 import Google from '@auth/core/providers/google'
-import Facebook from '@auth/core/providers/facebook'
-import { SvelteKitAuth, User } from '@auth/sveltekit'
+import { SvelteKitAuth, type User } from '@auth/sveltekit'
 import { getPassword, getUser, setPassword } from './lib/db'
 import { getFirebaseObject } from './lib/storage/firebase'
 import { getS3Object } from './lib/storage/s3'
 import { getSupabaseObject } from './lib/storage/supabase'
-import { comparePassword, generateRandomString, hashPassword } from '@/lib/utils/auth.server'
 
 const providers: Provider[] = [
   Google,

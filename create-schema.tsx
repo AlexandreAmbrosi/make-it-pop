@@ -1,5 +1,5 @@
-import pg from 'pg'
 import { type Client, createClient } from '@libsql/client'
+import pg from 'pg'
 
 const dbType = process.env.DATABASE_TYPE
 const pgUrl = process.env.POSTGRES_URL

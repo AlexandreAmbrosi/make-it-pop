@@ -4,7 +4,7 @@ import type { RequestEvent } from './$types'
 
 export async function load({ locals, request }: RequestEvent) {
   const session = await locals.auth()
-  if (session) throw redirect(302, '/')
+  if (session) redirect(302, '/')
   let validCode = false
   const code = new URL(request.url).searchParams.get('code')
   try {

@@ -10,7 +10,11 @@
 
   import { onMount } from 'svelte'
 
-  export let ID: string
+  interface Props {
+    ID: string
+  }
+
+  let { ID }: Props = $props()
 
   onMount(() => {
     if (ID && ID.length > 1) {

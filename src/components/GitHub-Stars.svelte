@@ -10,9 +10,14 @@
 
   import { onMount } from 'svelte'
 
-  export let owner: string, repo: string
+  interface Props {
+    owner: string
+    repo: string
+  }
 
-  let stars = 0
+  let { owner, repo }: Props = $props()
+
+  let stars = $state(0)
 
   onMount(() => {
     fetch(`https://api.github.com/repos/${owner}/${repo}`, {

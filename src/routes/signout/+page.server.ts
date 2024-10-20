@@ -7,7 +7,7 @@ export async function load(event: RequestEvent) {
     method: 'POST',
     body: new FormData(),
   })
-  throw redirect(302, '/')
+  redirect(302, '/')
 }
 
 export const actions = { default: signOut } satisfies Actions

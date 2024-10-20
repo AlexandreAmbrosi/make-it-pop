@@ -1,10 +1,13 @@
 <script lang="ts">
-  export let title: string
-  export let url: string
-
   import TwitterIcon from '~icons/devicon/twitter'
   import LinkedInIcon from '~icons/mdi/linkedin'
   import ClipboardIcon from '~icons/mdi/clipboard-outline'
+  interface Props {
+    title: string
+    url: string
+  }
+
+  let { title, url }: Props = $props()
 </script>
 
 <div class="flex flex-row items-center space-x-3">
@@ -15,7 +18,7 @@
     <LinkedInIcon color="#0a66c2" width="24" height="24" />
   </a>
   <button
-    on:click={() => {
+    onclick={() => {
       window.copyTextToClipboard(url)
     }}
     id="share-link"

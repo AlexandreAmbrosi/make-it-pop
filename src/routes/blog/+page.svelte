@@ -10,12 +10,18 @@
     return `${month} ${date}, ${year}`
   }
 
-  export let data: PageData
+  interface Props {
+    data: PageData
+  }
 
-  $: all = data.blogs
-    .filter((i) => i.created_at)
-    .filter((i) => i.published !== false)
-    .sort((a, b) => (new Date(a.created_at).getTime() > new Date(b.created_at).getTime() ? -1 : 1))
+  let { data }: Props = $props()
+
+  let all = $derived(
+    data.blogs
+      .filter((i) => i.created_at)
+      .filter((i) => i.published !== false)
+      .sort((a, b) => (new Date(a.created_at).getTime() > new Date(b.created_at).getTime() ? -1 : 1)),
+  )
 
   onMount(() => {
     const createPagefindListener = () => {
@@ -52,7 +58,6 @@
       <a href={`/blog/${i.slug}`} class="flex flex-col">
         <img
           alt={i.title}
-          loading={idx === 0 ? 'eager' : 'lazy'}
           class="transform rounded bg-cover bg-center bg-no-repeat will-change-auto"
           src={i?.blog_image ?? 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/general'}
         />

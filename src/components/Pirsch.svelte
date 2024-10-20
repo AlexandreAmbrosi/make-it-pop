@@ -10,7 +10,11 @@
 
   import { onMount } from 'svelte'
 
-  export let DATA_ID: string
+  interface Props {
+    DATA_ID: string
+  }
+
+  let { DATA_ID }: Props = $props()
 
   onMount(() => {
     const s = document.createElement('script')

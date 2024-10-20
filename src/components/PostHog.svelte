@@ -11,7 +11,11 @@
   import posthog from 'posthog-js'
   import { onMount } from 'svelte'
 
-  export let PH_ID: string
+  interface Props {
+    PH_ID: string
+  }
+
+  let { PH_ID }: Props = $props()
 
   onMount(() => {
     if (PH_ID && PH_ID.length > 1 && window.enabled_posthog !== 1) {

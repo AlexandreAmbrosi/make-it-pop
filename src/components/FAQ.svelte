@@ -26,7 +26,11 @@
     viewID?: string
   }
 
-  export let data: FAQProps[] = faqs
+  interface Props {
+    data?: FAQProps[]
+  }
+
+  let { data = $bindable(faqs) }: Props = $props()
 
   data.forEach((i, _) => {
     data[_]['labelID'] = slug(i['question'])

@@ -21,15 +21,19 @@
   import ProductHuntIcon from '~icons/logos/producthunt'
   import PeerlistIcon from '~icons/simple-icons/peerlist'
 
-  export let name: string
-  export let photo: string
-  export let handle: string
-  export let message: string
-  export let message_url: string
-  export let platform: string = 'twitter'
-  export let verified_type: boolean = false
+  interface Props {
+    name: string
+    photo: string
+    handle: string
+    message: string
+    message_url: string
+    platform?: string
+    verified_type?: boolean
+  }
 
-  let formattedText = message.replace(/&amp;/g, '&')
+  let { name, photo, handle, message, message_url, platform = 'twitter', verified_type = false }: Props = $props()
+
+  let formattedText = $state(message.replace(/&amp;/g, '&'))
   let tempText = '' + formattedText
 
   try {
@@ -56,7 +60,7 @@
 <div class="relative mt-4 flex break-inside-avoid flex-col rounded border border-white/25 p-[0.1rem] shadow">
   <div class="flex w-full flex-col px-6 py-4">
     <div class="flex flex-row items-center">
-      <img width="48" height="48" loading="lazy" alt={name} class="h-[48px] w-[48px] rounded-full" src={photo} />
+      <img width="48" height="48" alt={name} class="h-[48px] w-[48px] rounded-full" src={photo} />
       <div class="author ml-4 flex flex-col !no-underline">
         <span class="flex items-center font-bold leading-5 text-launchfast" title={name}>
           {name}
@@ -101,6 +105,6 @@
         </div>
       {/if}
     </div>
-    <div contenteditable="false" bind:innerHTML={formattedText} class="mb-1 mt-4 whitespace-pre-wrap text-launchfast" />
+    <div contenteditable="false" bind:innerHTML={formattedText} class="mb-1 mt-4 whitespace-pre-wrap text-launchfast"></div>
   </div>
 </div>

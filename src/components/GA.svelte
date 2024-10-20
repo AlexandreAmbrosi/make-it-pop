@@ -10,7 +10,11 @@
 
   import { onMount } from 'svelte'
 
-  export let TRACKING_ID: string
+  interface Props {
+    TRACKING_ID: string
+  }
+
+  let { TRACKING_ID }: Props = $props()
 
   function gtag() {
     window.dataLayer.push(arguments)

@@ -1,6 +1,6 @@
+import netlify from '@sveltejs/adapter-netlify'
 import node from '@sveltejs/adapter-node'
 import vercel from '@sveltejs/adapter-vercel'
-import netlify from '@sveltejs/adapter-netlify'
 
 const nodeAdapter = node()
 

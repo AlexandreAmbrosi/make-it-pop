@@ -1,25 +1,25 @@
 <script lang="ts">
-  /*
-    A component that can be used anywhere in your app
-    Use anywhere in your app pages's head tag like the following:
+  interface Props {
+    title?: string
+    description?: string
+    url?: string
+    image?: string
+    preloads?: { as: string; href: string }[]
+    icon?: string
+    slackPreviewLabels?: { title: string; href: string }[]
+  }
 
-    <SEO
-      title="Pricing - launchfa.st"
-      description="Pricing - launchfa.st"
-      url="https://www.launchfa.st/pricing"
-    />
-  */
+  let {
+    title = 'LaunchFa.st - Launch your apps in hours with this SvelteKit boilerplate',
+    description = 'The SvelteKit, Stripe, TailwindCSS, Resend, Upstash boilerplate with all the stuff you need to get your product in front of customers. Launch your SaaS, AI projects, or web apps from concept to web heck faster with this SvelteKit boilerplate 🚀',
+    url = 'https://www.launchfa.st',
+    image = 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/seo.png',
+    preloads = [],
+    icon = 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png',
+    slackPreviewLabels = [],
+  }: Props = $props()
 
-  export let title = 'LaunchFa.st - Launch your apps in hours with this SvelteKit boilerplate'
-  export let description =
-    'The SvelteKit, Stripe, TailwindCSS, Resend, Upstash boilerplate with all the stuff you need to get your product in front of customers. Launch your SaaS, AI projects, or web apps from concept to web heck faster with this SvelteKit boilerplate 🚀'
-  export let url = 'https://www.launchfa.st'
-  export let image = 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/seo.png'
-  export let preloads: { as: string; href: string }[] = []
-  export let icon = 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png'
-  export let slackPreviewLabels: { title: string; href: string }[] = []
-
-  const can = new URL(url)
+  const can = $state(new URL(url))
   can.hostname = 'www.launchfa.st'
 </script>
 

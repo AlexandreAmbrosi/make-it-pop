@@ -1,8 +1,9 @@
+import { building } from '$app/environment'
 import { env } from '$env/dynamic/private'
 
-const SUPABASE_URL = env.SUPABASE_URL
-const SUPABASE_ANON_KEY = env.SUPABASE_ANON_KEY
-const SUPABASE_BUCKET_NAME = env.SUPABASE_BUCKET_NAME
+const SUPABASE_URL = building ? 'tmp_build_value' : env.SUPABASE_URL
+const SUPABASE_ANON_KEY = building ? 'tmp_build_value' : env.SUPABASE_ANON_KEY
+const SUPABASE_BUCKET_NAME = building ? 'tmp_build_value' : env.SUPABASE_BUCKET_NAME
 
 export async function getSupabaseObject(objectPath: string) {
   try {
