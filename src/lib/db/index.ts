@@ -5,12 +5,15 @@ import { type Client, createClient } from '@libsql/client'
 import { Redis } from 'ioredis'
 import { Db, MongoClient } from 'mongodb'
 import pg from 'pg'
+import firebaseConfig from '@/lib/storage/firebaseConfig'
+import admin from 'firebase-admin'
 
 let pool: pg.Pool
 let redis: Redis
 let mongoClient: MongoClient
 let db: Db
 let sqlite: Client
+let firestore: FirebaseFirestore.Firestore
 
 const type = DATABASE_TYPE || 'redis'
 
@@ -24,6 +27,18 @@ if (type === 'redis') {
   const connectionString = building ? null : env?.['SQLITE_URL']
   const connectionToken = building ? 'tmp_build_value' : env?.['SQLITE_AUTH_TOKEN']
   if (connectionString) sqlite = createClient({ url: connectionString, authToken: connectionToken })
+} else if (type === 'firestore') {
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert({
+        ...firebaseConfig,
+        projectId: firebaseConfig.project_id,
+        privateKey: firebaseConfig.private_key,
+        clientEmail: firebaseConfig.client_email,
+      }),
+    })
+  }
+  firestore = admin.firestore()
 }
 
 async function getMongoDB() {
@@ -55,6 +70,9 @@ export async function getAccess(email: string) {
     await getMongoDB()
     const result = await db.collection('access').findOne({ email })
     return result?.['code']
+  } else if (type === 'firestore') {
+    const doc = await firestore.collection('access').doc(email).get()
+    return doc.exists ? doc.data()?.code : null
   }
 }
 
@@ -74,6 +92,8 @@ export async function setAccess(email: string, code: string) {
   } else if (type === 'mongodb') {
     await getMongoDB()
     return await db.collection('access').updateOne({ email }, { $set: { code } }, { upsert: true })
+  } else if (type === 'firestore') {
+    return await firestore.collection('access').doc(email).set({ code }, { merge: true })
   }
 }
 
@@ -96,6 +116,9 @@ export async function getCode(email: string) {
     await getMongoDB()
     const result = await db.collection('tokens').findOne({ email })
     return result?.['code']
+  } else if (type === 'firestore') {
+    const doc = await firestore.collection('tokens').doc(email).get()
+    return doc.exists ? doc.data()?.code : null
   }
 }
 
@@ -115,6 +138,8 @@ export async function setCode(email: string, code: string) {
   } else if (type === 'mongodb') {
     await getMongoDB()
     return await db.collection('tokens').updateOne({ email }, { $set: { code } }, { upsert: true })
+  } else if (type === 'firestore') {
+    return await firestore.collection('tokens').doc(email).set({ code }, { merge: true })
   }
 }
 
@@ -134,6 +159,8 @@ export async function removeCode(email: string) {
   } else if (type === 'mongodb') {
     await getMongoDB()
     return await db.collection('tokens').deleteOne({ email })
+  } else if (type === 'firestore') {
+    return await firestore.collection('tokens').doc(email).delete()
   }
 }
 
@@ -153,6 +180,8 @@ export async function setPassword(email: any, password: any) {
   } else if (type === 'mongodb') {
     await getMongoDB()
     return await db.collection('login').updateOne({ email }, { $set: { password } }, { upsert: true })
+  } else if (type === 'firestore') {
+    return await firestore.collection('login').doc(email).set({ password }, { merge: true })
   }
 }
 
@@ -175,6 +204,9 @@ export async function ifUserExists(email: string) {
     await getMongoDB()
     const count = await db.collection('login').countDocuments({ email })
     return count > 0
+  } else if (type === 'firestore') {
+    const doc = await firestore.collection('login').doc(email).get()
+    return doc.exists
   }
 }
 
@@ -197,6 +229,9 @@ export async function getPassword(email: string) {
     await getMongoDB()
     const result = await db.collection('login').findOne({ email })
     return result?.['password']
+  } else if (type === 'firestore') {
+    const doc = await firestore.collection('login').doc(email).get()
+    return doc.exists ? doc.data()?.password : null
   }
 }
 
@@ -216,6 +251,8 @@ export async function setMailVerified(email: string, code: string) {
   } else if (type === 'mongodb') {
     await getMongoDB()
     return await db.collection('emails_verified').updateOne({ email }, { $set: { code } }, { upsert: true })
+  } else if (type === 'firestore') {
+    return await firestore.collection('emails_verified').doc(email).set({ code }, { merge: true })
   }
 }
 
@@ -235,6 +272,8 @@ export async function setUserImageRef(email: string, image_ref: string) {
   } else if (type === 'mongodb') {
     await getMongoDB()
     return await db.collection('user_info').updateOne({ email }, { $set: { image_ref } }, { upsert: true })
+  } else if (type === 'firestore') {
+    return await firestore.collection('user_info').doc(email).set({ image_ref }, { merge: true })
   }
 }
 
@@ -254,6 +293,8 @@ export async function setUserName(email: string, name: string) {
   } else if (type === 'mongodb') {
     await getMongoDB()
     return await db.collection('user_info').updateOne({ email }, { $set: { name } }, { upsert: true })
+  } else if (type === 'firestore') {
+    return await firestore.collection('user_info').doc(email).set({ name }, { merge: true })
   }
 }
 
@@ -270,6 +311,14 @@ export async function removeUser(email: string) {
         text: 'DELETE FROM login WHERE email = $1',
         values: [email],
       }),
+      pool.query({
+        text: 'DELETE FROM tokens WHERE email = $1',
+        values: [email],
+      }),
+      pool.query({
+        text: 'DELETE FROM emails_verified WHERE email = $1',
+        values: [email],
+      }),
     ])
   } else if (type === 'sqlite') {
     return await Promise.all([
@@ -281,10 +330,30 @@ export async function removeUser(email: string) {
         sql: 'DELETE FROM login WHERE email = ?',
         args: [email],
       }),
+      sqlite.execute({
+        sql: 'DELETE FROM tokens WHERE email = ?',
+        args: [email],
+      }),
+      sqlite.execute({
+        sql: 'DELETE FROM emails_verified WHERE email = ?',
+        args: [email],
+      }),
     ])
   } else if (type === 'mongodb') {
     await getMongoDB()
-    return await Promise.all([db.collection('user_info').deleteOne({ email }), db.collection('login').deleteOne({ email })])
+    return await Promise.all([
+      db.collection('user_info').deleteOne({ email }),
+      db.collection('login').deleteOne({ email }),
+      db.collection('tokens').deleteOne({ email }),
+      db.collection('emails_verified').deleteOne({ email }),
+    ])
+  } else if (type === 'firestore') {
+    await Promise.all([
+      firestore.collection('user_info').doc(email).delete(),
+      firestore.collection('login').doc(email).delete(),
+      firestore.collection('tokens').doc(email).delete(),
+      firestore.collection('emails_verified').doc(email).delete()
+    ])
   }
 }
 
@@ -307,6 +376,9 @@ export async function getUserImageRef(email: string) {
     await getMongoDB()
     const result = await db.collection('user_info').findOne({ email })
     return result?.['image_ref']
+  } else if (type === 'firestore') {
+    const doc = await firestore.collection('user_info').doc(email).get()
+    return doc.exists ? doc.data()?.image_ref : null
   }
 }
 
@@ -329,6 +401,9 @@ export async function getUserName(email: string) {
     await getMongoDB()
     const result = await db.collection('user_info').findOne({ email })
     return result?.['name']
+  } else if (type === 'firestore') {
+    const doc = await firestore.collection('user_info').doc(email).get()
+    return doc.exists ? doc.data()?.name : null
   }
 }
 
@@ -352,6 +427,9 @@ export async function getUser(email: string) {
     await getMongoDB()
     const result = await db.collection('user_info').findOne({ email })
     return { name: result?.['name'], image_ref: result?.['image_ref'] }
+  } else if (type === 'firestore') {
+    const doc = await firestore.collection('user_info').doc(email).get()
+    return doc.exists ? { name: doc.data()?.name, image_ref: doc.data()?.image_ref } : null
   }
 }
 
@@ -371,5 +449,7 @@ export async function addToWaitlist(email: string) {
   } else if (type === 'mongodb') {
     await getMongoDB()
     return await db.collection('waitlist').updateOne({ email }, { $setOnInsert: { email } }, { upsert: true })
+  } else if (type === 'firestore') {
+    return await firestore.collection('waitlist').doc(email).set({ email }, { merge: true })
   }
 }

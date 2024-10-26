@@ -46,6 +46,7 @@ respectively.
 - To use Redis, set `DATABASE_TYPE` value to `redis` and define the `REDIS_URL` value in the `.env` file.
 - To use MongoDB, set `DATABASE_TYPE` value to `mongodb` and define the `MONGODB_URL` value in the `.env` file.
 - To use SQLite, set `DATABASE_TYPE` value to `sqlite` and define the `SQLITE_URL` and `SQLITE_AUTH_TOKEN` values in the `.env` file.
+- To use Firestore, set `DATABASE_TYPE` value to `firestore` and define the `FIREBASE_PROJECT_ID`, `FIREBASE_PRIVATE_KEY_ID`, `FIREBASE_PRIVATE_KEY`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_CLIENT_ID`, `FIREBASE_STORAGE_BUCKET` values in the `.env` file.
 
 ### Payments
 

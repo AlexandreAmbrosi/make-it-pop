@@ -64,6 +64,7 @@
     "bcryptjs": "^2.4.3",
     "date-fns": "^2.30.0",
     "firebase": "^10.12.2",
+    "firebase-admin": "^12.7.0",
     "grammy": "^1.27.0",
     "html-minifier": "^4.0.0",
     "ioredis": "^5.4.1",
