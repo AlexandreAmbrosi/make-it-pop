@@ -1,12 +1,12 @@
 import { building } from '$app/environment'
 import { env } from '$env/dynamic/private'
 import { DATABASE_TYPE } from '$env/static/private'
+import firebaseConfig from '@/lib/storage/firebaseConfig'
 import { type Client, createClient } from '@libsql/client'
+import admin from 'firebase-admin'
 import { Redis } from 'ioredis'
 import { Db, MongoClient } from 'mongodb'
 import pg from 'pg'
-import firebaseConfig from '@/lib/storage/firebaseConfig'
-import admin from 'firebase-admin'
 
 let pool: pg.Pool
 let redis: Redis
@@ -352,7 +352,7 @@ export async function removeUser(email: string) {
       firestore.collection('user_info').doc(email).delete(),
       firestore.collection('login').doc(email).delete(),
       firestore.collection('tokens').doc(email).delete(),
-      firestore.collection('emails_verified').doc(email).delete()
+      firestore.collection('emails_verified').doc(email).delete(),
     ])
   }
 }
