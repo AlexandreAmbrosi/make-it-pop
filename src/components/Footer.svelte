@@ -22,28 +22,32 @@
 <footer class="relative mx-auto mt-8 flex max-w-7xl flex-col p-8 xl:grid xl:grid-cols-5">
   <div class="flex flex-col space-y-8 xl:col-span-2">
     <a href="/">
-      <img decoding="async" height="50" width="50" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png?tr=w-50" alt={brand_name} />
+      <img decoding="async" loading="lazy" width="140" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/symbol-logo" alt={brand_name} />
     </a>
-    <p class="max-w-xs text-sm text-gray-500">Launching SaaS just got faster today with LaunchFa.st 🚀</p>
+    <p class="max-w-xs text-sm text-gray-500">The complete Astro, SvelteKit, Next.js full-stack starter kits to help you launch fast.</p>
     <div class="flex items-center space-x-2">
-      <a target="_blank" rel="noreferrer" href={`https://twitter.com/${twitter}`} class="rounded-md p-2 transition-colors hover:bg-gray-100 active:bg-gray-200">
+      <a target="_blank" href={`https://twitter.com/${twitter}`} class="rounded-md p-2 transition-colors hover:bg-gray-100 active:bg-gray-200">
         <span class="sr-only">Twitter</span>
         <TwitterIcon width="22" height="22" />
       </a>
       <div class="h-8 border-l"></div>
-      <a target="_blank" rel="noreferrer" href="https://github.com/rishi-raj-jain" class="rounded-md p-2 transition-colors hover:bg-gray-100 active:bg-gray-200">
+      <a target="_blank" href="https://github.com/rishi-raj-jain" class="rounded-md p-2 transition-colors hover:bg-gray-100 active:bg-gray-200">
         <span class="sr-only">Github</span>
-        <GitHubIcon width="24" height="24" />
+        <GitHubIcon width="22" height="22" />
       </a>
       <div class="h-8 border-l"></div>
-      <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/rishi-raj-jain/" class="rounded-md p-2 transition-colors hover:bg-gray-100 active:bg-gray-200">
+      <a target="_blank" href="https://www.linkedin.com/in/rishi-raj-jain/" class="rounded-md p-2 transition-colors hover:bg-gray-100 active:bg-gray-200">
         <span class="sr-only">LinkedIn</span>
-        <LinkedInIcon width="24" height="24" />
+        <LinkedInIcon width="22" height="22" />
       </a>
     </div>
-    <span class="text-xs font-light text-gray-400">
-      © {new Date().getFullYear()}&nbsp;{brand_name}
-    </span>
+    <a target="_blank" href="https://www.launchfa.st" class="flex max-w-max flex-row items-center rounded border border-purple-600 px-2 py-1 text-purple-600 hover:scale-[101%]">
+      <span>Built with</span>
+      <div class="ml-2 flex flex-row items-center">
+        <img height="20" width="20" loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png" alt="LaunchFast Logo" />
+        <span class="ml-1">LaunchFa.st</span>
+      </div>
+    </a>
   </div>
   <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-3 xl:mt-0">
     <div class="md:grid md:grid-cols-2 md:gap-8">
@@ -51,15 +55,16 @@
         <h3 class="text-sm font-semibold">Product</h3>
         <div class="mt-4 flex flex-col space-y-4">
           <a class="text-sm text-gray-500 hover:text-gray-900" href="/#pricing">Pricing</a>
+          <a class="text-sm text-gray-500 hover:text-gray-900" href="/changelog">Changelog</a>
           <a class="text-sm text-gray-500 hover:text-gray-900" href="mailto:contact@launchfa.st">Support</a>
-          <a target="_blank" class="text-sm text-gray-500 hover:text-gray-900" href="https://affiliates.lemonsqueezy.com/programs/code-templates"> Affiliates - Earn 40% </a>
+          <a target="_blank" class="text-sm text-gray-500 hover:text-gray-900" href="https://code-templates.lemonsqueezy.com/affiliates">Affiliates - Earn 40%</a>
         </div>
       </div>
       <div class="mt-10 md:mt-0">
-        <h3 class="text-sm font-semibold">Guides</h3>
+        <h3 class="text-sm font-semibold">Content</h3>
         <div class="mt-4 flex flex-col space-y-4">
-          <a class="text-sm text-gray-500 hover:text-gray-900" href="/blog">Blogs</a>
-          <a class="text-sm text-gray-500 hover:text-gray-900" href="/documentation">Documentation</a>
+          <a class="text-sm text-gray-500 hover:text-gray-900" href="/blog">Blog</a>
+          <a class="text-sm text-gray-500 hover:text-gray-900" href="/docs">Documentation</a>
         </div>
       </div>
     </div>
@@ -76,16 +81,6 @@
         <div class="mt-4 flex flex-col space-y-4">
           <a class="text-sm text-gray-500 hover:text-gray-900" href="/privacy">Privacy</a>
           <a class="text-sm text-gray-500 hover:text-gray-900" href="/terms">Terms</a>
-        </div>
-      </div>
-    </div>
-    <div class="md:grid md:grid-cols-2 md:gap-8">
-      <div>
-        <h3 class="text-sm font-semibold">Free Tools</h3>
-        <div class="mt-4 flex flex-col space-y-4">
-          <a class="text-sm text-gray-500 hover:text-gray-900" href="/free-tools/table-of-contents-generator">Markdown Table Of Contents Generator</a>
-          <a class="text-sm text-gray-500 hover:text-gray-900" href="/free-tools/markdown-live-preview-generator">Markdown Live Preview Generator</a>
-          <a class="text-sm text-gray-500 hover:text-gray-900" href="/free-tools/password-generator">Password Generator</a>
         </div>
       </div>
     </div>

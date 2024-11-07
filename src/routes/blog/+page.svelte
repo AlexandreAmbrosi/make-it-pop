@@ -50,11 +50,12 @@
 </script>
 
 <div class="relative mx-auto flex max-w-7xl flex-col px-8 py-8">
-  <h1 class="max-w-max text-3xl font-extrabold text-branding sm:text-4xl">Your Blog</h1>
-  <h2 class="mt-4 text-gray-400">Stay up to date with the latest news and updates</h2>
-  <div class="mt-3 hidden" id="search"></div>
-  <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
-    {#each all as i, idx}
+  <h1 class="mt-4 max-w-max text-3xl font-extrabold text-branding sm:text-4xl">Blog</h1>
+  <h2 class="mt-4 text-gray-400">Latest news and updates from Company</h2>
+  <div class="mt-12 h-[1px] w-full bg-black/5"></div>
+  <div class="mt-12 hidden" id="search"></div>
+  <div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
+    {#each all as i}
       <a href={`/blog/${i.slug}`} class="flex flex-col">
         <img
           alt={i.title}
