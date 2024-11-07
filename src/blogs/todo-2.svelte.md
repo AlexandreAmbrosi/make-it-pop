@@ -1,6 +1,6 @@
 ---
-slug: 'todo'
-title: 'TODO: A Step-by-Step Guide'
+slug: 'todo-2'
+title: 'TODO 2: A Step-by-Step Guide'
 description: 'How to TODO?'
 author: 'Rishi Raj Jain'
 published: true
