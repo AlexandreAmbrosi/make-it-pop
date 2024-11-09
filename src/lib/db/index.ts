@@ -1,6 +1,5 @@
 import { building } from '$app/environment'
 import { env } from '$env/dynamic/private'
-import { DATABASE_TYPE } from '$env/static/private'
 import firebaseConfig from '@/lib/storage/firebaseConfig'
 import { type Client, createClient } from '@libsql/client'
 import admin from 'firebase-admin'
@@ -15,7 +14,7 @@ let db: Db
 let sqlite: Client
 let firestore: FirebaseFirestore.Firestore
 
-const type = DATABASE_TYPE || 'redis'
+const type = building ? null : (env?.['DATABASE_TYPE'] || 'redis')
 
 if (type === 'redis') {
   const connectionString = building ? null : env?.['REDIS_URL']
