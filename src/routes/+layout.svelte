@@ -1,16 +1,19 @@
 <script lang="ts">
+  import { afterNavigate, beforeNavigate } from '$app/navigation'
+  import { Toaster } from '$lib/components/ui/sonner'
   import '@/app.css'
+  import Divider from '@/components/Divider.svelte'
   import Footer from '@/components/Footer.svelte'
   import Header from '@/components/Header.svelte'
-  import Divider from '@/components/Divider.svelte'
-  import { Toaster } from '$lib/components/ui/sonner'
   import LemonSqueezyScript from '@/components/Scripts/LemonSqueezy.svelte'
+  import NProgress from 'nprogress'
+  import 'nprogress/nprogress.css'
 
-  interface Props {
-    children?: import('svelte').Snippet
-  }
+  let { children } = $props()
 
-  let { children }: Props = $props()
+  beforeNavigate(() => NProgress.start())
+
+  afterNavigate(() => NProgress.done())
 </script>
 
 <Toaster />

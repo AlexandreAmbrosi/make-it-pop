@@ -1,4 +1,4 @@
-export const webResponse = (body, status, headers): Response => {
+export const webResponse = (body: any, status?: number, headers?: Record<any, any>): Response => {
   return new Response(body || null, {
     status: status || 200,
     headers: {
@@ -7,14 +7,14 @@ export const webResponse = (body, status, headers): Response => {
   })
 }
 
-export const webJson = (body, status, headers): Response => {
+export const webJson = (body: any, status?: number, headers?: Record<any, any>): Response => {
   return webResponse(JSON.stringify(body), status || 200, {
     ...headers,
     'Content-Type': 'application/json',
   })
 }
 
-export const webRedirect = (path, status, headers): Response => {
+export const webRedirect = (path: string, status?: number, headers?: Record<any, any>): Response => {
   return webResponse(null, status || 302, {
     ...headers,
     Location: path,
