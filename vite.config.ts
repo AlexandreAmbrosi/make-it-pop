@@ -1,7 +1,8 @@
 import { sveltekit } from '@sveltejs/kit/vite'
-import { spawnSync } from 'child_process'
-import { existsSync } from 'fs'
-import { join } from 'path'
+import fb from 'fast-glob'
+import { existsSync, readFileSync } from 'fs'
+import * as pagefind from 'pagefind'
+import { join, relative } from 'path'
 import Icons from 'unplugin-icons/vite'
 import { defineConfig } from 'vite'
 
@@ -13,25 +14,35 @@ export default defineConfig({
     }),
     {
       name: 'pagefind',
-      closeBundle() {
+      async closeBundle() {
         if (process.env.BLOG_SEARCH === 'enable') {
           const sourcePath =
             process.env.DEPLOYMENT_PLATFORM === 'vercel'
-              ? join('.vercel', 'output', 'static', 'blog')
+              ? join('.vercel', 'output', 'static')
               : process.env.DEPLOYMENT_PLATFORM === 'netlify'
-                ? join('build', 'blog')
-                : join('build', 'prerendered', 'blog')
+                ? join('build')
+                : join('build', 'prerendered')
           if (existsSync(sourcePath)) {
-            console.log('[LaunchFa.st]: Indexing blogs...')
-            const destinationPath =
+            const outputPath =
               process.env.DEPLOYMENT_PLATFORM === 'vercel'
                 ? join('.vercel', 'output', 'static', 'pagefind')
                 : process.env.DEPLOYMENT_PLATFORM === 'netlify'
                   ? join('build', 'pagefind')
                   : join('build', 'client', 'pagefind')
-            console.log(`[LaunchFa.st]: Executing "npx -y pagefind --site ${sourcePath} --output-path ${destinationPath}"`)
-            spawnSync('npx', [`-y pagefind --site ${sourcePath} --output-path ${destinationPath}`], { stdio: 'inherit', shell: true })
-            console.log('[LaunchFa.st]: Blogs indexed succesfully!')
+            const { index } = await pagefind.createIndex()
+            if (index) {
+              const paths = [...fb.globSync([join(sourcePath, 'blog', '**', '*')], { dot: true }), ...fb.globSync(join(sourcePath, 'docs', '**', '*'), { dot: true })]
+              await Promise.all(
+                paths.map((j) =>
+                  index.addHTMLFile({
+                    url: relative(sourcePath, j).replace('.html', ''),
+                    sourcePath: relative(sourcePath, j),
+                    content: readFileSync(j, 'utf8'),
+                  }),
+                ),
+              )
+              await index.writeFiles({ outputPath })
+            }
           }
         }
       },

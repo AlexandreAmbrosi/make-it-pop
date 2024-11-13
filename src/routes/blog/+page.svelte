@@ -25,17 +25,10 @@
 
   onMount(() => {
     const createPagefindListener = () => {
-      if (window.PagefindUI) {
+      if (window.PagefindUI)
         new window.PagefindUI({
           element: '#search',
-          processResult: (result: any) => {
-            if (result.url.length > 1) {
-              result.url = `/blog${result.url.replace('.html', '')}`
-              return result
-            }
-          },
         })
-      }
     }
     var script = document.createElement('script')
     script.onload = createPagefindListener

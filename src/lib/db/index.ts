@@ -14,7 +14,7 @@ let db: Db
 let sqlite: Client
 let firestore: FirebaseFirestore.Firestore
 
-const type = building ? null : (env?.['DATABASE_TYPE'] || 'redis')
+const type = building ? null : env?.['DATABASE_TYPE'] || 'redis'
 
 if (type === 'redis') {
   const connectionString = building ? null : env?.['REDIS_URL']
