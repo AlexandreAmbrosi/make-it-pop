@@ -21,17 +21,6 @@ declare global {
     // Lemon Squeezy instance
     createLemonSqueezy: any
   }
-  namespace App {
-    // interface Error {}
-    // interface Locals {}
-    // interface PageData {}
-    // interface Platform {}
-    interface MdsvexFile {
-      default: import('svelte').SvelteComponent
-      metadata: Record<string, string>
-    }
-    type MdsvexResolver = () => Promise<MdsvexFile>
-  }
 }
 
 export {}

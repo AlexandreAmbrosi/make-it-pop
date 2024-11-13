@@ -1,12 +1,11 @@
 ---
-slug: 'todo-2'
-title: 'TODO 2: A Step-by-Step Guide'
+title: 'TODO 1: A Step-by-Step Guide'
 description: 'How to TODO?'
 author: 'Rishi Raj Jain'
 published: true
 head_image: 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/general'
 blog_image: 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/general'
-created_at: 2024-04-15T00:00:00.000+00:00
+created_at: 2024-04-16T00:00:00.000+00:00
 ---
 
 <img data-pagefind-meta="image[src]" width="1600" height="900" alt="TODO: A Step-by-Step Guide" decoding="async" class="mt-4 border rounded bg-cover bg-center bg-no-repeat transform will-change-auto" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" />

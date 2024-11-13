@@ -31,8 +31,8 @@
       <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         <div class="border-stroke rounded-[20px] border bg-white p-4 duration-300 ease-in hover:shadow-card sm:p-9">
           <img src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg font-bold leading-10 xl:text-[26px]">SvelteKit + MDSvex</h3>
-          <p class="mt-3 font-medium xl:text-lg">Create a stylish, high-performance documentation &amp; blogging website with SvelteKit and MDSvex.</p>
+          <h3 class="mt-3 text-lg font-bold leading-10 xl:text-[26px]">SvelteKit + Content Collections</h3>
+          <p class="mt-3 font-medium xl:text-lg">Create a stylish, high-performance documentation &amp; blogging website with SvelteKit and Content Collections.</p>
         </div>
         <div class="border-stroke rounded-[20px] border bg-white p-4 duration-300 ease-in hover:shadow-card sm:p-9">
           <img src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
@@ -114,8 +114,8 @@
             <div class="mb-8">
               <img width="50" height="50" class="size-[50px] rounded-full object-cover" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" />
             </div>
-            <h4 class="mb-3 text-[26px] font-bold leading-[38px]">MDSvex to manage content</h4>
-            <p class="font-medium">MDSvex makes the content managing process easier, you can directly edit the markdown like a CMS.</p>
+            <h4 class="mb-3 text-[26px] font-bold leading-[38px]">Content Collections to manage content</h4>
+            <p class="font-medium">Content Collections makes the content managing process easier, you can directly edit the markdown like a CMS.</p>
           </div>
           <div class="border-gray-4 false false mx-auto w-full max-w-[312px] border-y py-12 lg:max-w-full lg:border-x lg:border-y-0 lg:px-12 lg:py-5">
             <div class="mb-8">

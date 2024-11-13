@@ -10,12 +10,7 @@
 
   let { data, children }: Props = $props()
 
-  let all = $derived(
-    data.blogs
-      .filter((i) => i.created_at)
-      .filter((i) => i.published !== false)
-      .sort((a, b) => (new Date(a.created_at).getTime() > new Date(b.created_at).getTime() ? -1 : 1)),
-  )
+  let all = $derived(data.docs.filter((i) => i.published !== false).sort((a, b) => (new Date(a.created_at).getTime() > new Date(b.created_at).getTime() ? -1 : 1)))
 
   onMount(() => {
     const createPagefindListener = () => {
@@ -40,7 +35,10 @@
 <div class="relative mx-auto mt-4 flex w-full max-w-7xl flex-row px-8">
   <div class="flex w-full max-w-max flex-col pr-8 pt-8">
     {#each all as i, idx}
-      <a href={`/docs/${i.file}`} class={`${idx !== 0 && 'mt-2'} ${$page.url.pathname === ['/docs', i.file].filter(Boolean).join('/') && 'font-semibold'} text-sm`}>
+      <a
+        href={`/docs/${i._meta.path.replace('.svelte', '')}`}
+        class={`${idx !== 0 && 'mt-2'} ${$page.url.pathname === ['/docs', i._meta.path.replace('.svelte', '')].filter(Boolean).join('/') && 'font-semibold'} text-sm`}
+      >
         {i.title}
       </a>
     {/each}

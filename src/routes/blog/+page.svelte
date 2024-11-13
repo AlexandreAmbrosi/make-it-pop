@@ -2,14 +2,7 @@
   import { onMount } from 'svelte'
   import type { PageData } from './$types'
   import Seo from '@/components/SEO.svelte'
-
-  const getDate = (timestamp: string) => {
-    const dateObject = new Date(timestamp)
-    const month = dateObject.toLocaleString('en-us', { month: 'long' })
-    const date = dateObject.getDate()
-    const year = dateObject.getFullYear()
-    return `${month} ${date}, ${year}`
-  }
+  import { getDate } from '@/lib/utils/date'
 
   interface Props {
     data: PageData
@@ -17,12 +10,7 @@
 
   let { data }: Props = $props()
 
-  let all = $derived(
-    data.blogs
-      .filter((i) => i.created_at)
-      .filter((i) => i.published !== false)
-      .sort((a, b) => (new Date(a.created_at).getTime() > new Date(b.created_at).getTime() ? -1 : 1)),
-  )
+  let all = $derived(data.blogs.filter((i) => i.published !== false).sort((a, b) => (new Date(a.created_at).getTime() > new Date(b.created_at).getTime() ? -1 : 1)))
 
   onMount(() => {
     const createPagefindListener = () => {
@@ -52,7 +40,7 @@
   <div class="mt-12 hidden" id="search"></div>
   <div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
     {#each all as i}
-      <a href={`/blog/${i.slug}`} class="flex flex-col">
+      <a href={`/blog/${i._meta.path.replace('.svelte', '')}`} class="flex flex-col">
         <img
           alt={i.title}
           class="transform rounded bg-cover bg-center bg-no-repeat will-change-auto"

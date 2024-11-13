@@ -1,15 +1,16 @@
 export const prerender = true
 
+import { redirect } from '@sveltejs/kit'
+import { allDocs } from 'content-collections'
 import type { PageLoad } from './$types'
 
-const slugFromPath = (path: string) => path.replace('/src/content/docs/', '').replace('.svelte.md', '').replace('.md', '').replace('index', '')
-
-export const load: PageLoad = async () => {
-  const blogs = []
-  const modules = import.meta.glob('/src/content/docs/**/*.{md,svx,svelte.md}')
-  for (const [path, resolver] of Object.entries(modules)) {
-    const post = await resolver?.()
-    if (post?.metadata) blogs.push({ ...post.metadata, file: slugFromPath(path) })
-  }
-  return { blogs }
-}
+export const load: PageLoad = ({ params }) =>
+  params.slug === ''
+    ? redirect(302, '/docs/introduction')
+    : {
+        docs: allDocs.map((i) => {
+          const tmp = { ...i }
+          delete tmp['content']
+          return tmp
+        }),
+      }

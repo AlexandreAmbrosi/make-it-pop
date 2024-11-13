@@ -1,3 +1,4 @@
+import contentCollections from '@content-collections/vite'
 import { sveltekit } from '@sveltejs/kit/vite'
 import fb from 'fast-glob'
 import { existsSync, readFileSync } from 'fs'
@@ -9,6 +10,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [
     sveltekit(),
+    contentCollections(),
     Icons({
       compiler: 'svelte',
     }),

@@ -1,11 +1,7 @@
 ---
-slug: 'todo-1'
-title: 'TODO 1: A Step-by-Step Guide'
-description: 'How to TODO?'
-author: 'Rishi Raj Jain'
+title: 'Setup'
+description: 'This guide will walk you through setting up LaunchFast demo. We will go through the process of cloning the project, installing dependencies, setting up your database and running the local development server.'
 published: true
-head_image: 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/general'
-blog_image: 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/general'
 created_at: 2024-04-15T00:00:00.000+00:00
 ---
 
@@ -18,11 +14,6 @@ In this guide, you will learn how to TODO. You will go through the process of TO
 You'll need the following:
 
 - [Node.js 18](https://nodejs.org/en/blog/announcements/v18-release-announce) or later
-
-## Table Of Contents
-
-- [Create a new Astro application](#create-a-new-astro-application)
-- [Build and Test your Astro application locally](#build-and-test-your-astro-application-locally)
 
 ## Create a new Astro application
 
@@ -50,27 +41,6 @@ npm run dev
 ```
 
 The app should be running on [localhost:4321](http://localhost:4321/).
-
-## Change TODO
-
-TODO
-
-```astro
----
-import App from "./App.astro"; // [!code focus] // [!code ++]
----
-
-<h1>Astro</h1>
-<span>New</span> // [!code focus] // [!code ++]
-```
-
-## Build and Test your Astro application locally
-
-To test the application in application, prepare a build and run the preview server using the command below:
-
-```bash
-npm run build && npm run preview
-```
 
 ## Conclusion
 
