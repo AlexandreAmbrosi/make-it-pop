@@ -3,6 +3,7 @@
   import type { SvelteComponent } from 'svelte'
   import Author from '@/components/Author.svelte'
   import SocialSharing from '@/components/Social-Sharing.svelte'
+  import Seo from '@/components/SEO.svelte'
 
   interface Props {
     data: PageData
@@ -15,6 +16,10 @@
 
   const SvelteComponent_1 = $derived(component)
 </script>
+
+{#if data.frontmatter.title}
+  <Seo title={data.frontmatter.title} description={data.frontmatter.description} />
+{/if}
 
 <div data-pagefind-body class="relative mx-auto flex max-w-2xl flex-col px-8 py-8">
   <h1 class="text-3xl font-extrabold text-branding">{data.frontmatter.title}</h1>

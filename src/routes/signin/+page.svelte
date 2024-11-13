@@ -4,6 +4,7 @@
   import GoogleIcon from '~icons/devicon/google'
   import GitHubIcon from '~icons/devicon/github'
   import FacebookIcon from '~icons/devicon/facebook'
+  import Seo from '@/components/SEO.svelte'
 
   const providers: { id: string; name: string }[] = $page.data.providerMap
 
@@ -13,6 +14,8 @@
     signIn('credentials', { username, password })
   }
 </script>
+
+<Seo title={'Sign In'} />
 
 <div class="w-full py-8 lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
   <div class="flex items-center justify-center py-12">

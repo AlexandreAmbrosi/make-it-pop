@@ -1,6 +1,3 @@
-<script lang="ts">
-</script>
-
 <main>
   <section class="px-8 py-12">
     <div class="mx-auto max-w-[1040px] text-center">

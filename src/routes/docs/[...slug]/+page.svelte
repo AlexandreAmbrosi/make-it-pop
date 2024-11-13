@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Seo from '@/components/SEO.svelte'
   import type { PageData } from './$types'
   import type { SvelteComponent } from 'svelte'
 
@@ -13,6 +14,10 @@
 
   const SvelteComponent_1 = $derived(component)
 </script>
+
+{#if data.frontmatter.title}
+  <Seo title={data.frontmatter.title} description={data.frontmatter.description} />
+{/if}
 
 <div data-pagefind-body class="flex flex-col">
   <h1 class="max-w-max text-3xl font-extrabold text-branding sm:text-4xl">{data.frontmatter.title}</h1>

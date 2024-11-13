@@ -1,6 +1,7 @@
 <script lang="ts">
   import { toast } from 'svelte-sonner'
   import { userProfile } from '@/stores'
+  import Seo from '@/components/SEO.svelte'
 
   const invokeFile = () => {
     document.getElementById('change_picture')?.click()
@@ -120,6 +121,8 @@
     reader.readAsArrayBuffer(fileList[0])
   }
 </script>
+
+<Seo title={'Dashboard'} />
 
 <div class="relative mx-auto flex max-w-7xl flex-col px-8 py-8">
   <h1 class="pb-6 text-3xl font-medium text-launchfast">Settings</h1>

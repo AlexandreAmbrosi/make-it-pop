@@ -6,6 +6,7 @@
   import Footer from '@/components/Footer.svelte'
   import Header from '@/components/Header.svelte'
   import LemonSqueezyScript from '@/components/Scripts/LemonSqueezy.svelte'
+  import Seo from '@/components/SEO.svelte'
   import NProgress from 'nprogress'
   import 'nprogress/nprogress.css'
 
@@ -15,6 +16,7 @@
   afterNavigate(() => NProgress.done())
 </script>
 
+<Seo />
 <Toaster />
 <Header />
 <Divider className="mt-3 border-none bg-gray-100" />

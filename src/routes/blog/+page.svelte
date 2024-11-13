@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import type { PageData } from './$types'
+  import Seo from '@/components/SEO.svelte'
 
   const getDate = (timestamp: string) => {
     const dateObject = new Date(timestamp)
@@ -41,6 +42,8 @@
     document.getElementById('search')?.classList.remove('hidden')
   })
 </script>
+
+<Seo title={'Blog'} description={'Latest news and updates from Company'} />
 
 <div class="relative mx-auto flex max-w-7xl flex-col px-8 py-8">
   <h1 class="mt-4 max-w-max text-3xl font-extrabold text-branding sm:text-4xl">Blog</h1>
