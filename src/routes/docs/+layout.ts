@@ -2,15 +2,14 @@ export const prerender = true
 
 import { redirect } from '@sveltejs/kit'
 import { allDocs } from 'content-collections'
-import type { PageLoad } from './$types'
+import type { LayoutLoad } from './$types'
 
-export const load: PageLoad = ({ params }) =>
+export const load: LayoutLoad = ({ params }) =>
   params.slug === ''
     ? redirect(302, '/docs/introduction')
     : {
         docs: allDocs.map((i) => {
-          const tmp = { ...i }
-          delete tmp['content']
-          return tmp
+          const { content, ...rest } = i
+          return rest
         }),
       }

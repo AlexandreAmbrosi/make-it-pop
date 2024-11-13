@@ -12,7 +12,5 @@ export function entries() {
 export const load: PageLoad = async ({ params }) => {
   const post = allBlogs.find((i) => i._meta.path.replace('.svelte', '') === params.slug)
   if (!post) error(404)
-  return {
-    post,
-  }
+  return { post }
 }

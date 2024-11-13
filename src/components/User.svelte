@@ -25,12 +25,14 @@
             src={$userProfile?.image?.toString() || 'https://github.com/shadcn.png'}
           />
         {:else if $userProfile?.name}
-          <span class="rounded-full border p-2 text-sm">
+          <div class="flex size-[30px] flex-col items-center justify-center rounded-full border text-sm">
             {$userProfile.name
+              .trim()
               .split(' ')
               .map((i) => i[0])
+              .slice(0, 2)
               .join('')}
-          </span>
+          </div>
         {/if}
       </PopoverTrigger>
       <PopoverContent class="flex max-w-max flex-col px-0">

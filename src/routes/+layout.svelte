@@ -19,8 +19,8 @@
 <Seo />
 <Toaster />
 <Header />
-<Divider className="mt-3 border-none bg-gray-100" />
+<Divider className="mt-2 border-none bg-gray-100" />
 {@render children()}
-<Divider className="mt-3 border-none bg-gray-100" />
+<Divider className="mt-2 border-none bg-gray-100" />
 <Footer twitter="rishi_raj_jain_" brand_name="LaunchFast" />
 <LemonSqueezyScript />

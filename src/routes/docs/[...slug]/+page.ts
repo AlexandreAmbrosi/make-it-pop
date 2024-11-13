@@ -9,10 +9,8 @@ export function entries() {
   return allDocs.map((i) => ({ slug: i._meta.path.replace('.svelte', '') }))
 }
 
-export const load: PageLoad = async ({ params }) => {
+export const load: PageLoad = ({ params }) => {
   const post = allDocs.find((i) => i._meta.path.replace('.svelte', '') === params.slug)
   if (!post) error(404)
-  return {
-    post,
-  }
+  return { post }
 }

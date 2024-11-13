@@ -1,91 +1,64 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
-    <style>
-      /* Parity Deals CSS */
-      .parity-banner-has-logo {
-        z-index: 50;
-        bottom: 0 !important;
-        width: 100vw !important;
-        position: fixed !important;
-      }
 
-      .parity-banner-logo {
-        display: none !important;
-      }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+  <style>
+    /* Parity Deals CSS */
+    .parity-banner-has-logo {
+      z-index: 50;
+      bottom: 0 !important;
+      width: 100vw !important;
+      position: fixed !important;
+    }
 
-      .parity-banner.parity-banner-has-logo {
-        padding-left: 0px !important;
-      }
+    .parity-banner-logo {
+      display: none !important;
+    }
 
-      /* Shiki CSS */
-      /* .line {
-        display: inline;
-        padding-bottom: 0;
-      }
+    .parity-banner.parity-banner-has-logo {
+      padding-left: 0px !important;
+    }
 
-      .diff {
-        display: inline-block;
-        width: 100vw;
-        margin: 0 -12px;
-        padding: 0 12px;
-      }
+    /* Override Pagefind Font CSS */
+    :root {
+      --pagefind-ui-font: 'Inter' !important;
+    }
+  </style>
+  %sveltekit.head%
+</head>
 
-      .diff.add {
-        background-color: #0505;
+<body class="overflow-x-hidden font-display" data-sveltekit-preload-data="false">
+  <div class="contents">%sveltekit.body%</div>
+  <!-- Parity Deals JS -->
+  <!-- <script src="https://cdn.paritydeals.com/banner.js"></script> -->
+  <script>
+    // Utility to handle both new and old ways of copying HTML
+    // Call window.copyTextToClipboard('text') anywhere in your code
+    function fallbackCopyTextToClipboard(text) {
+      var textArea = document.createElement('textarea')
+      textArea.value = text
+      textArea.style.top = '0'
+      textArea.style.left = '0'
+      textArea.style.position = 'fixed'
+      document.body.appendChild(textArea)
+      textArea.focus()
+      textArea.select()
+      try {
+        document.execCommand('copy')
+      } catch (err) { }
+      document.body.removeChild(textArea)
+    }
+    function copyTextToClipboard(COPY_TEXT) {
+      if (!navigator.clipboard) {
+        fallbackCopyTextToClipboard(COPY_TEXT)
+        return
       }
+      navigator.clipboard.writeText(COPY_TEXT)
+    }
+  </script>
+</body>
 
-      .diff.remove {
-        background-color: #8005;
-      }
-
-      .diff:before {
-        position: absolute;
-        left: 40px;
-      }
-
-      .has-focused .line {
-        filter: blur(0.095rem);
-      }
-
-      .has-focused .focused {
-        filter: blur(0);
-      } */
-    </style>
-    %sveltekit.head%
-  </head>
-
-  <body class="overflow-x-hidden font-display" data-sveltekit-preload-data="false">
-    <div class="contents">%sveltekit.body%</div>
-    <!-- Parity Deals JS -->
-    <!-- <script src="https://cdn.paritydeals.com/banner.js"></script> -->
-    <script>
-      // Utility to handle both new and old ways of copying HTML
-      // Call window.copyTextToClipboard('text') anywhere in your code
-      function fallbackCopyTextToClipboard(text) {
-        var textArea = document.createElement('textarea')
-        textArea.value = text
-        textArea.style.top = '0'
-        textArea.style.left = '0'
-        textArea.style.position = 'fixed'
-        document.body.appendChild(textArea)
-        textArea.focus()
-        textArea.select()
-        try {
-          document.execCommand('copy')
-        } catch (err) {}
-        document.body.removeChild(textArea)
-      }
-      function copyTextToClipboard(COPY_TEXT) {
-        if (!navigator.clipboard) {
-          fallbackCopyTextToClipboard(COPY_TEXT)
-          return
-        }
-        navigator.clipboard.writeText(COPY_TEXT)
-      }
-    </script>
-  </body>
 </html>
