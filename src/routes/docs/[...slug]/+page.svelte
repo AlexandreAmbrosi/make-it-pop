@@ -30,7 +30,9 @@
       {/if}
       {#if data.post.next}
         <a class="group ml-auto flex items-center space-x-3" href={`/docs/${data.post.next._meta.path.replace('.svelte', '')}`}
-          ><span class="group-hover:text-gray-900">Authentication</span><svg viewBox="0 0 3 6" class="h-1.5 rotate-180 overflow-visible stroke-gray-400 group-hover:stroke-gray-600"
+          ><span class="group-hover:text-gray-900">{data.post.next.title}</span><svg
+            viewBox="0 0 3 6"
+            class="h-1.5 rotate-180 overflow-visible stroke-gray-400 group-hover:stroke-gray-600"
             ><path d="M3 0L0 3L3 6" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg
           ></a
         >
