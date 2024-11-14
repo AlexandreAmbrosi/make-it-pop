@@ -2,8 +2,8 @@ import { defineCollection, defineConfig } from '@content-collections/core'
 import { compileMarkdown } from '@content-collections/markdown'
 // @ts-ignore
 import toc from 'markdown-toc'
-import rehypeExpressiveCode from 'rehype-expressive-code'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeExpressiveCode from 'rehype-expressive-code'
 import rehypeSlug from 'rehype-slug'
 
 const blogs = defineCollection({
@@ -26,7 +26,7 @@ const blogs = defineCollection({
       compileMarkdown(context, document, {
         rehypePlugins: [[rehypeExpressiveCode, {}], rehypeAutolinkHeadings, rehypeSlug],
       }),
-      toc(document.content).json.filter((i: { lvl: number; }) => i.lvl === 2),
+      toc(document.content).json.filter((i: { lvl: number }) => i.lvl === 2),
     ])
     const idx = tmp.findIndex((d) => document._meta.filePath === d._meta.filePath)
     return {
@@ -55,7 +55,7 @@ const docs = defineCollection({
       compileMarkdown(context, document, {
         rehypePlugins: [[rehypeExpressiveCode, {}], rehypeAutolinkHeadings, rehypeSlug],
       }),
-      toc(document.content).json.filter((i: { lvl: number; }) => i.lvl === 2),
+      toc(document.content).json.filter((i: { lvl: number }) => i.lvl === 2),
     ])
     const idx = tmp.findIndex((d) => document._meta.filePath === d._meta.filePath)
     return {
