@@ -4,7 +4,6 @@ import adapter from './adapter.mjs'
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
-  extensions: ['.svelte', '.md', '.mdx'],
   // Consult https://kit.svelte.dev/docs/integrations#preprocessors
   // for more information about preprocessors
   preprocess: [vitePreprocess()],
