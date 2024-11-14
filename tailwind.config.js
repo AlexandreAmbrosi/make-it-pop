@@ -2,8 +2,6 @@ import { fontFamily } from 'tailwindcss/defaultTheme'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  prefix: '',
-  darkMode: 'class',
   content: ['./src/**/*'],
   theme: {
     container: {

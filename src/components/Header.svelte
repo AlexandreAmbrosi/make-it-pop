@@ -5,6 +5,7 @@
   import IconHamburger from '~icons/hugeicons/menu-09'
   import IconDown from '~icons/oui/arrow-down'
   import User from './User.svelte'
+  import { onMount } from 'svelte'
 
   interface Props {
     /*
@@ -18,6 +19,27 @@
   let { logo = 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/symbol-logo' }: Props = $props()
   let isMenuOpen = $state(false)
   const toggleMenu = () => (isMenuOpen = !isMenuOpen)
+
+  // onMount(() => {
+  //   const createPagefindListener = () => {
+  //     if (window.PagefindUI) {
+  //       new window.PagefindUI({
+  //         element: '#search',
+  //       })
+  //     } else {
+  //       var script = document.createElement('script')
+  //       script.onload = createPagefindListener
+  //       script.src = '/pagefind/pagefind-ui.js'
+  //       document.head.appendChild(script)
+  //       var stylesheet = document.createElement('link')
+  //       stylesheet.rel = 'stylesheet'
+  //       stylesheet.href = '/pagefind/pagefind-ui.css'
+  //       document.head.appendChild(stylesheet)
+  //       document.getElementById('search')?.classList.remove('hidden')
+  //     }
+  //   }
+  //   createPagefindListener()
+  // })
 </script>
 
 <div class="relative mx-auto flex max-w-7xl flex-row items-center justify-between px-8 pt-2">

@@ -9,7 +9,7 @@ created_at: 2024-04-15T00:00:00.000+00:00
 
 In this guide, you will learn how to TODO. You will go through the process of TODO.
 
-## Prerequisites
+## Pre
 
 You'll need the following:
 

@@ -11,27 +11,6 @@
   let { data }: Props = $props()
 
   let all = $derived(data.blogs.filter((i) => i.published !== false).sort((a, b) => (new Date(a.created_at).getTime() > new Date(b.created_at).getTime() ? -1 : 1)))
-
-  onMount(() => {
-    const createPagefindListener = () => {
-      if (window.PagefindUI) {
-        new window.PagefindUI({
-          element: '#search',
-        })
-      }
-      if (!window.PagefindUI) {
-        var script = document.createElement('script')
-        script.onload = createPagefindListener
-        script.src = '/pagefind/pagefind-ui.js'
-        document.head.appendChild(script)
-        var stylesheet = document.createElement('link')
-        stylesheet.rel = 'stylesheet'
-        stylesheet.href = '/pagefind/pagefind-ui.css'
-        document.head.appendChild(stylesheet)
-        document.getElementById('search')?.classList.remove('hidden')
-      }
-    }
-  })
 </script>
 
 <Seo title={'Blog'} description={'Latest news and updates from Company'} />

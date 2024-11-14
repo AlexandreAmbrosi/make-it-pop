@@ -1,9 +1,8 @@
 import { defineCollection, defineConfig } from '@content-collections/core'
+import { compileMarkdown } from '@content-collections/markdown'
+// @ts-ignore
+import toc from 'markdown-toc'
 import rehypeExpressiveCode from 'rehype-expressive-code'
-import rehypeStringify from 'rehype-stringify'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import { unified } from 'unified'
 
 const blogs = defineCollection({
   name: 'blog',
@@ -20,13 +19,17 @@ const blogs = defineCollection({
     created_at: z.string().transform((date) => new Date(date)),
   }),
   transform: async (document, context) => {
-    const [tmp, mdx] = await Promise.all([
+    const [tmp, mdx, tableOfContents] = await Promise.all([
       context.collection.documents(),
-      unified().use(remarkParse).use(remarkRehype).use(rehypeStringify).use(rehypeExpressiveCode).process(document.content),
+      compileMarkdown(context, document, {
+        rehypePlugins: [rehypeExpressiveCode],
+      }),
+      toc(document.content).json.filter((i) => i.lvl === 2),
     ])
     const idx = tmp.findIndex((d) => document._meta.filePath === d._meta.filePath)
     return {
       ...document,
+      tableOfContents,
       mdx: mdx.toString(),
       prev: idx > 0 ? tmp[idx - 1] : null,
       next: idx < tmp.length - 1 ? tmp[idx + 1] : null,
@@ -45,13 +48,17 @@ const docs = defineCollection({
     created_at: z.string().transform((date) => new Date(date)),
   }),
   transform: async (document, context) => {
-    const [tmp, mdx] = await Promise.all([
+    const [tmp, mdx, tableOfContents] = await Promise.all([
       context.collection.documents(),
-      unified().use(remarkParse).use(remarkRehype).use(rehypeStringify).use(rehypeExpressiveCode).process(document.content),
+      compileMarkdown(context, document, {
+        rehypePlugins: [rehypeExpressiveCode],
+      }),
+      toc(document.content).json.filter((i) => i.lvl === 2),
     ])
     const idx = tmp.findIndex((d) => document._meta.filePath === d._meta.filePath)
     return {
       ...document,
+      tableOfContents,
       mdx: mdx.toString(),
       prev: idx > 0 ? tmp[idx - 1] : null,
       next: idx < tmp.length - 1 ? tmp[idx + 1] : null,

@@ -10,17 +10,11 @@ let pool: pg.Pool
 let sqlite: Client
 
 if (dbType === 'pg') {
-  if (!pgUrl) {
-    throw new Error(`POSTGRES_URL environment variable is not set.`)
-  } else {
-    pool = new pg.Pool({ connectionString: pgUrl })
-  }
+  if (!pgUrl) throw new Error(`POSTGRES_URL environment variable is not set.`)
+  else pool = new pg.Pool({ connectionString: pgUrl })
 } else if (dbType === 'sqlite') {
-  if (!sqliteUrl || !sqliteToken) {
-    throw new Error(`SQLITE_URL or SQLITE_AUTH_TOKEN environment variable is not set.`)
-  } else {
-    sqlite = createClient({ url: sqliteUrl, authToken: sqliteToken })
-  }
+  if (!sqliteUrl || !sqliteToken) throw new Error(`SQLITE_URL or SQLITE_AUTH_TOKEN environment variable is not set.`)
+  else sqlite = createClient({ url: sqliteUrl, authToken: sqliteToken })
 }
 
 async function createSchema() {

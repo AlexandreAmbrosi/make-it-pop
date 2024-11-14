@@ -41,6 +41,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -72,7 +73,7 @@
 
 /* Modal CSS */
 .modal {
-  @apply invisible fixed  inset-0  z-[60] flex  items-center  justify-center overscroll-none bg-black/60 px-4  text-left opacity-0 transition-all;
+  @apply invisible fixed inset-0 z-[60] flex items-center justify-center overscroll-none bg-black/60 px-4 text-left opacity-0 transition-all;
 }
 
 .modal-overlay {
@@ -82,9 +83,10 @@
 .modal-state {
   @apply hidden;
 }
+
 .modal-state:checked + .modal,
 .modal-open.modal {
-  @apply visible  translate-y-0 scale-100 opacity-100;
+  @apply visible translate-y-0 scale-100 opacity-100;
 }
 
 html:has(.modal-state:checked, .modal-open) {
@@ -97,5 +99,5 @@ html:has(.modal-state:checked, .modal-open) {
 }
 
 .modal-content {
-  @apply relative h-max max-h-[calc(100%-10%)] max-w-lg scale-90  overflow-auto rounded-xl p-6 transition duration-75 ease-in-out;
+  @apply relative h-max max-h-[calc(100%-10%)] max-w-lg scale-90 overflow-auto rounded-xl p-6 transition duration-75 ease-in-out;
 }

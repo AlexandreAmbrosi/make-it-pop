@@ -30,6 +30,9 @@
     {@html data.post.mdx}
   </article>
   <div class="mt-8 h-[1px] w-full bg-gray-100"></div>
+  {#if data.post.prev || data.post.next}
+    <div class="mt-8 font-medium">Learn More</div>
+  {/if}
   {#if data.post.prev}
     <a href={`/blog/${data.post.prev._meta.path.replace('.svelte', '')}`} class="text-md mt-8 flex flex-col gap-x-8 font-medium hover:underline sm:flex-row">
       <img src={data.post.prev.blog_image} alt={data.post.prev.title} class="w-full rounded sm:w-[200px]" />
