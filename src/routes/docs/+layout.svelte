@@ -14,20 +14,23 @@
 
   onMount(() => {
     const createPagefindListener = () => {
-      if (window.PagefindUI)
+      if (window.PagefindUI) {
         new window.PagefindUI({
           element: '#search',
         })
+      }
+      if (!window.PagefindUI) {
+        var script = document.createElement('script')
+        script.onload = createPagefindListener
+        script.src = '/pagefind/pagefind-ui.js'
+        document.head.appendChild(script)
+        var stylesheet = document.createElement('link')
+        stylesheet.rel = 'stylesheet'
+        stylesheet.href = '/pagefind/pagefind-ui.css'
+        document.head.appendChild(stylesheet)
+        document.getElementById('search')?.classList.remove('hidden')
+      }
     }
-    var script = document.createElement('script')
-    script.onload = createPagefindListener
-    script.src = '/pagefind/pagefind-ui.js'
-    document.head.appendChild(script)
-    var stylesheet = document.createElement('link')
-    stylesheet.rel = 'stylesheet'
-    stylesheet.href = '/pagefind/pagefind-ui.css'
-    document.head.appendChild(stylesheet)
-    document.getElementById('search')?.classList.remove('hidden')
   })
 </script>
 

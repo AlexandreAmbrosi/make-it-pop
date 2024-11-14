@@ -19,4 +19,14 @@
   <article class="prose min-w-full">
     {@html data.post.mdx}
   </article>
+  {#if data.post.prev}
+    <a href={`/docs/${data.post.prev._meta.path.replace('.svelte', '')}`} class="text-md mt-8 font-medium hover:underline">
+      &larr; <span>{data.post.prev.title}</span>
+    </a>
+  {/if}
+  {#if data.post.next}
+    <a href={`/docs/${data.post.next._meta.path.replace('.svelte', '')}`} class="text-md mt-8 font-medium hover:underline">
+      <span>{data.post.next.title}</span> &rarr;
+    </a>
+  {/if}
 </div>

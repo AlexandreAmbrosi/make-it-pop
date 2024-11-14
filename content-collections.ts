@@ -16,20 +16,20 @@ const blogs = defineCollection({
     head_image: z.string().url(),
     published: z.boolean().optional(),
     show_author: z.boolean().optional(),
-    blog_image: z.string().url().optional(),
+    blog_image: z.string().url().optional().default('https://ik.imagekit.io/vjeqenuhn/launchfast-website/general'),
     created_at: z.string().transform((date) => new Date(date)),
   }),
   transform: async (document, context) => {
-    const [docs, mdx] = await Promise.all([
+    const [tmp, mdx] = await Promise.all([
       context.collection.documents(),
       unified().use(remarkParse).use(remarkRehype).use(rehypeStringify).use(rehypeExpressiveCode).process(document.content),
     ])
-    const idx = docs.findIndex((d) => document._meta.filePath === d._meta.filePath)
+    const idx = tmp.findIndex((d) => document._meta.filePath === d._meta.filePath)
     return {
       ...document,
       mdx: mdx.toString(),
-      prev: idx > 0 ? docs[idx - 1] : null,
-      next: idx < docs.length - 1 ? docs[idx + 1] : null,
+      prev: idx > 0 ? tmp[idx - 1] : null,
+      next: idx < tmp.length - 1 ? tmp[idx + 1] : null,
     }
   },
 })
@@ -45,20 +45,18 @@ const docs = defineCollection({
     created_at: z.string().transform((date) => new Date(date)),
   }),
   transform: async (document, context) => {
-    const [docsCollection, mdx] = await Promise.all([
+    const [tmp, mdx] = await Promise.all([
       context.collection.documents(),
       unified().use(remarkParse).use(remarkRehype).use(rehypeStringify).use(rehypeExpressiveCode).process(document.content),
     ])
-    const idx = docsCollection.findIndex((d) => document._meta.filePath === d._meta.filePath)
+    const idx = tmp.findIndex((d) => document._meta.filePath === d._meta.filePath)
     return {
       ...document,
       mdx: mdx.toString(),
-      prev: idx > 0 ? docsCollection[idx - 1] : null,
-      next: idx < docsCollection.length - 1 ? docsCollection[idx + 1] : null,
+      prev: idx > 0 ? tmp[idx - 1] : null,
+      next: idx < tmp.length - 1 ? tmp[idx + 1] : null,
     }
   },
 })
 
-export default defineConfig({
-  collections: [blogs, docs],
-})
+export default defineConfig({ collections: [blogs, docs] })
