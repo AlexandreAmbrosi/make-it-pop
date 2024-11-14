@@ -3,6 +3,8 @@ import { compileMarkdown } from '@content-collections/markdown'
 // @ts-ignore
 import toc from 'markdown-toc'
 import rehypeExpressiveCode from 'rehype-expressive-code'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeSlug from 'rehype-slug'
 
 const blogs = defineCollection({
   name: 'blog',
@@ -22,9 +24,9 @@ const blogs = defineCollection({
     const [tmp, mdx, tableOfContents] = await Promise.all([
       context.collection.documents(),
       compileMarkdown(context, document, {
-        rehypePlugins: [rehypeExpressiveCode],
+        rehypePlugins: [[rehypeExpressiveCode, {}], rehypeAutolinkHeadings, rehypeSlug],
       }),
-      toc(document.content).json.filter((i) => i.lvl === 2),
+      toc(document.content).json.filter((i: { lvl: number; }) => i.lvl === 2),
     ])
     const idx = tmp.findIndex((d) => document._meta.filePath === d._meta.filePath)
     return {
@@ -51,9 +53,9 @@ const docs = defineCollection({
     const [tmp, mdx, tableOfContents] = await Promise.all([
       context.collection.documents(),
       compileMarkdown(context, document, {
-        rehypePlugins: [rehypeExpressiveCode],
+        rehypePlugins: [[rehypeExpressiveCode, {}], rehypeAutolinkHeadings, rehypeSlug],
       }),
-      toc(document.content).json.filter((i) => i.lvl === 2),
+      toc(document.content).json.filter((i: { lvl: number; }) => i.lvl === 2),
     ])
     const idx = tmp.findIndex((d) => document._meta.filePath === d._meta.filePath)
     return {
