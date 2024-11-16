@@ -1,8 +1,11 @@
 <script lang="ts">
-  import { page } from '$app/stores'
-  import { onMount } from 'svelte'
-  import type { PageData } from './$types'
+  import { navigating, page } from '$app/stores'
+  import { Popover, PopoverContent, PopoverTrigger } from '@/lib/components/ui/popover'
   import IconCross from '~icons/gridicons/cross'
+  import IconHamburger from '~icons/hugeicons/menu-09'
+  import RightArrow from '~icons/weui/arrow-filled'
+  import OnThisPageIcon from '~icons/bitcoin-icons/menu-outline'
+  import type { PageData } from './$types'
 
   interface Props {
     data: PageData
@@ -15,32 +18,39 @@
   let currentDoc = $derived(data.docs.find((i) => i._meta.path.replace('.svelte', '') === $page.url.pathname.replace('/docs/', '')))
 
   const toggleSidebar = () => {
-    document.getElementById('sidebar').classList.toggle('hidden')
+    document.getElementById('sidebar')?.classList.toggle('hidden')
   }
 </script>
 
-<div class="mt-4 flex items-center px-5 lg:hidden">
-  <button onclick={toggleSidebar} type="button" class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300">
-    <span class="sr-only">Navigation</span>
-    <svg class="h-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-      <path
-        d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"
-      ></path>
-    </svg>
+<div class="mt-3 flex items-center border-b border-gray-100 px-8 pb-2 lg:hidden">
+  <button onclick={toggleSidebar} class="rounded-full border p-1">
+    <IconHamburger />
   </button>
   <div class="ml-4 flex min-w-0 space-x-3 whitespace-nowrap text-sm leading-6">
-    <div class="flex items-center space-x-3">
-      <span>Documentation</span>
-      <svg width="3" height="24" viewBox="0 -9 3 24" class="h-5 rotate-0 overflow-visible fill-gray-400">
-        <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-      </svg>
+    <div class="flex flex-row items-center space-x-3">
+      <Popover>
+        <PopoverTrigger>
+          <span>On this page</span>
+        </PopoverTrigger>
+        <PopoverContent class="flex flex-col gap-x-0 gap-y-2 divide-y px-5 py-2">
+          {#each currentDoc.tableOfContents as tocItem}
+            <a href={tocItem.slug} class="block py-1 text-primary">{tocItem.content}</a>
+          {/each}
+        </PopoverContent>
+      </Popover>
+      <RightArrow />
     </div>
     <div class="truncate font-semibold text-gray-900 dark:text-gray-200">{currentDoc.title}</div>
   </div>
 </div>
 
 <div class="relative mx-auto flex max-w-7xl flex-col px-4">
-  <div id="sidebar" class="fixed bottom-0 right-auto top-[0rem] z-20 -ml-[1rem] hidden w-[18rem] bg-white lg:top-[2rem] lg:-ml-[0rem] lg:block lg:bg-transparent">
+  <div
+    id="sidebar"
+    class={['fixed bottom-0 right-auto top-[0rem] z-20 -ml-[1rem] hidden w-[18rem] bg-white lg:top-[2rem] lg:-ml-[0rem] lg:block lg:bg-transparent', $navigating && '!hidden']
+      .filter(Boolean)
+      .join(' ')}
+  >
     <div class="absolute inset-0 z-10 overflow-auto pb-10 pr-8">
       <div class="relative lg:text-sm lg:leading-6">
         <div class="sticky top-0 h-8">
@@ -54,7 +64,7 @@
         <div>
           <h5 class="mb-3.5 mt-2 hidden pl-4 font-semibold text-branding lg:mb-2.5 lg:block">Documentation</h5>
           <ul>
-            {#each all as i, idx}
+            {#each all as i}
               <li class="scroll-m-4 first:scroll-m-20">
                 <a
                   href={`/docs/${i._meta.path.replace('.svelte', '')}`}
@@ -72,23 +82,19 @@
     </div>
   </div>
   <div class="box-border flex w-full flex-row gap-12 pt-8 lg:pt-6">
-    <div class="relative mx-auto box-border w-full grow flex-col px-1 lg:-ml-40 lg:pl-[23.7rem] xl:w-[calc(100%-28rem)]">
+    <div class="relative mx-auto box-border w-full grow flex-col px-4 lg:-ml-40 lg:pl-[23.7rem] xl:w-[calc(100%-28rem)]">
       {@render children()}
     </div>
     <div class="z-10 box-border hidden w-[19rem] pl-10 xl:flex">
       <div class="fixed h-[calc(100%-7rem)] w-[16.5rem] space-y-2 overflow-y-auto text-sm leading-6 text-gray-600">
         <div class="flex items-center space-x-2 font-medium text-gray-700">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3">
-            <path d="M2.44434 12.6665H13.5554" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M2.44434 3.3335H13.5554" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M2.44434 8H7.33323" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
+          <OnThisPageIcon class="-ml-1 p-0" />
           <span>On this page</span>
         </div>
         <ul>
           {#each currentDoc.tableOfContents as tocItem}
             <li>
-              <a href={'#' + tocItem.slug} class="block py-1 text-primary">{tocItem.content}</a>
+              <a href={tocItem.slug} class="block py-1 text-primary">{tocItem.content}</a>
             </li>
           {/each}
         </ul>

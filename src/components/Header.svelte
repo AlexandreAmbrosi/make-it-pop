@@ -1,11 +1,10 @@
 <script lang="ts">
-  import { page } from '$app/stores'
+  import { navigating, page } from '$app/stores'
   import { Popover, PopoverContent, PopoverTrigger } from '@/lib/components/ui/popover'
   import IconCross from '~icons/gridicons/cross'
   import IconHamburger from '~icons/hugeicons/menu-09'
   import IconDown from '~icons/oui/arrow-down'
   import User from './User.svelte'
-  import { onMount } from 'svelte'
 
   interface Props {
     /*
@@ -17,8 +16,18 @@
   }
 
   let { logo = 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/symbol-logo' }: Props = $props()
-  let isMenuOpen = $state(false)
-  const toggleMenu = () => (isMenuOpen = !isMenuOpen)
+  const toggleMenu = () => {
+    const headerMenuElm = document.getElementById('header-menu')
+    if (headerMenuElm) {
+      if (headerMenuElm.classList.contains('hidden')) {
+        headerMenuElm.classList.remove('hidden')
+        headerMenuElm.classList.add('flex')
+      } else {
+        headerMenuElm.classList.add('hidden')
+        headerMenuElm.classList.remove('flex')
+      }
+    }
+  }
 
   // onMount(() => {
   //   const createPagefindListener = () => {
@@ -84,25 +93,31 @@
       <IconHamburger />
     </button>
   </div>
-  {#if isMenuOpen}
-    <div class="absolute right-0 top-0 z-[1000] flex h-screen w-[250px] flex-col overflow-hidden border-l bg-white shadow-2xl transition-all duration-300 ease-in-out sm:!hidden">
-      <div class="flex flex-row items-center justify-between border-b px-5 py-2">
-        <span>Menu</span>
-        <button onclick={toggleMenu} class="rounded-full border p-1">
-          <IconCross height="14" width="14" />
-        </button>
-      </div>
-      <div class="flex flex-col gap-y-4 p-5">
-        <a class={['/' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/">Home</a>
-        <a class={[$page.url.pathname.includes('/blog') && 'font-semibold'].filter(Boolean).join(' ')} href="/blog">Blog</a>
-        <a class={[$page.url.pathname.includes('/docs') && 'font-semibold'].filter(Boolean).join(' ')} href="/docs">Docs</a>
-        <a class={['/dashboard' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/dashboard">Dashboard</a>
-        <a class={['/protected' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/protected">Protected</a>
-        <a class={['/protected_and_paid' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/protected_and_paid">Protected and Paid</a>
-        <a class={['/partial_protected_and_paid' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/partial_protected_and_paid">
-          Partial Protected and Paid
-        </a>
-      </div>
+  <div
+    id="header-menu"
+    class={[
+      'absolute right-0 top-0 z-[1000] hidden h-screen w-[250px] flex-col overflow-hidden border-l bg-white shadow-2xl transition-all duration-300 ease-in-out sm:!hidden',
+      $navigating && '!hidden',
+    ]
+      .filter(Boolean)
+      .join(' ')}
+  >
+    <div class="flex flex-row items-center justify-between border-b px-5 py-2">
+      <span>Menu</span>
+      <button onclick={toggleMenu} class="rounded-full border p-1">
+        <IconCross height="14" width="14" />
+      </button>
     </div>
-  {/if}
+    <div class="flex flex-col gap-y-4 p-5">
+      <a class={['/' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/">Home</a>
+      <a class={[$page.url.pathname.includes('/blog') && 'font-semibold'].filter(Boolean).join(' ')} href="/blog">Blog</a>
+      <a class={[$page.url.pathname.includes('/docs') && 'font-semibold'].filter(Boolean).join(' ')} href="/docs">Docs</a>
+      <a class={['/dashboard' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/dashboard">Dashboard</a>
+      <a class={['/protected' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/protected">Protected</a>
+      <a class={['/protected_and_paid' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/protected_and_paid">Protected and Paid</a>
+      <a class={['/partial_protected_and_paid' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/partial_protected_and_paid">
+        Partial Protected and Paid
+      </a>
+    </div>
+  </div>
 </div>
