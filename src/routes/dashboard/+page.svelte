@@ -4,9 +4,7 @@
   import Seo from '@/components/SEO.svelte'
   import BinIcon from '~icons/mdi/bin-outline'
 
-  const invokeFile = () => {
-    document.getElementById('change_picture')?.click()
-  }
+  const invokeFile = () => document.getElementById('change_picture')?.click()
 
   const updateUsername = () => {
     toast('Requesting username update...')

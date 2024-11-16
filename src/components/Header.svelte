@@ -72,15 +72,11 @@
           <IconDown width="1em" height="1em" />
         </div>
       </PopoverTrigger>
-      <PopoverContent class="flex flex-col gap-0 p-0">
-        <a class={['px-5 pt-3 text-sm', $page.url.pathname === '/protected' && 'font-semibold'].filter(Boolean).join(' ')} href="/protected"> Protected </a>
-        <a class={['mt-3 border-t px-5 py-3 text-sm', $page.url.pathname === '/protected_and_paid' && 'font-semibold'].filter(Boolean).join(' ')} href="/protected_and_paid">
-          Protected and Paid
-        </a>
-        <a
-          href="/partial_protected_and_paid"
-          class={['border-t px-5 py-3 text-sm', $page.url.pathname === '/partial_protected_and_paid' && 'font-semibold'].filter(Boolean).join(' ')}
-        >
+      <PopoverContent class="flex max-w-[220px] flex-col gap-0 divide-y p-0 text-sm">
+        <a class={['px-3 py-2', $page.url.pathname === '/upload' && 'font-semibold'].filter(Boolean).join(' ')} href="/upload"> Upload </a>
+        <a class={['px-3 py-2', $page.url.pathname === '/protected' && 'font-semibold'].filter(Boolean).join(' ')} href="/protected"> Protected </a>
+        <a class={['px-3 py-2', $page.url.pathname === '/protected_and_paid' && 'font-semibold'].filter(Boolean).join(' ')} href="/protected_and_paid"> Protected and Paid </a>
+        <a class={['px-3 py-2', $page.url.pathname === '/partial_protected_and_paid' && 'font-semibold'].filter(Boolean).join(' ')} href="/partial_protected_and_paid">
           Partial Protected and Paid
         </a>
       </PopoverContent>
