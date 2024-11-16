@@ -33,8 +33,8 @@
           <span>On this page</span>
         </PopoverTrigger>
         <PopoverContent class="flex flex-col gap-x-0 gap-y-2 divide-y px-5 py-2">
-          {#each currentDoc.tableOfContents as tocItem}
-            <a href={tocItem.slug} class="block py-1 text-primary">{tocItem.content}</a>
+          {#each currentDoc.toc as tocItem}
+            <a href={tocItem.slug} class="py-1 text-primary">{tocItem.content}</a>
           {/each}
         </PopoverContent>
       </Popover>
@@ -92,9 +92,9 @@
           <span>On this page</span>
         </div>
         <ul>
-          {#each currentDoc.tableOfContents as tocItem}
+          {#each currentDoc.toc as tocItem}
             <li>
-              <a href={tocItem.slug} class="block py-1 text-primary">{tocItem.content}</a>
+              <a href={tocItem.slug} class="py-1 text-primary">{tocItem.content}</a>
             </li>
           {/each}
         </ul>

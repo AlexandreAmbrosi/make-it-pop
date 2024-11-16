@@ -1,9 +1,10 @@
 import { defineCollection, defineConfig } from '@content-collections/core'
 import { compileMarkdown } from '@content-collections/markdown'
+// @ts-ignore
+import markdownToc from 'markdown-toc'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeExpressiveCode from 'rehype-expressive-code'
 import rehypeSlug from 'rehype-slug'
-import remarkFlexibleToc, { type TocItem } from 'remark-flexible-toc'
 
 const blogs = defineCollection({
   name: 'blog',
@@ -20,11 +21,9 @@ const blogs = defineCollection({
     created_at: z.string().transform((date) => new Date(date)),
   }),
   transform: async (document, context) => {
-    const tocRef: TocItem[] = []
     const [tmp, mdx] = await Promise.all([
       context.collection.documents(),
       compileMarkdown(context, document, {
-        remarkPlugins: [[remarkFlexibleToc, { tocRef }]],
         rehypePlugins: [[rehypeExpressiveCode, {}], rehypeAutolinkHeadings, rehypeSlug],
       }),
     ])
@@ -34,7 +33,6 @@ const blogs = defineCollection({
       mdx: mdx.toString(),
       prev: idx > 0 ? tmp[idx - 1] : null,
       next: idx < tmp.length - 1 ? tmp[idx + 1] : null,
-      tableOfContents: tocRef.filter((i) => i.depth === 2).map((i) => ({ content: i.value, slug: i.href })),
     }
   },
 })
@@ -50,11 +48,9 @@ const docs = defineCollection({
     created_at: z.string().transform((date) => new Date(date)),
   }),
   transform: async (document, context) => {
-    const tocRef: TocItem[] = []
     const [tmp, mdx] = await Promise.all([
       context.collection.documents(),
       compileMarkdown(context, document, {
-        remarkPlugins: [[remarkFlexibleToc, { tocRef }]],
         rehypePlugins: [[rehypeExpressiveCode, {}], rehypeAutolinkHeadings, rehypeSlug],
       }),
     ])
@@ -64,7 +60,9 @@ const docs = defineCollection({
       mdx: mdx.toString(),
       prev: idx > 0 ? tmp[idx - 1] : null,
       next: idx < tmp.length - 1 ? tmp[idx + 1] : null,
-      tableOfContents: tocRef.filter((i) => i.depth === 2).map((i) => ({ content: i.value, slug: i.href })),
+      toc: (markdownToc(document.content)
+        .json as { lvl: number; content: string; slug: string; }[]).filter((i) => i.lvl === 2)
+        .map((i) => ({ content: i.content, slug: '#' + i.slug })),
     }
   },
 })
