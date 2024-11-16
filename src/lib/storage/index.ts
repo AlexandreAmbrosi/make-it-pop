@@ -1,9 +1,10 @@
+import { building } from '$app/environment'
 import { env } from '$env/dynamic/private'
 import { getFirebaseObject, uploadFirebaseObject } from './firebase'
 import { getS3Object, uploadS3Object } from './s3'
 import { getSupabaseObject, uploadSupabaseObject } from './supabase'
 
-const STORAGE_PROVIDER = env.STORAGE_PROVIDER
+const STORAGE_PROVIDER = building ? null : env.STORAGE_PROVIDER
 
 export default {
   retrieve: async (objectUrl: string) => {

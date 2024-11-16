@@ -80,8 +80,8 @@
       })
   }
 
-  const uploadFile = (e) => {
-    const fileList = e.target.files
+  const uploadFile = (e: Event) => {
+    const fileList = (e.target as HTMLInputElement).files
     if (!fileList?.length) {
       toast('No new file attached.')
       return
