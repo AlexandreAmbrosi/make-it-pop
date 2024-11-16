@@ -2,6 +2,7 @@
   import { toast } from 'svelte-sonner'
   import { userProfile } from '@/stores'
   import Seo from '@/components/SEO.svelte'
+  import BinIcon from '~icons/mdi/bin-outline'
 
   const invokeFile = () => {
     document.getElementById('change_picture')?.click()
@@ -59,6 +60,30 @@
       })
   }
 
+  const setAvatar = (image_ref: string) => {
+    fetch('/api/user', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ image_ref }),
+    })
+      .then((res) => {
+        if (res.headers.get('Content-Type')?.includes('json')) return res.json()
+        return { set: false }
+      })
+      .then((res) => {
+        if (res?.set) {
+          toast('Avatar registration succesful!')
+          fetch('/auth/session')
+            .then((res) => res.json())
+            .then((res) => {
+              if (res?.user) userProfile.set(res.user)
+            })
+        } else {
+          toast('Failed to register your avatar.')
+        }
+      })
+  }
+
   const uploadFile = (e) => {
     const formData = new FormData()
     const fileList = e.target.files
@@ -90,27 +115,7 @@
                   toast('Registering avatar update...')
                   const imageElement = document.getElementById('picture_value') as HTMLImageElement
                   imageElement.src = res_.filePublicURL
-                  fetch('/api/user', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ image_ref: res.fileURL }),
-                  })
-                    .then((res) => {
-                      if (res.headers.get('Content-Type')?.includes('json')) return res.json()
-                      return { set: false }
-                    })
-                    .then((res) => {
-                      if (res?.set) {
-                        toast('Avatar registration succesful!')
-                        fetch('/auth/session')
-                          .then((res) => res.json())
-                          .then((res) => {
-                            if (res?.user) userProfile.set(res.user)
-                          })
-                      } else {
-                        toast('Failed to register your avatar.')
-                      }
-                    })
+                  setAvatar(res.fileURL)
                 }
               })
           } else {
@@ -139,18 +144,25 @@
                 <br />
                 Click on the avatar to upload a custom one from your files.
               </p>
+              <p class="mt-6 text-sm text-muted-foreground">An avatar is optional but strongly recommended.</p>
             </div>
             <input onchange={(e) => uploadFile(e)} id="change_picture" type="file" class="hidden" />
-            <button
-              id="picture_value"
-              onclick={() => invokeFile()}
-              class="inline-flex h-auto w-[90px] items-center justify-center whitespace-nowrap rounded-full bg-secondary text-sm font-medium text-secondary-foreground outline-none !ring-0 ring-offset-background transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-            >
-              <img alt={$userProfile.name} class="aspect-square cursor-pointer rounded-full" src={$userProfile.image} />
-            </button>
-          </div>
-          <div class="flex items-center p-6 pt-0">
-            <p class="text-sm text-muted-foreground">An avatar is optional but strongly recommended.</p>
+            <div class="flex flex-col items-center">
+              <button
+                id="picture_value"
+                onclick={() => invokeFile()}
+                class="inline-flex h-auto w-[90px] items-center justify-center whitespace-nowrap rounded-full bg-secondary text-sm font-medium text-secondary-foreground outline-none !ring-0 ring-offset-background transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+              >
+                <img alt={$userProfile.name} class="aspect-square cursor-pointer rounded-full" src={$userProfile.image} />
+              </button>
+              <button
+                onclick={() => setAvatar('https://cdn-icons-png.flaticon.com/512/18125/18125416.png')}
+                class="mt-3 flex flex-row gap-x-2 rounded border px-3 py-1 text-xs text-gray-600"
+              >
+                <BinIcon />
+                <span>Delete Avatar</span>
+              </button>
+            </div>
           </div>
         </div>
         <div class="rounded-lg border bg-card text-card-foreground shadow-sm">

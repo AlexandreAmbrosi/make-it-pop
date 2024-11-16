@@ -60,8 +60,8 @@ const docs = defineCollection({
       mdx: mdx.toString(),
       prev: idx > 0 ? tmp[idx - 1] : null,
       next: idx < tmp.length - 1 ? tmp[idx + 1] : null,
-      toc: (markdownToc(document.content)
-        .json as { lvl: number; content: string; slug: string; }[]).filter((i) => i.lvl === 2)
+      toc: (markdownToc(document.content).json as { lvl: number; content: string; slug: string }[])
+        .filter((i) => i.lvl === 2)
         .map((i) => ({ content: i.content, slug: '#' + i.slug })),
     }
   },
