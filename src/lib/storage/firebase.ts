@@ -1,14 +1,42 @@
-import { initializeApp } from 'firebase/app'
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
-import { v4 as uuidv4 } from 'uuid'
-import fireBaseConfig from './firebaseConfig'
+import firebaseConfig from '@/lib/storage/firebaseConfig'
+import type { GetSignedUrlConfig } from '@google-cloud/storage'
+import admin from 'firebase-admin'
 
-export async function getFirebaseObject(objectUrl: string) {
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert({
+      ...firebaseConfig,
+      projectId: firebaseConfig.project_id,
+      privateKey: firebaseConfig.private_key,
+      clientEmail: firebaseConfig.client_email,
+    }),
+  })
+}
+
+const bucket = admin.storage().bucket(firebaseConfig.storageBucket)
+
+async function ensureCORS() {
+  await bucket.setCorsConfiguration([
+    {
+      maxAgeSeconds: 3600,
+      method: ['PUT', 'POST', 'GET'],
+      responseHeader: ['Content-Type', 'Content-MD5', 'Content-Disposition'],
+      origin: ['http://localhost:3000', 'https://launchfast-sveltekit.vercel.app', 'https://launchfast-nextjs-ts.vercel.app', 'https://launchfast-astro-ts.vercel.app'],
+    },
+  ])
+}
+
+export async function getFirebaseObject(Key: string) {
   try {
-    const app = initializeApp(fireBaseConfig)
-    const storage = getStorage(app)
-    const fileRef = ref(storage, objectUrl)
-    return await getDownloadURL(fileRef)
+    await ensureCORS()
+    const urlOptions: GetSignedUrlConfig = {
+      version: 'v4',
+      action: 'read',
+      // Expire in 15 minutes
+      expires: Date.now() + 15 * 60 * 1000,
+    }
+    const [url] = await bucket.file(Key).getSignedUrl(urlOptions)
+    return url
   } catch (e: any) {
     const tmp = e.message || e.toString()
     console.log(tmp)
@@ -16,22 +44,18 @@ export async function getFirebaseObject(objectUrl: string) {
   }
 }
 
-export async function uploadFirebaseObject(file: File) {
+export async function uploadFirebaseObject(file: { name: string; type: string }) {
   try {
-    // Initialize the Firebase app with the provided configuration
-    const app = initializeApp(fireBaseConfig)
-    // Get a reference to the Firebase Storage and parse the request data as a FormData object
-    const storage = getStorage(app)
-    // Generate a unique fileId (assuming uuidv4 is defined elsewhere)
-    const fileId = uuidv4()
-    // Create a reference to the Firebase Storage location where the file will be stored
-    const storageRef = ref(storage, `uploads/${fileId}/${file.name}`)
-    // Read the file as an array buffer
-    const fileBuffer = await file.arrayBuffer()
-    // Upload the file to Firebase Storage and retrieve metadata
-    const { metadata } = await uploadBytes(storageRef, new Uint8Array(fileBuffer))
-    const { fullPath } = metadata
-    if (fullPath) return `https://storage.googleapis.com/${storageRef.bucket}/${storageRef.fullPath}`
+    await ensureCORS()
+    const urlOptions: GetSignedUrlConfig = {
+      version: 'v4',
+      action: 'write',
+      contentType: file.type,
+      // Expire in 5 minutes
+      expires: Date.now() + 5 * 60 * 1000,
+    }
+    const [url] = await bucket.file(file.name).getSignedUrl(urlOptions)
+    return url
   } catch (e: any) {
     const tmp = e.message || e.toString()
     console.log(tmp)

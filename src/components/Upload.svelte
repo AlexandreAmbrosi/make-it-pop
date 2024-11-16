@@ -10,31 +10,38 @@
   import PinIcon from '~icons/material-symbols-light/attach-file'
 
   let file: any = null
-  let fileInput = $state()
 
   async function uploadFile() {
-    const formData = new FormData()
-    if (file) formData.append('file', file)
-    else {
+    if (!file) {
       toast('No file attached.')
       return
     }
     const reader = new FileReader()
-    reader.onload = async () => {
-      toast(`Uploading ${file.name}...`)
-      fetch('/api/storage', {
-        method: 'POST',
-        body: formData,
-      })
-        .then((res) => res.json())
-        .then(() => {
-          toast(`Uploaded ${file.name} succesfully.`)
-        })
-        .catch(() => {
+    return new Promise((resolve) => {
+      reader.onload = async () => {
+        toast(`Uploading ${file.name}...`)
+        try {
+          const response = await fetch(`/api/storage?type=${file.type}&name=${file.name}`, {
+            method: 'POST',
+          })
+          const res = await response.json()
+          if (res?.publicUploadUrl) {
+            const response2 = await fetch(res.publicUploadUrl, {
+              method: 'PUT',
+              body: file,
+            })
+            if (response2.ok) {
+              toast(`Uploaded ${file.name} successfully.`)
+              resolve(response2)
+            } else throw new Error()
+          } else throw new Error()
+        } catch {
           toast(`Failed to upload ${file.name}.`)
-        })
-    }
-    reader.readAsArrayBuffer(file)
+          resolve(null)
+        }
+      }
+      reader.readAsArrayBuffer(file)
+    })
   }
 
   function handleFileChange(event: any) {
@@ -55,4 +62,4 @@
   <span> Upload </span>
 </button>
 
-<input class="hidden" type="file" id="fileInput" onchange={handleFileChange} bind:this={fileInput} />
+<input class="hidden" type="file" id="fileInput" onchange={handleFileChange} />

@@ -35,7 +35,7 @@ respectively.
 
 ### Storage
 
-- To use Supabase, set `STORAGE_PROVIDER` value to `supabase`, and define the `SUPABASE_BUCKET_NAME`, `SUPABASE_URL` and `SUPABASE_ANON_KEY` values in the `.env` file.
+- To use Supabase, set `STORAGE_PROVIDER` value to `supabase`, and define the `SUPABASE_BUCKET_NAME`, `SUPABASE_URL` and `SUPABASE_ANON_KEY` values in the `.env` file. Once the project is created, go to the SQL Editor and run `CREATE POLICY crud_objects ON storage.objects for all to anon using (true) with check (true)`.
 - To use Amazon S3, set `STORAGE_PROVIDER` value to `s3`, and define the `AWS_REGION_NAME`, `AWS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_S3_BUCKET_NAME` values in the `.env` file.
 - To use Cloudflare R2, set `STORAGE_PROVIDER` value to `s3`, and define the `AWS_REGION_NAME`, `AWS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_S3_BUCKET_NAME` and `CLOUDFLARE_R2_ACCOUNT_ID` values in the `.env` file.
 - To use Firebase, set `STORAGE_PROVIDER` value to `firebase`, and define the json in firebaseConfig.ts.

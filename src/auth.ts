@@ -6,9 +6,7 @@ import GitHub from '@auth/core/providers/github'
 import Google from '@auth/core/providers/google'
 import { SvelteKitAuth, type User } from '@auth/sveltekit'
 import { getPassword, getUser, setPassword } from './lib/db'
-import { getFirebaseObject } from './lib/storage/firebase'
-import { getS3Object } from './lib/storage/s3'
-import { getSupabaseObject } from './lib/storage/supabase'
+import storage from './lib/storage'
 
 const providers: Provider[] = [
   Google,
@@ -38,20 +36,10 @@ const providers: Provider[] = [
           const sessionObj: User = { email: credentials.username }
           const user_details = await getUser(credentials.username)
           const { image_ref, name } = user_details
-          if (name?.length > 0) sessionObj['name'] = name
+          sessionObj['name'] = name || 'Placeholder Name'
           if (image_ref?.length > 0) {
-            if (image_ref.includes('storage.googleapis.com')) {
-              sessionObj['image'] = await getFirebaseObject(image_ref)
-            } else if (image_ref.includes('supabase.co')) {
-              sessionObj['image'] = await getSupabaseObject(image_ref)
-            } else if (image_ref.startsWith('s3_')) {
-              sessionObj['image'] = await getS3Object(image_ref)
-            } else {
-              sessionObj['image'] = image_ref
-            }
+            sessionObj['image'] = image_ref.includes('https:') ? image_ref : await storage.retrieve(image_ref)
           }
-          if (!sessionObj.name) sessionObj['name'] = 'Placeholder Name'
-          if (!sessionObj.image) sessionObj['image'] = 'https://github.com/shadcn.png'
           // If the passwords match, create a session cookie for the user
           return sessionObj
         }
@@ -63,7 +51,6 @@ const providers: Provider[] = [
         const randomizedPassword = generateRandomString(credentials.password)
         await setPassword(credentials.username, randomizedPassword)
         if (!sessionObj.name) sessionObj['name'] = 'Placeholder Name'
-        if (!sessionObj.image) sessionObj['image'] = 'https://github.com/shadcn.png'
         // await sendVerificationEmail(credentials.username)
         return sessionObj
       }
@@ -96,15 +83,7 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
           const { image_ref, name } = user_details
           if (name?.length > 0) session.user.name = name
           if (image_ref?.length > 0) {
-            if (image_ref.includes('storage.googleapis.com')) {
-              session.user.image = await getFirebaseObject(image_ref)
-            } else if (image_ref.includes('supabase.co')) {
-              session.user.image = await getSupabaseObject(image_ref)
-            } else if (image_ref.startsWith('s3_')) {
-              session.user.image = await getS3Object(image_ref)
-            } else {
-              session.user.image = image_ref
-            }
+            session.user.image = image_ref.includes('https:') ? image_ref : await storage.retrieve(image_ref)
           }
         }
       }

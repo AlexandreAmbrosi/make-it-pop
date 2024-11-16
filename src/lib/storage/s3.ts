@@ -8,7 +8,7 @@ const s3RegionName = building ? 'tmp_build_value' : env.AWS_REGION_NAME
 const s3BucketName = building ? 'tmp_build_value' : env.AWS_S3_BUCKET_NAME
 const secretAccessKey = building ? 'tmp_build_value' : env.AWS_SECRET_ACCESS_KEY
 
-export async function getS3Object(image: string) {
+export async function getS3Object(Key: string) {
   try {
     if (!accessKeyId || !secretAccessKey) {
       console.log(`process.env.AWS_KEY_ID OR process.env.AWS_SECRET_ACCESS_KEY is not set as an environment variable.`)
@@ -22,8 +22,8 @@ export async function getS3Object(image: string) {
       },
     })
     const command = new GetObjectCommand({
+      Key,
       Bucket: s3BucketName,
-      Key: image.substring(3),
     })
     return await getSignedUrl(client, command, { expiresIn: 3600 })
   } catch (e: any) {
@@ -33,13 +33,13 @@ export async function getS3Object(image: string) {
   }
 }
 
-export async function uploadS3Object(file: File) {
+export async function uploadS3Object(file: { name: string; type: string }) {
   try {
     if (!accessKeyId || !secretAccessKey) {
       console.log(`process.env.AWS_KEY_ID OR process.env.AWS_SECRET_ACCESS_KEY is not set as an environment variable.`)
       return
     }
-    const Key = `${new Date().getTime()}_${file.name}`
+    const Key = file.name
     const client = new S3Client({
       region: s3RegionName,
       credentials: {
@@ -48,16 +48,11 @@ export async function uploadS3Object(file: File) {
       },
     })
     const command = new PutObjectCommand({
-      Bucket: s3BucketName,
       Key,
+      Bucket: s3BucketName,
       ContentType: file.type,
     })
-    const signedUrl = await getSignedUrl(client, command, { expiresIn: 3600 })
-    await fetch(signedUrl, {
-      body: file,
-      method: 'PUT',
-    })
-    return `s3_${Key}`
+    return await getSignedUrl(client, command, { expiresIn: 3600 })
   } catch (e: any) {
     const tmp = e.message || e.toString()
     console.log(tmp)

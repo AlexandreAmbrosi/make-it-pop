@@ -38,21 +38,17 @@ export async function POST(event: RequestEvent) {
   if (!user?.user?.email) error(403)
   // Check if the user has an email (an additional check for authentication)
   if (user.user.email) {
-    const data = await event.request.formData()
-    // Get the 'file' field from the form data
-    const file = data.get('file')
-    // Check if a file was provided
-    if (!file) error(400, { message: 'No File Provided.' })
-    // Check if the 'file' object is an instance of File (not necessary)
-    if (!(file instanceof File)) error(400, { message: 'Uploaded file is not an instance of valid file.' })
-    // Check if the file size exceeds the limit of 5 MB
-    if (file.size > 5 * 1024 * 1024) error(400, { message: 'File size exceeds the limit of 5 MB.' })
+    // Extract the 'file' parameter from the request URL.
+    const url = new URL(event.request.url)
+    const type = url.searchParams.get('type')
+    const name = url.searchParams.get('name')
+    if (!type || !name) error(400, { message: 'Invalid Request.' })
     try {
       // Generate a non-publicly accessible URL for the uploaded file
       // Use this url to perform a GET to this endpoint with file query param valued as below
-      const fileURL = await storage.upload(file)
+      const publicUploadUrl = await storage.upload({ type, name })
       // Return a success response with a message
-      return webJson({ message: 'Uploaded Successfully', fileURL }, 200, {})
+      return webJson({ publicUploadUrl }, 200, {})
     } catch (e) {
       // If there was an error during the upload process, return a 403 response with the error message
       // @ts-ignore

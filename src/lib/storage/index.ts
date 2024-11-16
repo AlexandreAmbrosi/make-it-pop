@@ -11,7 +11,7 @@ export default {
     if (STORAGE_PROVIDER === 'supabase') return await getSupabaseObject(objectUrl)
     if (STORAGE_PROVIDER === 's3') return await getS3Object(objectUrl)
   },
-  upload: async (file: File) => {
+  upload: async (file: { name: string; type: string }) => {
     if (STORAGE_PROVIDER === 'firebase') return await uploadFirebaseObject(file)
     if (STORAGE_PROVIDER === 'supabase') return await uploadSupabaseObject(file)
     if (STORAGE_PROVIDER === 's3') return await uploadS3Object(file)

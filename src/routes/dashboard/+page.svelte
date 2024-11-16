@@ -61,8 +61,8 @@
   const setAvatar = (image_ref: string) => {
     fetch('/api/user', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ image_ref }),
+      headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => {
         if (res.headers.get('Content-Type')?.includes('json')) return res.json()
@@ -76,49 +76,32 @@
             .then((res) => {
               if (res?.user) userProfile.set(res.user)
             })
-        } else {
-          toast('Failed to register your avatar.')
-        }
+        } else toast('Failed to register your avatar.')
       })
   }
 
   const uploadFile = (e) => {
-    const formData = new FormData()
     const fileList = e.target.files
     if (!fileList?.length) {
       toast('No new file attached.')
       return
     }
-    formData.append('file', fileList[0])
+    const file = fileList[0]
     const reader = new FileReader()
     reader.onload = async () => {
       toast('Uploading your avatar...')
       const storageEndpoint = new URL('/api/storage', window.location.origin)
-      fetch(storageEndpoint.toString(), {
-        method: 'POST',
-        body: formData,
-      })
+      storageEndpoint.searchParams.set('name', file.name)
+      storageEndpoint.searchParams.set('type', file.type)
+      fetch(storageEndpoint.toString(), { method: 'POST' })
+        .then((res) => res.json())
         .then((res) => {
-          if (!res.ok) return
-          return res.json()
-        })
-        .then((res) => {
-          if (res?.fileURL) {
-            toast('Avatar uploaded succesfully!')
-            storageEndpoint.searchParams.set('file', res.fileURL)
-            fetch(storageEndpoint.toString())
-              .then((res_) => res_.json())
-              .then((res_) => {
-                if (res_?.filePublicURL) {
-                  toast('Registering avatar update...')
-                  const imageElement = document.getElementById('picture_value') as HTMLImageElement
-                  imageElement.src = res_.filePublicURL
-                  setAvatar(res.fileURL)
-                }
-              })
-          } else {
-            toast('Failed to upload your avatar.')
-          }
+          if (res?.publicUploadUrl) {
+            fetch(res.publicUploadUrl, { method: 'PUT', body: file }).then(() => {
+              toast('Avatar uploaded succesfully!')
+              setAvatar(file.name)
+            })
+          } else toast('Failed to upload your avatar.')
         })
     }
     reader.readAsArrayBuffer(fileList[0])
