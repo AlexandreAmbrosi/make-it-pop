@@ -13,11 +13,11 @@ export async function POST({ locals, request }: RequestEvent) {
     const { name, image_ref, deleteAccount, message } = await request.json()
     if (image_ref?.length > 0 && deleteAccount !== true) {
       await setUserImageRef(userEmail, image_ref)
-      return webJson({ set: true }, 200, {})
+      return webJson({}, 200, {})
     }
     if (name?.length > 0 && deleteAccount !== true) {
       await setUserName(userEmail, name)
-      return webJson({ set: true }, 200, {})
+      return webJson({}, 200, {})
     }
     if (deleteAccount && message === 'delete my account' && name === session.name) {
       await removeUser(userEmail)

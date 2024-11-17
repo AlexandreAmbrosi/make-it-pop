@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { PageData } from './$types'
   import Author from '@/components/Author.svelte'
-  import SocialSharing from '@/components/Social-Sharing.svelte'
   import Seo from '@/components/SEO.svelte'
+  import SocialSharing from '@/components/Social-Sharing.svelte'
   import config from '@/config'
   import { getDate } from '@/lib/utils/date'
+  import type { PageData } from './$types'
 
   interface Props {
     data: PageData

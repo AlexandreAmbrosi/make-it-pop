@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { toast } from 'svelte-sonner'
-  import { userProfile } from '@/stores'
   import Seo from '@/components/SEO.svelte'
+  import { getClientSession } from '@/lib/utils/session'
+  import { userProfile } from '@/stores'
+  import { toast } from 'svelte-sonner'
   import BinIcon from '~icons/mdi/bin-outline'
 
   const invokeFile = () => document.getElementById('change_picture')?.click()
@@ -20,11 +21,7 @@
       .then((res) => {
         if (res?.set) {
           toast('Username updated succesfully.')
-          fetch('/auth/session')
-            .then((res) => res.json())
-            .then((res) => {
-              if (res?.user) userProfile.set(res.user)
-            })
+          getClientSession()
         } else {
           toast('Failed to update your username.')
         }
@@ -42,10 +39,7 @@
         message: (document.getElementById('verification_message') as HTMLInputElement).value,
       }),
     })
-      .then((res) => {
-        if (res.headers.get('Content-Type')?.includes('json')) return res.json()
-        return { redirect: false }
-      })
+      .then((res) => res.json())
       .then((res) => {
         if (res?.redirect) {
           toast('Account deleted succesfully.')
@@ -56,6 +50,7 @@
           toast('Please enter matching entries.')
         }
       })
+      .catch(() => toast('Please enter matching entries.'))
   }
 
   const setAvatar = (image_ref: string) => {
@@ -64,20 +59,12 @@
       body: JSON.stringify({ image_ref }),
       headers: { 'Content-Type': 'application/json' },
     })
-      .then((res) => {
-        if (res.headers.get('Content-Type')?.includes('json')) return res.json()
-        return { set: false }
+      .then((res) => res.json())
+      .then(() => {
+        toast('Avatar registration succesful!')
+        getClientSession()
       })
-      .then((res) => {
-        if (res?.set) {
-          toast('Avatar registration succesful!')
-          fetch('/auth/session')
-            .then((res) => res.json())
-            .then((res) => {
-              if (res?.user) userProfile.set(res.user)
-            })
-        } else toast('Failed to register your avatar.')
-      })
+      .catch(() => toast('Failed to register your avatar.'))
   }
 
   const uploadFile = (e: Event) => {

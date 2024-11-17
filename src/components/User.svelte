@@ -1,14 +1,11 @@
 <script lang="ts">
   import { Popover, PopoverContent, PopoverTrigger } from '@/lib/components/ui/popover'
+  import { getClientSession } from '@/lib/utils/session'
   import { userProfile } from '@/stores'
   import { onMount } from 'svelte'
 
   onMount(() => {
-    fetch('/auth/session')
-      .then((res) => res.json())
-      .then((res) => {
-        if (res?.user) userProfile.set(res.user)
-      })
+    getClientSession()
   })
 </script>
 

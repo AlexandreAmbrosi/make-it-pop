@@ -53,11 +53,11 @@ TODO
 
 ```astro
 ---
-import App from "./App.astro"; // [!code focus] // [!code ++]
+import App from "./App.astro"; 
 ---
 
 <h1>Astro</h1>
-<span>New</span> // [!code focus] // [!code ++]
+<span>New</span> 
 ```
 
 ## Build and Test your Astro application locally

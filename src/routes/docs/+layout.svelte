@@ -67,10 +67,10 @@
             {#each all as i}
               <li class="scroll-m-4 first:scroll-m-20">
                 <a
-                  href={`/docs/${i._meta.path.replace('.svelte', '')}`}
+                  href={['/docs', i._meta.path.replace('.svelte', '')].join('/')}
                   class="group mt-2 flex max-w-max cursor-pointer items-center space-x-3 rounded-lg py-1.5 pl-[1rem] pr-8 text-gray-700 hover:bg-gray-600/5 hover:text-gray-900 focus:outline-primary lg:mt-0"
                 >
-                  <div class={$page.url.pathname === ['/docs', i._meta.path.replace('.svelte', '')].filter(Boolean).join('/') && 'font-semibold'}>
+                  <div class={[$page.url.pathname === ['/docs', i._meta.path.replace('.svelte', '')].join('/') && 'font-semibold'].filter(Boolean).join(' ')}>
                     {i.title}
                   </div>
                 </a>
@@ -93,8 +93,8 @@
         </div>
         <ul>
           {#each currentDoc.toc as tocItem}
-            <li>
-              <a href={tocItem.slug} class="py-1 text-primary">{tocItem.content}</a>
+            <li class="border-t py-2">
+              <a href={tocItem.slug}>{tocItem.content}</a>
             </li>
           {/each}
         </ul>

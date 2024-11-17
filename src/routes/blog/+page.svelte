@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
-  import type { PageData } from './$types'
   import Seo from '@/components/SEO.svelte'
   import { getDate } from '@/lib/utils/date'
+  import type { PageData } from './$types'
 
   interface Props {
     data: PageData
@@ -22,7 +21,7 @@
   <div class="mt-12 hidden" id="search"></div>
   <div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
     {#each all as i}
-      <a href={`/blog/${i._meta.path.replace('.svelte', '')}`} class="flex flex-col">
+      <a href={['/blog', i._meta.path.replace('.svelte', '')].join('/')} class="flex flex-col">
         <img
           alt={i.title}
           class="transform rounded bg-cover bg-center bg-no-repeat will-change-auto"
