@@ -63,11 +63,13 @@
 
 <button id={BUTTON_ID} class={['flex flex-row items-center justify-center gap-x-2 rounded-full text-white', minimal ? 'py-1 pl-2 pr-4' : 'px-10 py-3', className].join(' ')}>
   <img
+    loading="lazy"
+    decoding="async"
     alt="LaunchFast Logo"
-    src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png"
     width={minimal ? '24' : '30'}
     height={minimal ? '24' : '30'}
     class={minimal ? 'h-[24px] w-[24px]' : 'h-[30px] w-[30px]'}
+    src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/purple-icon.png"
   />
   <span> Get {brand_name}</span>
 </button>

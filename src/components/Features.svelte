@@ -27,14 +27,14 @@
       {#if feature.images}
         <div class={'grid grid-cols-1 grid-rows-1 sm:grid-cols-2 ' + (feature.images.length === 2 ? 'sm:grid-rows-1' : 'sm:grid-rows-2')}>
           {#each feature.images as i, idx}
-            <img alt={idx.toString()} src={i} width="1600" height="900" decoding="async" class={(idx === 0 ? '' : 'hidden sm:block') + ' h-auto w-full'} />
+            <img alt={idx.toString()} src={i} width="1600" height="900" loading="lazy" decoding="async" class={(idx === 0 ? '' : 'hidden sm:block') + ' h-auto w-full'} />
           {/each}
         </div>
       {/if}
       <div class="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {#each feature.products as benefit}
           <div class="flex flex-col">
-            <img alt={benefit.name} class="h-[30px] w-[30px] bg-white" width="30" height="30" src={benefit.logo} />
+            <img alt={benefit.name} loading="lazy" decoding="async" class="h-[30px] w-[30px] bg-white" width="30" height="30" src={benefit.logo} />
             <span class="mt-3 font-bold">{benefit.name}</span>
             {#if benefit.description}
               <span class="text-gray-600">{benefit.description}</span>

@@ -18,10 +18,10 @@
       <PopoverTrigger>
         {#if $userProfile?.image}
           <img
-            id="user_img"
+            loading="lazy"
             decoding="async"
-            class="size-8 cursor-pointer rounded-full"
             alt={$userProfile?.name?.toString() || 'User'}
+            class="size-[30px] cursor-pointer rounded-full border"
             src={$userProfile?.image?.toString() || 'https://github.com/shadcn.png'}
           />
         {:else if $userProfile?.name}

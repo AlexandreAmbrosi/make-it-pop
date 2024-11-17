@@ -134,7 +134,7 @@
                 onclick={() => invokeFile()}
                 class="inline-flex h-auto w-[90px] items-center justify-center whitespace-nowrap rounded-full bg-secondary text-sm font-medium text-secondary-foreground outline-none !ring-0 ring-offset-background transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
               >
-                <img alt={$userProfile.name} class="aspect-square cursor-pointer rounded-full" src={$userProfile.image} />
+                <img loading="lazy" decoding="async" alt={$userProfile.name} class="aspect-square cursor-pointer rounded-full" src={$userProfile.image} />
               </button>
               <button
                 onclick={() => setAvatar('https://cdn-icons-png.flaticon.com/512/18125/18125416.png')}

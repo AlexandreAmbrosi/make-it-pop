@@ -76,6 +76,14 @@
     </div>
   </div>
   <div class="hidden lg:block">
-    <img alt="Finder" width="4000" height="6000" src="https://images.pexels.com/photos/1194775/pexels-photo-1194775.jpeg" class="h-[98vh] w-full object-cover" />
+    <img
+      alt="Finder"
+      width="4000"
+      height="6000"
+      loading="lazy"
+      decoding="async"
+      class="h-[98vh] w-full object-cover"
+      src="https://images.pexels.com/photos/1194775/pexels-photo-1194775.jpeg"
+    />
   </div>
 </div>

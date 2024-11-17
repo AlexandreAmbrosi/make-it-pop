@@ -25,7 +25,7 @@
       <SocialSharing title={data.post.title} url={new URL(`/blog/${data.post._meta.path.replace('.svelte', '')}`, config.url).toString()} />
     </div>
   {/if}
-  <img alt={data.post.title} src={data.post.blog_image} class="rounded py-4" />
+  <img alt={data.post.title} src={data.post.blog_image} loading="eager" class="rounded py-4" />
   <article class="prose">
     {@html data.post.mdx}
   </article>
@@ -35,7 +35,7 @@
   {/if}
   {#if data.post.prev}
     <a href={`/blog/${data.post.prev._meta.path.replace('.svelte', '')}`} class="text-md mt-8 flex flex-col gap-x-8 font-medium hover:underline sm:flex-row">
-      <img src={data.post.prev.blog_image} alt={data.post.prev.title} class="w-full rounded sm:w-[200px]" />
+      <img loading="lazy" decoding="async" src={data.post.prev.blog_image} alt={data.post.prev.title} class="w-full rounded sm:w-[200px]" />
       <div class="mt-4 flex flex-col gap-y-2 sm:mt-0">
         <span>{data.post.prev.title}</span>
         <span class="text-sm font-light text-gray-400">{getDate(data.post.prev.created_at)}</span>
@@ -44,7 +44,7 @@
   {/if}
   {#if data.post.next}
     <a href={`/blog/${data.post.next._meta.path.replace('.svelte', '')}`} class="text-md mt-8 flex flex-col gap-x-8 font-medium hover:underline sm:flex-row">
-      <img src={data.post.next.blog_image} alt={data.post.next.title} class="w-full rounded sm:w-[200px]" />
+      <img loading="lazy" decoding="async" src={data.post.next.blog_image} alt={data.post.next.title} class="w-full rounded sm:w-[200px]" />
       <div class="mt-4 flex flex-col gap-y-2 sm:mt-0">
         <span>{data.post.next.title}</span>
         <span class="text-sm font-light text-gray-400">{getDate(data.post.next.created_at)}</span>

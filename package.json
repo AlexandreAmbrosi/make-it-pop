@@ -56,7 +56,6 @@
     "@libsql/client": "^0.14.0",
     "@types/nprogress": "^0.2.3",
     "bcryptjs": "^2.4.3",
-    "firebase": "^10.12.2",
     "firebase-admin": "^12.7.0",
     "github-slugger": "^2.0.0",
     "grammy": "^1.27.0",
