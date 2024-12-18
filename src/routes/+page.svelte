@@ -8,7 +8,7 @@
       </p>
       <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
         <a target="_blank" class="inline-flex rounded-lg bg-black px-8 py-3 font-bold text-white" href="https://code-templates.lemonsqueezy.com/buy/b6d0f0d2-7b21-4a13-9a29-0821cf51e1bf"
-          >Buy template → $129</a
+          >Buy template → $99</a
         ><a class="rounded-lg border px-8 py-3 font-bold" href="/docs">Documentation</a>
       </div>
     </div>
