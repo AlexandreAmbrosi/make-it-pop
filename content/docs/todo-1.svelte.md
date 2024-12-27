@@ -5,6 +5,8 @@ published: true
 created_at: 2024-04-15T00:00:00.000+00:00
 ---
 
+> This is not the official documentation of LaunchFast. To browse how to use and set up LaunchFast, check out the [official documentation](https://www.launchfa.st/documentation/guides/introduction).
+
 <img data-pagefind-meta="image[src]" width="1600" height="900" alt="TODO: A Step-by-Step Guide" decoding="async" class="mt-4 border rounded bg-cover bg-center bg-no-repeat transform will-change-auto" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" />
 
 In this guide, you will learn how to TODO. You will go through the process of TODO.
