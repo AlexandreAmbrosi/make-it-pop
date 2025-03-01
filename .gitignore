@@ -24,5 +24,7 @@ pnpm-debug.log*
 .vercel
 .netlify
 .amplify-hosting
+.wrangler
+wrangler.toml
 
 .content-collections

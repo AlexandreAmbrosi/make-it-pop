@@ -1,12 +1,11 @@
-import { building } from '$app/environment'
-import { env } from '$env/dynamic/private'
+import { getEnv } from '@/lib/utils/env'
 import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 
-const accessKeyId = building ? 'tmp_build_value' : env.AWS_KEY_ID
-const s3RegionName = building ? 'tmp_build_value' : env.AWS_REGION_NAME
-const s3BucketName = building ? 'tmp_build_value' : env.AWS_S3_BUCKET_NAME
-const secretAccessKey = building ? 'tmp_build_value' : env.AWS_SECRET_ACCESS_KEY
+const accessKeyId = getEnv('AWS_KEY_ID')
+const s3RegionName = getEnv('AWS_REGION_NAME')
+const s3BucketName = getEnv('AWS_S3_BUCKET_NAME')
+const secretAccessKey = getEnv('AWS_SECRET_ACCESS_KEY')
 
 export async function getS3Object(Key: string) {
   try {

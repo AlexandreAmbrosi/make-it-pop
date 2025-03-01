@@ -1,4 +1,4 @@
-import { env } from '$env/dynamic/private'
+import { getEnv } from '@/lib/utils/env'
 
 interface EmailBody {
   from: string
@@ -10,7 +10,7 @@ interface EmailBody {
 type EmailProvider = 'resend' | 'nodemailer'
 
 export async function sendEmail(body: EmailBody, provider?: EmailProvider) {
-  const EMAIL_PROVIDER = provider ?? env?.EMAIL_PROVIDER ?? 'resend'
+  const EMAIL_PROVIDER = provider ?? getEnv('EMAIL_PROVIDER') ?? 'resend'
   if (EMAIL_PROVIDER === 'resend') {
     // Send an email using Resend
     // Read more on https://resend.com/docs/api-reference/emails/send-email
@@ -23,8 +23,8 @@ export async function sendEmail(body: EmailBody, provider?: EmailProvider) {
     const smtpTransport = nodemailer.createTransport({
       host: 'mail.smtp2go.com',
       auth: {
-        user: process.env.SMTP2GO_USERNAME,
-        pass: process.env.SMTP2GO_PASSWORD,
+        user: getEnv('SMTP2GO_USERNAME'),
+        pass: getEnv('SMTP2GO_PASSWORD'),
       },
       port: 2525, // 8025, 587 and 25 can also be used.
     })

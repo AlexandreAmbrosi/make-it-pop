@@ -1,4 +1,5 @@
 import { setAccess } from '@/lib/db'
+import { getEnv } from '@/lib/utils/env'
 import { webJson } from '@/lib/utils/web'
 import Stripe from 'stripe'
 import type { RequestEvent } from './$types'
@@ -8,8 +9,8 @@ import type { RequestEvent } from './$types'
 export async function POST(event: RequestEvent) {
   try {
     // Verify if the Stripe secret key and webhook signature key is present
-    const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
-    const STRIPE_WEBHOOK_SIG = process.env.STRIPE_WEBHOOK_SIG
+    const STRIPE_SECRET_KEY = getEnv('STRIPE_SECRET_KEY')
+    const STRIPE_WEBHOOK_SIG = getEnv('STRIPE_WEBHOOK_SIG')
     if (!STRIPE_SECRET_KEY || !STRIPE_WEBHOOK_SIG) return webJson({ message: 'Stripe keys not found.' }, 500, {})
     // Create a Stripe instance
     const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2023-10-16' })
