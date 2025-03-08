@@ -57,11 +57,11 @@
   }
 </script>
 
-<div class="relative mt-4 flex break-inside-avoid flex-col rounded border border-white/25 p-[0.1rem] shadow">
+<div class="relative mt-4 flex break-inside-avoid flex-col rounded border border-white/25 p-[0.1rem] shadow-sm">
   <div class="flex w-full flex-col px-6 py-4">
     <div class="flex flex-row items-center">
       <img loading="lazy" decoding="async" width="48" height="48" alt={name} class="h-[48px] w-[48px] rounded-full" src={photo} />
-      <div class="author ml-4 flex flex-col !no-underline">
+      <div class="author ml-4 flex flex-col no-underline!">
         <span class="flex items-center font-bold leading-5 text-launchfast" title={name}>
           {name}
           {#if verified_type}
@@ -70,7 +70,7 @@
             </div>
           {/if}
         </span>
-        <span class="!text-gray-500" title={`@${handle}`}>
+        <span class="text-gray-500!" title={`@${handle}`}>
           @{handle}
         </span>
       </div>

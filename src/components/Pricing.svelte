@@ -113,7 +113,7 @@
         <span class="ml-1 inline-block text-7xl font-bold text-black">$199</span>
         <a class="mt-12" href="https://code-templates.lemonsqueezy.com/buy/c6c9383b-4053-4096-bc4a-30230290bf29">
           <input class="hidden" type="text" name="template" value="bundle" />
-          <button class="inline-block max-w-max -rotate-1 rounded bg-gradient-to-br from-branding to-svelte px-4 py-1 text-xl font-medium">
+          <button class="inline-block max-w-max -rotate-1 rounded bg-linear-to-br from-branding to-svelte px-4 py-1 text-xl font-medium">
             <span class="text-white">Get The Bundle &rarr;</span>
           </button>
         </a>

@@ -14,7 +14,7 @@
     name="email"
     type="email"
     placeholder="jain71000@gmail.com"
-    class="w-[200px] rounded-md border py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
+    class="w-[200px] rounded-md border py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:outline-hidden sm:text-sm sm:leading-6"
   />
   <button
     type="submit"

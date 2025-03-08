@@ -47,7 +47,7 @@
 <div class="relative mx-auto flex max-w-7xl flex-col px-4">
   <div
     id="sidebar"
-    class={['fixed bottom-0 right-auto top-[0rem] z-20 -ml-[1rem] hidden w-[18rem] bg-white lg:top-[2rem] lg:-ml-[0rem] lg:block lg:bg-transparent', $navigating && '!hidden']
+    class={['fixed bottom-0 right-auto top-[0rem] z-20 -ml-[1rem] hidden w-[18rem] bg-white lg:top-[2rem] lg:-ml-[0rem] lg:block lg:bg-transparent', $navigating && 'hidden!']
       .filter(Boolean)
       .join(' ')}
   >

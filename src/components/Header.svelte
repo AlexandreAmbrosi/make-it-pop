@@ -92,8 +92,8 @@
   <div
     id="header-menu"
     class={[
-      'absolute right-0 top-0 z-[1000] hidden h-screen w-[250px] flex-col overflow-hidden border-l bg-white shadow-2xl transition-all duration-300 ease-in-out sm:!hidden',
-      $navigating && '!hidden',
+      'absolute right-0 top-0 z-1000 hidden h-screen w-[250px] flex-col overflow-hidden border-l bg-white shadow-2xl transition-all duration-300 ease-in-out sm:hidden!',
+      $navigating && 'hidden!',
     ]
       .filter(Boolean)
       .join(' ')}

@@ -48,10 +48,10 @@
         <li class="group">
           <div class="border-base-content/10 relative flex w-full cursor-pointer items-center gap-2 border-t py-5 text-left text-base font-semibold md:text-lg">
             <span class="text-base-content flex-1 font-medium">{i.question}</span>
-            <div id={`icon-minus-${i.labelID}`} class="ml-auto hidden h-4 w-4 flex-shrink-0 fill-current">
+            <div id={`icon-minus-${i.labelID}`} class="ml-auto hidden h-4 w-4 shrink-0 fill-current">
               <MinusIcon />
             </div>
-            <div id={`icon-plus-${i.labelID}`} class="ml-auto block h-4 w-4 flex-shrink-0 fill-current">
+            <div id={`icon-plus-${i.labelID}`} class="ml-auto block h-4 w-4 shrink-0 fill-current">
               <PlusIcon />
             </div>
           </div>

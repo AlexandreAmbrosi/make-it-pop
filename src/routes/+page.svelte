@@ -161,7 +161,7 @@
   </section>
   <section class="px-4 py-12 sm:px-8">
     <div class="mx-auto flex max-w-[1216px] flex-col gap-20">
-      <div class="flex w-full flex-col gap-8 even:flex-col-reverse sm:flex-row sm:justify-between even:sm:flex-row-reverse">
+      <div class="flex w-full flex-col gap-8 even:flex-col-reverse sm:flex-row sm:justify-between sm:even:flex-row-reverse">
         <div class="w-full">
           <span class="font-light">Add, update, delete products seamlessly</span>
           <h3 class="xl:text-heading-3 text-2xl font-bold lg:text-3xl">Manage Your Products from Sanity Dashboard</h3>
@@ -172,7 +172,7 @@
         </div>
         <div class="w-full"><img alt="" loading="lazy" decoding="async" class="h-auto w-full" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" /></div>
       </div>
-      <div class="flex w-full flex-col gap-8 sm:flex-row sm:justify-between even:sm:flex-row-reverse">
+      <div class="flex w-full flex-col gap-8 sm:flex-row sm:justify-between sm:even:flex-row-reverse">
         <div class="w-full">
           <span class="font-light">Ready to Rock</span>
           <h3 class="xl:text-heading-3 text-2xl font-bold lg:text-3xl">Pre-built Pages &amp; Seamless Integrations</h3>
@@ -184,7 +184,7 @@
         </div>
         <div class="w-full"><img alt="" loading="lazy" decoding="async" class="h-auto w-full" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" /></div>
       </div>
-      <div class="flex w-full flex-col gap-8 even:flex-col-reverse sm:flex-row sm:justify-between even:sm:flex-row-reverse">
+      <div class="flex w-full flex-col gap-8 even:flex-col-reverse sm:flex-row sm:justify-between sm:even:flex-row-reverse">
         <div class="w-full">
           <span class="font-light">Deploy Anywhere</span>
           <h3 class="xl:text-heading-3 text-2xl font-bold lg:text-3xl">One-click Deployment on Vercel or Any PaaS</h3>
