@@ -13,11 +13,11 @@ export async function POST({ locals, request }: RequestEvent) {
     const { name, image_ref, deleteAccount, message } = await request.json()
     if (image_ref?.length > 0 && deleteAccount !== true) {
       await setUserImageRef(userEmail, image_ref)
-      return webJson({}, 200, {})
+      return webJson({ set: true }, 200, {})
     }
     if (name?.length > 0 && deleteAccount !== true) {
       await setUserName(userEmail, name)
-      return webJson({}, 200, {})
+      return webJson({ set: true }, 200, {})
     }
     if (deleteAccount && message === 'delete my account' && name === session.name) {
       await removeUser(userEmail)
@@ -27,7 +27,7 @@ export async function POST({ locals, request }: RequestEvent) {
       //     subject: '[LaunchFa.st]: Successful account deletion.',
       //     text: `Hello,\n\nYou have succesfully deleted your account on LaunchFa.st account associated with this email address (${userEmail}) successfully.\n\nThanks,\n\nLaunchFa.st`,
       //   })
-      return webJson({ redirect: '/auth/signout' }, 200, {})
+      return webJson({ redirect: '/auth/signout', set: true }, 200, {})
     }
     return webResponse(null, 200, {})
   } catch (e: any) {
