@@ -40,7 +40,7 @@ export async function POST(event: RequestEvent) {
       return webJson({ message: 'no email of the user is found' }, 200, {})
     }
     return webJson({ message: JSON.stringify(eventStripe) }, 404, {})
-  } catch (e) {
+  } catch (e: any) {
     const message = e.message || e.toString()
     return webJson({ message }, 500, {})
   }

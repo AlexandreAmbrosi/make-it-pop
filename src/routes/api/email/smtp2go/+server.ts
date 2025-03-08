@@ -16,7 +16,7 @@ export async function POST(event: RequestEvent) {
       from: context['verified_sender'] ?? 'jain71000@gmail.com',
       to: typeof context.to === 'string' ? [context.to] : context.to,
     },
-    'nodemailer',
+    'smtp2go',
   )
   // Return a successful response with a status code of 200
   return webJson({}, 200, {})

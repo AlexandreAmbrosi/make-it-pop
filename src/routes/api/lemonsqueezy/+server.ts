@@ -13,7 +13,7 @@ export async function POST(event: RequestEvent) {
     // https://docs.lemonsqueezy.com/guides/developer-guide/webhooks
     // Return a response to acknowledge receipt of the event
     return webJson({ message: 'received' }, 200, {})
-  } catch (e) {
+  } catch (e: any) {
     const message = e.message || e.toString()
     return webJson({ message }, 500, {})
   }
