@@ -1,4 +1,4 @@
-import { getCode, removeCode, setMailVerified } from '@/lib/db'
+import { adapter, getCode, removeCode, setMailVerified } from '@/lib/db'
 import { sendEmail } from '@/lib/utils/email'
 import { webJson, webRedirect } from '@/lib/utils/web'
 import type { RequestEvent } from './$types'
@@ -15,19 +15,21 @@ export async function GET(event: RequestEvent) {
     // Extract the 'email' property from the session
     const { email } = session.user
     // Retrieve the stored token associated with the 'email' from the database
-    const token = await getCode(email)
+    const [token, user] = await Promise.all([getCode(email), adapter.getUserByEmail?.(email)])
     // Check if the retrieved token matches the 'token_from_url'
     if (token === token_from_url) {
       // If the tokens match, mark the user's email as verified
-      await setMailVerified(email, '1')
-      await removeCode(email)
-      // Send the email that the email is now verified
-      await sendEmail({
-        from: 'LaunchFa.st Demo <verification@launchfa.st>',
-        to: email,
-        subject: 'Email verification successful',
-        text: `Your email verification was succesful.`,
-      })
+      await Promise.all([
+        removeCode(email),
+        // Send the email that the email is now verified
+        sendEmail({
+          from: 'LaunchFa.st Demo <verification@launchfa.st>',
+          to: email,
+          subject: 'Email verification successful',
+          text: `Your email verification was succesful.`,
+        }),
+        user?.id && adapter.updateUser?.({ ...user, emailVerified: new Date() }),
+      ])
       // Return a success response with a status code of 200
       return webRedirect('/', 302, {})
     }
