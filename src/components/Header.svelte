@@ -62,6 +62,9 @@
     <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname.includes('/docs') && 'font-semibold'].filter(Boolean).join(' ')} href="/docs">
       Docs
     </a>
+    <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname === '/changelog' && 'font-semibold'].filter(Boolean).join(' ')} href="/docs">
+      Changelog
+    </a>
     <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname === '/dashboard' && 'font-semibold'].filter(Boolean).join(' ')} href="/dashboard">
       Dashboard
     </a>
@@ -108,6 +111,7 @@
       <a class={['/' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/">Home</a>
       <a class={[$page.url.pathname.includes('/blog') && 'font-semibold'].filter(Boolean).join(' ')} href="/blog">Blog</a>
       <a class={[$page.url.pathname.includes('/docs') && 'font-semibold'].filter(Boolean).join(' ')} href="/docs">Docs</a>
+      <a class={[$page.url.pathname === '/changelog' && 'font-semibold'].filter(Boolean).join(' ')} href="/changelog">Changelog</a>
       <a class={['/dashboard' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/dashboard">Dashboard</a>
       <a class={['/protected' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/protected">Protected</a>
       <a class={['/protected_and_paid' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/protected_and_paid">Protected and Paid</a>

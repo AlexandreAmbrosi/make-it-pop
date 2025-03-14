@@ -37,6 +37,22 @@ const blogs = defineCollection({
   },
 })
 
+const changelog = defineCollection({
+  name: 'changelog',
+  include: '**/*.md',
+  directory: 'content/changelog',
+  schema: (z) => ({}),
+  transform: async (document, context) => {
+    const mdx = await compileMarkdown(context, document, {
+      rehypePlugins: [[rehypeExpressiveCode, {}], rehypeAutolinkHeadings, rehypeSlug],
+    })
+    return {
+      ...document,
+      mdx: mdx.toString(),
+    }
+  },
+})
+
 const docs = defineCollection({
   name: 'docs',
   include: '**/*.md',
@@ -67,4 +83,4 @@ const docs = defineCollection({
   },
 })
 
-export default defineConfig({ collections: [blogs, docs] })
+export default defineConfig({ collections: [blogs, docs, changelog] })
