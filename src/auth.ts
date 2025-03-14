@@ -104,7 +104,7 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
   },
   providers,
   trustHost: true,
-  useSecureCookies: false,
+  useSecureCookies: getEnv("NODE_ENV") === "production",
   callbacks: {
     async session({ session }) {
       if (session?.user?.email) {
