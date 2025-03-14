@@ -1,6 +1,12 @@
 import firebaseConfig from '@/lib/storage/firebaseConfig'
-import type { GetSignedUrlConfig } from '@google-cloud/storage'
 import admin from 'firebase-admin'
+
+type GetSignedUrlConfig = {
+  version: "v4"
+  action: 'read' | 'write'
+  expires: number
+  contentType?: string
+}
 
 if (!admin.apps.length) {
   admin.initializeApp({
@@ -32,7 +38,6 @@ export async function getFirebaseObject(Key: string) {
     const urlOptions: GetSignedUrlConfig = {
       version: 'v4',
       action: 'read',
-      // Expire in 15 minutes
       expires: Date.now() + 15 * 60 * 1000,
     }
     const [url] = await bucket.file(Key).getSignedUrl(urlOptions)
@@ -51,7 +56,6 @@ export async function uploadFirebaseObject(file: { name: string; type: string })
       version: 'v4',
       action: 'write',
       contentType: file.type,
-      // Expire in 5 minutes
       expires: Date.now() + 5 * 60 * 1000,
     }
     const [url] = await bucket.file(file.name).getSignedUrl(urlOptions)

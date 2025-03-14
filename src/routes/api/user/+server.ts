@@ -1,4 +1,5 @@
-import { getUser, removeUser, setUserImageRef, setUserName } from '@/lib/db'
+import { adapter } from '@/lib/db'
+import { sendEmail } from '@/lib/utils/email'
 import { webJson, webResponse } from '@/lib/utils/web'
 import type { RequestEvent } from './$types'
 
@@ -8,25 +9,26 @@ export async function POST({ locals, request }: RequestEvent) {
   // If the user is not authenticated, return a 403 (Forbidden) response
   if (typeof tmpSession?.user?.email !== 'string') return webResponse('unauthenticated', 403, {})
   const userEmail = tmpSession.user?.email
-  const session = await getUser(userEmail)
+  const session = await adapter.getUserByEmail?.(userEmail)
+  if (!session) return webResponse(null, 401)
   try {
     const { name, image_ref, deleteAccount, message } = await request.json()
     if (image_ref?.length > 0 && deleteAccount !== true) {
-      await setUserImageRef(userEmail, image_ref)
+      await adapter.updateUser?.({ ...session, image: image_ref })
       return webJson({ set: true }, 200, {})
     }
     if (name?.length > 0 && deleteAccount !== true) {
-      await setUserName(userEmail, name)
+      await adapter.updateUser?.({ ...session, name })
       return webJson({ set: true }, 200, {})
     }
     if (deleteAccount && message === 'delete my account' && name === session.name) {
-      await removeUser(userEmail)
-      //   await sendEmail({
-      //     from: 'LaunchFa.st Demo <verification@launchfa.st>',
-      //     to: userEmail,
-      //     subject: '[LaunchFa.st]: Successful account deletion.',
-      //     text: `Hello,\n\nYou have succesfully deleted your account on LaunchFa.st account associated with this email address (${userEmail}) successfully.\n\nThanks,\n\nLaunchFa.st`,
-      //   })
+      await adapter.deleteUser?.(session.id)
+      await sendEmail({
+        from: 'LaunchFa.st Demo <verification@launchfa.st>',
+        to: userEmail,
+        subject: '[LaunchFa.st]: Successful account deletion.',
+        text: `Hello,\n\nYou have succesfully deleted your account on LaunchFa.st account associated with this email address (${userEmail}) successfully.\n\nThanks,\n\nLaunchFa.st`,
+      })
       return webJson({ redirect: '/auth/signout', set: true }, 200, {})
     }
     return webResponse(null, 200, {})

@@ -7,8 +7,8 @@ async function preview() {
       command = 'vite'
       args = ['preview']
     } else {
-      command = 'dotenv'
-      args = ['--', 'node', 'build']
+      command = 'dotenvx'
+      args = ['run', '--', 'node', 'build']
     }
     const childProcess = spawn(command, args)
     childProcess.stdout.on('data', (data) => process.stdout.write(data))

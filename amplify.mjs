@@ -91,6 +91,6 @@ async function computeDependencies(paths = []) {
     })
 }
 
-prependSync(join('build', 'index.js'), `import 'dotenv/config'\n`)
+prependSync(join('build', 'index.js'), `import '@dotenvx/dotenvx/config'\n`)
 
 computeDependencies(['./build/index.js'])
