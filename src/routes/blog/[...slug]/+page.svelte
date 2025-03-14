@@ -18,7 +18,7 @@
 {/if}
 
 <div data-pagefind-body class="relative mx-auto flex max-w-2xl flex-col px-8 py-8">
-  <h1 class="text-3xl font-extrabold text-branding">{data.post.title}</h1>
+  <h1 class="text-branding text-3xl font-extrabold">{data.post.title}</h1>
   {#if data.post.show_author !== false}
     <div class="flex flex-row items-center justify-between">
       <Author name="Rishi Raj Jain" image="https://ik.imagekit.io/vjeqenuhn/static/headshot.jpeg" />

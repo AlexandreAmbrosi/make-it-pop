@@ -56,13 +56,13 @@
     <img alt="LaunchFast Logo" src={logo} class="max-w-[140px]" decoding="async" loading="lazy" />
   </a>
   <div class="hidden flex-row items-center gap-x-8 sm:flex">
-    <a class={['text-sm text-gray-800 hover:text-launchfast hover:underline', $page.url.pathname.includes('/blog') && 'font-semibold'].filter(Boolean).join(' ')} href="/blog">
+    <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname.includes('/blog') && 'font-semibold'].filter(Boolean).join(' ')} href="/blog">
       Blog
     </a>
-    <a class={['text-sm text-gray-800 hover:text-launchfast hover:underline', $page.url.pathname.includes('/docs') && 'font-semibold'].filter(Boolean).join(' ')} href="/docs">
+    <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname.includes('/docs') && 'font-semibold'].filter(Boolean).join(' ')} href="/docs">
       Docs
     </a>
-    <a class={['text-sm text-gray-800 hover:text-launchfast hover:underline', $page.url.pathname === '/dashboard' && 'font-semibold'].filter(Boolean).join(' ')} href="/dashboard">
+    <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname === '/dashboard' && 'font-semibold'].filter(Boolean).join(' ')} href="/dashboard">
       Dashboard
     </a>
     <Popover>
@@ -92,7 +92,7 @@
   <div
     id="header-menu"
     class={[
-      'absolute right-0 top-0 z-1000 hidden h-screen w-[250px] flex-col overflow-hidden border-l bg-white shadow-2xl transition-all duration-300 ease-in-out sm:hidden!',
+      'absolute top-0 right-0 z-1000 hidden h-screen w-[250px] flex-col overflow-hidden border-l bg-white shadow-2xl transition-all duration-300 ease-in-out sm:hidden!',
       $navigating && 'hidden!',
     ]
       .filter(Boolean)

@@ -62,7 +62,7 @@
     <div class="flex flex-row items-center">
       <img loading="lazy" decoding="async" width="48" height="48" alt={name} class="h-[48px] w-[48px] rounded-full" src={photo} />
       <div class="author ml-4 flex flex-col no-underline!">
-        <span class="flex items-center font-bold leading-5 text-launchfast" title={name}>
+        <span class="text-launchfast flex items-center leading-5 font-bold" title={name}>
           {name}
           {#if verified_type}
             <div class="ml-1">
@@ -105,6 +105,6 @@
         </div>
       {/if}
     </div>
-    <div contenteditable="false" bind:innerHTML={formattedText} class="mb-1 mt-4 whitespace-pre-wrap text-launchfast"></div>
+    <div contenteditable="false" bind:innerHTML={formattedText} class="text-launchfast mt-4 mb-1 whitespace-pre-wrap"></div>
   </div>
 </div>

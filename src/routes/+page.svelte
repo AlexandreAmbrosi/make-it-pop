@@ -1,7 +1,7 @@
 <main>
   <section class="px-8 py-12">
     <div class="mx-auto max-w-[1040px] text-center">
-      <a class="mb-4 inline-flex rounded-lg bg-primary/5 px-5 py-2 text-sm text-primary" href="/blog">We just raised funding $16M →</a>
+      <a class="bg-primary/5 text-primary mb-4 inline-flex rounded-lg px-5 py-2 text-sm" href="/blog">We just raised funding $16M →</a>
       <h1 class="mx-auto w-full max-w-[600px] text-2xl font-black sm:text-4xl">All-in-One Starter Kit for SvelteKit</h1>
       <p class="mx-auto mt-5 w-full max-w-[800px] font-medium lg:text-xl">
         This is a demo of the SaaS built with LaunchFast SvelteKit Starter Kit. Having this at the start of your SaaS journey will save you a lot of time and effort.
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div
-      class="h-[6 22px] xl:backdr op-blur-[20px] relative mx-auto mt-12 w-full max-w-[1008px] rounded-[12.8px] border-[1.6px] border-white/40 bg-white/30 p-5 pt-5 backdrop-blur-0"
+      class="h-[6 22px] xl:backdr op-blur-[20px] backdrop-blur-0 relative mx-auto mt-12 w-full max-w-[1008px] rounded-[12.8px] border-[1.6px] border-white/40 bg-white/30 p-5 pt-5"
     >
       <div class="shadow-hero-img relative z-10 m-auto w-full max-w-[966px] rounded-[9.6px]">
         <img loading="lazy" decoding="async" class="mx-auto w-full rounded-[10px] border" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" />
@@ -24,64 +24,64 @@
   </section>
   <section id="features" class="bg-[#F9FAFD] px-4 py-12 sm:px-8">
     <div class="mx-auto mb-16 max-w-[756px] text-center">
-      <span class="text-body-sm mb-4 inline-flex rounded-lg bg-primary/5 px-5 py-2 font-medium text-primary sm:text-lg">Core Features</span>
+      <span class="text-body-sm bg-primary/5 text-primary mb-4 inline-flex rounded-lg px-5 py-2 font-medium sm:text-lg">Core Features</span>
       <h2 class="text-heading-5 xl:text-heading-3 font-black lg:text-3xl">Launch your next SaaS with SvelteKit in few hours</h2>
     </div>
     <div class="mx-auto w-full max-w-[1216px]">
       <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <div class="border-stroke rounded-[20px] border bg-white p-4 duration-300 ease-in hover:shadow-card sm:p-9">
+        <div class="border-stroke hover:shadow-card rounded-[20px] border bg-white p-4 duration-300 ease-in sm:p-9">
           <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg font-bold leading-10 xl:text-[26px]">SvelteKit + Content Collections</h3>
+          <h3 class="mt-3 text-lg leading-10 font-bold xl:text-[26px]">SvelteKit + Content Collections</h3>
           <p class="mt-3 font-medium xl:text-lg">Create a stylish, high-performance documentation &amp; blogging website with SvelteKit and Content Collections.</p>
         </div>
-        <div class="border-stroke rounded-[20px] border bg-white p-4 duration-300 ease-in hover:shadow-card sm:p-9">
+        <div class="border-stroke hover:shadow-card rounded-[20px] border bg-white p-4 duration-300 ease-in sm:p-9">
           <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg font-bold leading-10 xl:text-[26px]">Key eCommerce Features</h3>
+          <h3 class="mt-3 text-lg leading-10 font-bold xl:text-[26px]">Key eCommerce Features</h3>
           <p class="mt-3 font-medium xl:text-lg">
             All essential features you need to build a stunning eCommerce site such as easy product listings, checkout, accounts, search, and more.
           </p>
         </div>
-        <div class="border-stroke rounded-[20px] border bg-white p-4 duration-300 ease-in hover:shadow-card sm:p-9">
+        <div class="border-stroke hover:shadow-card rounded-[20px] border bg-white p-4 duration-300 ease-in sm:p-9">
           <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg font-bold leading-10 xl:text-[26px]">Build, Develop, Extend</h3>
+          <h3 class="mt-3 text-lg leading-10 font-bold xl:text-[26px]">Build, Develop, Extend</h3>
           <p class="mt-3 font-medium xl:text-lg">
             Build your store and jumpstart your business quickly. Essentials are ready rest you can customize, extend and improve based on your need.
           </p>
         </div>
-        <div class="border-stroke rounded-[20px] border bg-white p-4 duration-300 ease-in hover:shadow-card sm:p-9">
+        <div class="border-stroke hover:shadow-card rounded-[20px] border bg-white p-4 duration-300 ease-in sm:p-9">
           <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg font-bold leading-10 xl:text-[26px]">Collect Payments</h3>
+          <h3 class="mt-3 text-lg leading-10 font-bold xl:text-[26px]">Collect Payments</h3>
           <p class="mt-3 font-medium xl:text-lg">Stripe integration is ready to use. Ensure a secure, user-friendly, and efficient checkout experience for your eCommerce store.</p>
         </div>
-        <div class="border-stroke rounded-[20px] border bg-white p-4 duration-300 ease-in hover:shadow-card sm:p-9">
+        <div class="border-stroke hover:shadow-card rounded-[20px] border bg-white p-4 duration-300 ease-in sm:p-9">
           <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg font-bold leading-10 xl:text-[26px]">Integrations and Plugins</h3>
+          <h3 class="mt-3 text-lg leading-10 font-bold xl:text-[26px]">Integrations and Plugins</h3>
           <p class="mt-3 font-medium xl:text-lg">
             Essential integrations are added and ready to use such as: Sanity, Algolia, Stripe, DB and Nextauth to ensure a feature-rich eCommerce experience.
           </p>
         </div>
-        <div class="border-stroke rounded-[20px] border bg-white p-4 duration-300 ease-in hover:shadow-card sm:p-9">
+        <div class="border-stroke hover:shadow-card rounded-[20px] border bg-white p-4 duration-300 ease-in sm:p-9">
           <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg font-bold leading-10 xl:text-[26px]">Lifetime Free Updates</h3>
+          <h3 class="mt-3 text-lg leading-10 font-bold xl:text-[26px]">Lifetime Free Updates</h3>
           <p class="mt-3 font-medium xl:text-lg">Free updates with advanced new features and continuous upgrades to make your eCommerce store better without any cost.</p>
         </div>
       </div>
       <div class="mt-9 grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2">
-        <div class="border-stroke flex flex-col gap-6 rounded-[20px] border bg-white p-4 duration-300 ease-in hover:shadow-card sm:flex-row sm:p-9">
+        <div class="border-stroke hover:shadow-card flex flex-col gap-6 rounded-[20px] border bg-white p-4 duration-300 ease-in sm:flex-row sm:p-9">
           <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
           <div class="w-full">
             <h4 class="mb-2 text-lg font-bold xl:text-xl">Built-with Cutting Edge Tech</h4>
             <p class="font-medium">built with advanced modern web technologies, ensuring a modern and efficient eCommerce experience.</p>
           </div>
         </div>
-        <div class="border-stroke flex flex-col gap-6 rounded-[20px] border bg-white p-4 duration-300 ease-in hover:shadow-card sm:flex-row sm:p-9">
+        <div class="border-stroke hover:shadow-card flex flex-col gap-6 rounded-[20px] border bg-white p-4 duration-300 ease-in sm:flex-row sm:p-9">
           <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
           <div class="w-full">
             <h4 class="mb-2 text-lg font-bold xl:text-xl">Fully Responsive</h4>
             <p class="font-medium">Fully responsive which ensures a flawless experience across all platforms and screen sizes.</p>
           </div>
         </div>
-        <div class="border-stroke flex flex-col gap-6 rounded-[20px] border bg-white p-4 duration-300 ease-in hover:shadow-card sm:flex-row sm:p-9">
+        <div class="border-stroke hover:shadow-card flex flex-col gap-6 rounded-[20px] border bg-white p-4 duration-300 ease-in sm:flex-row sm:p-9">
           <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
           <div class="w-full">
             <h4 class="mb-2 text-lg font-bold xl:text-xl">High-quality Design</h4>
@@ -90,7 +90,7 @@
             </p>
           </div>
         </div>
-        <div class="border-stroke flex flex-col gap-6 rounded-[20px] border bg-white p-4 duration-300 ease-in hover:shadow-card sm:flex-row sm:p-9">
+        <div class="border-stroke hover:shadow-card flex flex-col gap-6 rounded-[20px] border bg-white p-4 duration-300 ease-in sm:flex-row sm:p-9">
           <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
           <div class="w-full">
             <h4 class="mb-2 text-lg font-bold xl:text-xl">Detailed Documentation</h4>
@@ -108,7 +108,7 @@
       <p class="font-medium text-[#2E2E2E] sm:text-lg">Includes all the essentials you need to kickstart your next SaaS with modern features and tech-stacks</p>
     </div>
     <div class="mx-auto w-full max-w-[1216px]">
-      <div class="sm:p-10.5 rounded-3xl bg-[#FFF6F4] p-5">
+      <div class="rounded-3xl bg-[#FFF6F4] p-5 sm:p-10.5">
         <div class="grid grid-cols-1 lg:grid-cols-3">
           <div class="false false mx-auto w-full max-w-[312px] py-12 lg:max-w-full lg:py-5 lg:pr-12">
             <div class="mb-8">
@@ -121,7 +121,7 @@
                 src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general"
               />
             </div>
-            <h4 class="mb-3 text-[26px] font-bold leading-[38px]">Content Collections to manage content</h4>
+            <h4 class="mb-3 text-[26px] leading-[38px] font-bold">Content Collections to manage content</h4>
             <p class="font-medium">Content Collections makes the content managing process easier, you can directly edit the markdown like a CMS.</p>
           </div>
           <div class="border-gray-4 false false mx-auto w-full max-w-[312px] border-y py-12 lg:max-w-full lg:border-x lg:border-y-0 lg:px-12 lg:py-5">
@@ -135,7 +135,7 @@
                 src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general"
               />
             </div>
-            <h4 class="mb-3 text-[26px] font-bold leading-[38px]">Stripe (and Lemon Squeezy) integration to collect payments</h4>
+            <h4 class="mb-3 text-[26px] leading-[38px] font-bold">Stripe (and Lemon Squeezy) integration to collect payments</h4>
             <p class="font-medium">
               Stripe and LemonSqueezy integration simplifies payment processing, billing and shipping information. Stripe is a secure and efficient solution for SaaS transactions
               with ease.
@@ -152,7 +152,7 @@
                 src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general"
               />
             </div>
-            <h4 class="mb-3 text-[26px] font-bold leading-[38px]">Bring in any database</h4>
+            <h4 class="mb-3 text-[26px] leading-[38px] font-bold">Bring in any database</h4>
             <p class="font-medium">LaunchFast allows you to bring in any database such as Redis, PostgreSQL, Firebase, MongoDB or SQLite.</p>
           </div>
         </div>

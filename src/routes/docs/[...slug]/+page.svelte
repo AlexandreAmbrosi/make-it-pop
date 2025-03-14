@@ -18,7 +18,7 @@
 {/if}
 
 <div data-pagefind-body class="flex flex-col">
-  <h1 class="text-2xl font-extrabold tracking-tight text-branding sm:text-3xl">{data.post.title}</h1>
+  <h1 class="text-branding text-2xl font-extrabold tracking-tight sm:text-3xl">{data.post.title}</h1>
   <h2 class="prose prose-gray mt-2 text-lg">{data.post.description}</h2>
   <article class="prose prose-gray mt-8 min-w-full">
     {@html data.post.mdx}
@@ -38,7 +38,7 @@
         </a>
       {/if}
     </div>
-    <div class="flex justify-between gap-12 border-t border-gray-100 pb-28 pt-10 sm:flex">
+    <div class="flex justify-between gap-12 border-t border-gray-100 pt-10 pb-28 sm:flex">
       <div class="flex gap-6">
         <a href="https://x.com/rishi_raj_jain_" target="_blank">
           <XIcon class="text-gray-400" width="24" height="24" />

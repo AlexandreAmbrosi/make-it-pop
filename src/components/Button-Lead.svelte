@@ -18,7 +18,7 @@
   />
   <button
     type="submit"
-    class="w-[200px] appearance-none rounded border border-opacity-0 bg-launchfast px-3 py-1 text-white transition duration-300 hover:border-launchfast hover:border-opacity-100 hover:bg-white hover:text-launchfast hover:shadow-2xl"
+    class="border-opacity-0 bg-launchfast hover:border-launchfast hover:border-opacity-100 hover:text-launchfast w-[200px] appearance-none rounded border px-3 py-1 text-white transition duration-300 hover:bg-white hover:shadow-2xl"
   >
     Join Waitlist &rarr;
   </button>

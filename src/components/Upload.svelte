@@ -56,7 +56,7 @@
 
 <button
   onclick={() => triggerUpload()}
-  class="flex max-w-max flex-row items-center gap-x-1 rounded border border-branding px-3 py-1 text-sm text-gray-900 transition duration-200 hover:bg-branding hover:text-white"
+  class="border-branding hover:bg-branding flex max-w-max flex-row items-center gap-x-1 rounded border px-3 py-1 text-sm text-gray-900 transition duration-200 hover:text-white"
 >
   <PinIcon />
   <span> Upload </span>

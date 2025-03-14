@@ -11,8 +11,8 @@
 
 <div id="features" class="mx-auto flex max-w-7xl flex-col gap-8 px-8">
   <div class="flex flex-col text-left">
-    <a href="/#features" class="text-3xl font-extrabold text-launchfast/75 sm:text-4xl">
-      Your Time-Saving <span class="whitespace-nowrap bg-astro px-2 text-white shadow-2xl">Web Development</span> Starter Kit(s)
+    <a href="/#features" class="text-launchfast/75 text-3xl font-extrabold sm:text-4xl">
+      Your Time-Saving <span class="bg-astro px-2 whitespace-nowrap text-white shadow-2xl">Web Development</span> Starter Kit(s)
     </a>
     <p class="mt-3 text-xl text-gray-600">
       Save lot of time using baked-in countless integrations, API Routes, and components to send emails, setup blogs, login users, protect routes, track user events, accept
@@ -20,7 +20,7 @@
     </p>
   </div>
   {#each features as feature}
-    <a href={`#${slug(feature.heading)}`} id={slug(feature.heading)} class="mt-8 flex flex-col text-left text-2xl font-semibold text-launchfast">
+    <a href={`#${slug(feature.heading)}`} id={slug(feature.heading)} class="text-launchfast mt-8 flex flex-col text-left text-2xl font-semibold">
       {feature.heading}
     </a>
     <div class="flex flex-col">

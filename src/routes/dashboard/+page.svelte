@@ -98,28 +98,28 @@
 <Seo title={'Dashboard'} />
 
 <div class="relative mx-auto flex max-w-7xl flex-col px-8 py-8">
-  <h1 class="pb-6 text-3xl font-medium text-launchfast">Settings</h1>
+  <h1 class="text-launchfast pb-6 text-3xl font-medium">Settings</h1>
   <div class="mt-12 grid items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-    <nav class="grid gap-4 text-sm text-muted-foreground"><a class="-mx-4 rounded px-4 py-2 font-semibold text-primary hover:bg-muted/25" href="/dashboard">General</a></nav>
+    <nav class="text-muted-foreground grid gap-4 text-sm"><a class="text-primary hover:bg-muted/25 -mx-4 rounded px-4 py-2 font-semibold" href="/dashboard">General</a></nav>
     {#if $userProfile?.name}
       <div class="grid gap-6">
-        <div class="rounded-lg border bg-card text-card-foreground shadow-xs">
+        <div class="bg-card text-card-foreground rounded-lg border shadow-xs">
           <div class="flex flex-row flex-wrap justify-between gap-4 space-y-1.5 p-6 md:gap-0">
             <div class="flex flex-col">
-              <h3 class="text-2xl font-semibold leading-none tracking-tight">Your Avatar</h3>
-              <p class="mt-3 text-sm text-muted-foreground">
+              <h3 class="text-2xl leading-none font-semibold tracking-tight">Your Avatar</h3>
+              <p class="text-muted-foreground mt-3 text-sm">
                 This is your avatar accessible within LaunchFast.
                 <br />
                 Click on the avatar to upload a custom one from your files.
               </p>
-              <p class="mt-6 text-sm text-muted-foreground">An avatar is optional but strongly recommended.</p>
+              <p class="text-muted-foreground mt-6 text-sm">An avatar is optional but strongly recommended.</p>
             </div>
             <input onchange={(e) => uploadFile(e)} id="change_picture" type="file" class="hidden" />
             <div class="flex flex-col items-center">
               <button
                 id="picture_value"
                 onclick={() => invokeFile()}
-                class="inline-flex h-auto w-[90px] items-center justify-center whitespace-nowrap rounded-full bg-secondary text-sm font-medium text-secondary-foreground outline-hidden ring-0! ring-offset-background transition-colors hover:bg-secondary/80 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                class="bg-secondary text-secondary-foreground ring-offset-background hover:bg-secondary/80 focus-visible:ring-ring inline-flex h-auto w-[90px] items-center justify-center rounded-full text-sm font-medium whitespace-nowrap ring-0! outline-hidden transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
               >
                 <img loading="lazy" decoding="async" alt={$userProfile.name} class="aspect-square cursor-pointer rounded-full" src={$userProfile.image} />
               </button>
@@ -133,52 +133,52 @@
             </div>
           </div>
         </div>
-        <div class="rounded-lg border bg-card text-card-foreground shadow-xs">
+        <div class="bg-card text-card-foreground rounded-lg border shadow-xs">
           <div class="flex flex-col space-y-1.5 p-6">
-            <h3 class="text-2xl font-semibold leading-none tracking-tight">Your Email</h3>
-            <p class="text-sm text-muted-foreground">This is your email accessible within LaunchFast.</p>
+            <h3 class="text-2xl leading-none font-semibold tracking-tight">Your Email</h3>
+            <p class="text-muted-foreground text-sm">This is your email accessible within LaunchFast.</p>
           </div>
           <div class="p-6 pt-0">
             <input
               disabled
               value={$userProfile.email}
-              class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
             />
           </div>
         </div>
-        <div class="rounded-lg border bg-card text-card-foreground shadow-xs">
+        <div class="bg-card text-card-foreground rounded-lg border shadow-xs">
           <div class="flex flex-col space-y-1.5 p-6">
-            <h3 class="text-2xl font-semibold leading-none tracking-tight">Your Name</h3>
-            <p class="text-sm text-muted-foreground">This is your name visible within LaunchFast.</p>
+            <h3 class="text-2xl leading-none font-semibold tracking-tight">Your Name</h3>
+            <p class="text-muted-foreground text-sm">This is your name visible within LaunchFast.</p>
           </div>
           <div class="p-6 pt-0">
             <input
               id="username_value"
               value={$userProfile.name}
-              class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
             />
           </div>
           <div class="flex items-center border-t p-6 px-6 py-4">
             <button
               id="change_username"
               onclick={() => updateUsername()}
-              class="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+              class="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
             >
               Save
             </button>
           </div>
         </div>
-        <div class="rounded-lg border bg-card text-card-foreground shadow-xs">
+        <div class="bg-card text-card-foreground rounded-lg border shadow-xs">
           <div class="flex flex-col space-y-1.5 p-6">
-            <h3 class="text-2xl font-semibold leading-none tracking-tight">Delete Account</h3>
-            <p class="text-sm text-muted-foreground">
+            <h3 class="text-2xl leading-none font-semibold tracking-tight">Delete Account</h3>
+            <p class="text-muted-foreground text-sm">
               Permanently remove your account and all of its contents from the LaunchFast platform. This action is not reversible — please continue with caution.
             </p>
           </div>
           <div class="flex items-center border-t p-6 px-6 py-4">
             <label
               for="modal-1"
-              class="inline-flex h-10 cursor-pointer items-center justify-center whitespace-nowrap rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground ring-offset-background transition-colors hover:bg-destructive/90 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+              class="bg-destructive text-destructive-foreground ring-offset-background hover:bg-destructive/90 focus-visible:ring-ring inline-flex h-10 cursor-pointer items-center justify-center rounded-md px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
             >
               Delete Account
             </label>
@@ -186,34 +186,34 @@
             <div class="modal">
               <label class="modal-overlay" for="modal-1"></label>
               <div class="modal-content flex flex-col bg-white">
-                <label for="modal-1" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"> ✕ </label>
-                <h2 class="text-lg font-semibold leading-none tracking-tight">Delete Account</h2>
-                <p class="mt-2 text-sm text-muted-foreground">LaunchFast will delete all of your projects.</p>
+                <label for="modal-1" class="btn btn-sm btn-circle btn-ghost absolute top-2 right-2"> ✕ </label>
+                <h2 class="text-lg leading-none font-semibold tracking-tight">Delete Account</h2>
+                <p class="text-muted-foreground mt-2 text-sm">LaunchFast will delete all of your projects.</p>
                 <div class="grid gap-4 py-4">
                   <div class="grid gap-4">
-                    <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="name_verification">
+                    <label class="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="name_verification">
                       To verify, type your account name below:
                     </label>
                     <input
                       id="name_verification"
                       placeholder={$userProfile.name}
-                      class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
                     />
                   </div>
                   <div class="grid gap-4">
-                    <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="verification_message">
+                    <label class="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="verification_message">
                       To verify, type delete my account below:
                     </label>
                     <input
                       id="verification_message"
                       placeholder="delete my account"
-                      class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50"
                     />
                   </div>
                 </div>
                 <div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
                   <button
-                    class="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground ring-offset-background transition-colors hover:bg-destructive/90 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                    class="bg-destructive text-destructive-foreground ring-offset-background hover:bg-destructive/90 focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
                     type="submit"
                     id="continue_delete_button"
                     onclick={() => deleteAccount()}
@@ -228,14 +228,14 @@
       </div>
     {:else}
       <div class="grid gap-6">
-        <div class="rounded-lg border bg-card text-card-foreground shadow-xs">
+        <div class="bg-card text-card-foreground rounded-lg border shadow-xs">
           <div class="flex flex-col space-y-1.5 p-6">
-            <h3 class="text-2xl font-semibold leading-none tracking-tight">You are not signed in.</h3>
-            <p class="flex flex-col text-sm text-muted-foreground">
+            <h3 class="text-2xl leading-none font-semibold tracking-tight">You are not signed in.</h3>
+            <p class="text-muted-foreground flex flex-col text-sm">
               <span class="mt-1">Sign in to start editing your profile.</span>
               <a
                 href="/signin"
-                class="mt-3 inline-flex h-10 max-w-max items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                class="bg-primary text-primary-foreground ring-offset-background hover:bg-primary/90 focus-visible:ring-ring mt-3 inline-flex h-10 max-w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
               >
                 Sign In →
               </a>

@@ -1,7 +1,7 @@
 import { getEnv } from '@/lib/utils/env'
 import { Bot, webhookCallback } from 'grammy'
 
-const token = getEnv("TELEGRAM_BOT_TOKEN")
+const token = getEnv('TELEGRAM_BOT_TOKEN')
 
 if (!token) throw new Error('TELEGRAM_BOT_TOKEN environment variable not found.')
 

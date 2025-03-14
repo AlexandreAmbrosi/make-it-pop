@@ -26,7 +26,7 @@
   <button onclick={toggleSidebar} class="rounded-full border p-1">
     <IconHamburger />
   </button>
-  <div class="ml-4 flex min-w-0 space-x-3 whitespace-nowrap text-sm leading-6">
+  <div class="ml-4 flex min-w-0 space-x-3 text-sm leading-6 whitespace-nowrap">
     <div class="flex flex-row items-center space-x-3">
       <Popover>
         <PopoverTrigger>
@@ -34,7 +34,7 @@
         </PopoverTrigger>
         <PopoverContent class="flex flex-col gap-x-0 gap-y-2 divide-y px-5 py-2">
           {#each currentDoc.toc as tocItem}
-            <a href={tocItem.slug} class="py-1 text-primary">{tocItem.content}</a>
+            <a href={tocItem.slug} class="text-primary py-1">{tocItem.content}</a>
           {/each}
         </PopoverContent>
       </Popover>
@@ -47,28 +47,28 @@
 <div class="relative mx-auto flex max-w-7xl flex-col px-4">
   <div
     id="sidebar"
-    class={['fixed bottom-0 right-auto top-[0rem] z-20 -ml-[1rem] hidden w-[18rem] bg-white lg:top-[2rem] lg:-ml-[0rem] lg:block lg:bg-transparent', $navigating && 'hidden!']
+    class={['fixed top-[0rem] right-auto bottom-0 z-20 -ml-[1rem] hidden w-[18rem] bg-white lg:top-[2rem] lg:-ml-[0rem] lg:block lg:bg-transparent', $navigating && 'hidden!']
       .filter(Boolean)
       .join(' ')}
   >
-    <div class="absolute inset-0 z-10 overflow-auto pb-10 pr-8">
+    <div class="absolute inset-0 z-10 overflow-auto pr-8 pb-10">
       <div class="relative lg:text-sm lg:leading-6">
         <div class="sticky top-0 h-8">
           <div class="mt-4 flex flex-row items-center justify-between lg:hidden">
-            <h5 class="pl-4 font-semibold text-branding">Documentation</h5>
+            <h5 class="text-branding pl-4 font-semibold">Documentation</h5>
             <button onclick={toggleSidebar} class="text-xs">
               <IconCross height="14" width="14" />
             </button>
           </div>
         </div>
         <div>
-          <h5 class="mb-3.5 mt-2 hidden pl-4 font-semibold text-branding lg:mb-2.5 lg:block">Documentation</h5>
+          <h5 class="text-branding mt-2 mb-3.5 hidden pl-4 font-semibold lg:mb-2.5 lg:block">Documentation</h5>
           <ul>
             {#each all as i}
               <li class="scroll-m-4 first:scroll-m-20">
                 <a
                   href={['/docs', i._meta.path.replace('.svelte', '')].join('/')}
-                  class="group mt-2 flex max-w-max cursor-pointer items-center space-x-3 rounded-lg py-1.5 pl-[1rem] pr-8 text-gray-700 hover:bg-gray-600/5 hover:text-gray-900 focus:outline-primary lg:mt-0"
+                  class="group focus:outline-primary mt-2 flex max-w-max cursor-pointer items-center space-x-3 rounded-lg py-1.5 pr-8 pl-[1rem] text-gray-700 hover:bg-gray-600/5 hover:text-gray-900 lg:mt-0"
                 >
                   <div class={[$page.url.pathname === ['/docs', i._meta.path.replace('.svelte', '')].join('/') && 'font-semibold'].filter(Boolean).join(' ')}>
                     {i.title}

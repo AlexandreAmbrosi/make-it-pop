@@ -1,6 +1,6 @@
-import sqlite from './src/lib/db/sqlite'
 import '@dotenvx/dotenvx/config'
 import sql from 'postgres'
+import sqlite from './src/lib/db/sqlite'
 
 async function createSchema() {
   const dbType = process.env.DATABASE_TYPE

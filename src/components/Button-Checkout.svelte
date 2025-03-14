@@ -14,7 +14,7 @@
 </script>
 
 <form method="post" action="/api/stripe/checkout">
-  <button class={['flex cursor-pointer flex-row items-center justify-center gap-x-2 rounded-full text-white', minimal ? 'py-1 pl-2 pr-4' : 'px-10 py-3', className].join(' ')}>
+  <button class={['flex cursor-pointer flex-row items-center justify-center gap-x-2 rounded-full text-white', minimal ? 'py-1 pr-4 pl-2' : 'px-10 py-3', className].join(' ')}>
     <img
       loading="lazy"
       decoding="async"

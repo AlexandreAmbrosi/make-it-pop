@@ -12,8 +12,8 @@ import { getEnv } from './lib/utils/env'
 
 const providers: Provider[] = [
   Google({
-    clientId: getEnv("GOOGLE_CLIENT_ID"),
-    clientSecret: getEnv("GOOGLE_CLIENT_SECRET"),
+    clientId: getEnv('GOOGLE_CLIENT_ID'),
+    clientSecret: getEnv('GOOGLE_CLIENT_SECRET'),
     authorization: {
       params: {
         prompt: 'consent',
@@ -23,8 +23,8 @@ const providers: Provider[] = [
     },
   }),
   GitHub({
-    clientId: getEnv("GITHUB_CLIENT_ID"),
-    clientSecret: getEnv("GITHUB_CLIENT_SECRET"),
+    clientId: getEnv('GITHUB_CLIENT_ID'),
+    clientSecret: getEnv('GITHUB_CLIENT_SECRET'),
   }),
   Credentials({
     name: 'Credentials',
@@ -61,7 +61,7 @@ const providers: Provider[] = [
         const randomizedPassword = generateRandomString(credentials.password)
         await setPassword(credentials.username, randomizedPassword)
         await adapter.createUser?.({ id: uuidv4(), email: credentials.username, emailVerified: null })
-        const emailVerificationURL = getEnv("EMAIL_VERIFICATION_ENDPOINT_URL")
+        const emailVerificationURL = getEnv('EMAIL_VERIFICATION_ENDPOINT_URL')
         if (emailVerificationURL) {
           // Check if 'email' exists
           // Generate a random token

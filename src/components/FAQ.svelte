@@ -41,7 +41,7 @@
 <section id="faq">
   <div class="mx-auto flex max-w-7xl flex-col gap-8 px-8 py-24">
     <div class="flex flex-col text-left">
-      <p class="text-base-content text-3xl font-extrabold text-launchfast sm:text-4xl">Questions and Answers</p>
+      <p class="text-base-content text-launchfast text-3xl font-extrabold sm:text-4xl">Questions and Answers</p>
     </div>
     <ul class="basis-1/2">
       {#each data as i}
@@ -63,9 +63,9 @@
       {/each}
       <div class="text-base-content/80 border-t pt-4">
         Got more? Send me a DM on
-        <a class="text-base-content border-b border-launchfast" target="_blank" href="https://twitter.com/rishi_raj_jain_">Twitter</a>
+        <a class="text-base-content border-launchfast border-b" target="_blank" href="https://twitter.com/rishi_raj_jain_">Twitter</a>
         or by
-        <a href="mailto:jain71000@gmail.com" target="_blank" class="text-base-content border-b border-launchfast">email</a>.
+        <a href="mailto:jain71000@gmail.com" target="_blank" class="text-base-content border-launchfast border-b">email</a>.
       </div>
     </ul>
   </div>

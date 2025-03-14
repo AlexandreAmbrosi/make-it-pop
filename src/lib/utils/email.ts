@@ -10,9 +10,9 @@ interface EmailBody {
 }
 
 export async function sendEmail(body: EmailBody, provider?: EmailProvider) {
-  const EMAIL_PROVIDER = provider || getEnv("EMAIL_PROVIDER")
+  const EMAIL_PROVIDER = provider || getEnv('EMAIL_PROVIDER')
   if (EMAIL_PROVIDER === 'resend') {
-    const resendApiKey = getEnv("RESEND_API_KEY")
+    const resendApiKey = getEnv('RESEND_API_KEY')
     // Send an email using Resend
     // Read more on https://resend.com/docs/api-reference/emails/send-email
     if (!resendApiKey) throw new Error(`RESEND_API_KEY environment variable not set.`)
@@ -30,7 +30,7 @@ export async function sendEmail(body: EmailBody, provider?: EmailProvider) {
       }),
     })
   } else if (EMAIL_PROVIDER === 'smtp2go') {
-    const smtp2goApiKey = getEnv("SMTP2GO_API_KEY")
+    const smtp2goApiKey = getEnv('SMTP2GO_API_KEY')
     if (!smtp2goApiKey) throw new Error(`SMTP2GO_API_KEY environment variable not set.`)
     // Send an email using smtp2go
     // https://developers.smtp2go.com/reference/send-standard-email-1
@@ -48,7 +48,7 @@ export async function sendEmail(body: EmailBody, provider?: EmailProvider) {
       }),
     })
   } else if (EMAIL_PROVIDER === 'postmark') {
-    const postmarkApiKey = getEnv("POSTMARK_API_KEY")
+    const postmarkApiKey = getEnv('POSTMARK_API_KEY')
     if (!postmarkApiKey) throw new Error(`POSTMARK_API_KEY environment variable not set.`)
     // Send an email using Postmark
     // https://developers.cloudflare.com/workers/tutorials/send-emails-with-postmark/

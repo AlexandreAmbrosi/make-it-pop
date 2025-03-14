@@ -12,7 +12,7 @@
 <section id="testimonials">
   <div class="mx-auto mt-12 flex max-w-7xl flex-col gap-12 px-8">
     <div class="flex flex-col text-left">
-      <a href="/#testimonials" class="block max-w-max -rotate-1 scale-[102.5%] rounded bg-astro px-4 py-1 text-2xl font-medium text-white shadow-sm">Our growing wall of love 🤍</a>
+      <a href="/#testimonials" class="bg-astro block max-w-max scale-[102.5%] -rotate-1 rounded px-4 py-1 text-2xl font-medium text-white shadow-sm">Our growing wall of love 🤍</a>
       <span class="mt-4 text-xl text-gray-600">
         Join
         <b>30+ builders</b>

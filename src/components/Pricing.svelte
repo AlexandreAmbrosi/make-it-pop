@@ -15,8 +15,8 @@
 <section id="pricing" class="mx-auto flex max-w-7xl flex-col gap-8 px-8">
   <div class="flex flex-col text-left">
     <a href="/#pricing" class="text-3xl sm:text-4xl">
-      <span class="border px-2 text-launchfast">Pay once</span>,
-      <span class="whitespace-nowrap bg-astro px-2 font-bold text-white shadow-2xl">use forever</span>
+      <span class="text-launchfast border px-2">Pay once</span>,
+      <span class="bg-astro px-2 font-bold whitespace-nowrap text-white shadow-2xl">use forever</span>
     </a>
     <p class="mt-3 text-xl text-gray-600">
       LaunchFa.st Astro, Next.js and SvelteKit Starter Kits are each a one-time purchase. You get *all* the good things in a single purchase. <span class="text-launchfast">
@@ -40,10 +40,10 @@
       <div class="flex flex-row flex-wrap divide-x divide-white/25 border border-gray-100">
         <div class="flex flex-col p-8">
           <span class="ml-1 text-3xl font-semibold text-black/25 line-through">$150</span>
-          <span class="ml-1 text-7xl font-bold text-astro">$75</span>
+          <span class="text-astro ml-1 text-7xl font-bold">$75</span>
           <a target="_blank" class="mt-12" href="https://buy.polar.sh/polar_cl_LgLy_rZ2HXAqXCJLHTYheCYz9wtmQ7Xa_miDLnT392g">
             <input class="hidden" type="text" name="template" value="astro" />
-            <button class="max-w-max -rotate-1 rounded border bg-astro px-4 py-1 text-xl font-medium text-white"> Get Astro Starter Kit &rarr; </button>
+            <button class="bg-astro max-w-max -rotate-1 rounded border px-4 py-1 text-xl font-medium text-white"> Get Astro Starter Kit &rarr; </button>
             <a href="https://launchfast-astro-ts.vercel.app/" target="_blank" class="mt-4 block max-w-max -rotate-1 rounded border px-4 py-1 text-xl font-medium text-black">
               View Demo &rarr;
             </a>
@@ -86,10 +86,10 @@
       <div class="flex flex-row flex-wrap divide-x divide-white/25 border border-gray-100">
         <div class="flex flex-col p-8">
           <span class="ml-1 text-3xl font-semibold text-black/25 line-through">$150</span>
-          <span class="ml-1 text-7xl font-bold text-svelte">$75</span>
+          <span class="text-svelte ml-1 text-7xl font-bold">$75</span>
           <a class="mt-12" href="https://buy.polar.sh/polar_cl_vdjbGVc7If9dPpY9H9WsHXZ_ISqFZAYD6BZX3zYuXr4">
             <input class="hidden" type="text" name="template" value="sveltekit" />
-            <button class="max-w-max -rotate-1 rounded border bg-svelte px-4 py-1 text-xl font-medium text-white"> Get SvelteKit Starter Kit &rarr; </button>
+            <button class="bg-svelte max-w-max -rotate-1 rounded border px-4 py-1 text-xl font-medium text-white"> Get SvelteKit Starter Kit &rarr; </button>
             <a href="https://launchfast-sveltekit.vercel.app/" target="_blank" class="mt-4 block max-w-max -rotate-1 rounded border px-4 py-1 text-xl font-medium text-black">
               View Demo &rarr;
             </a>
@@ -113,7 +113,7 @@
         <span class="ml-1 inline-block text-7xl font-bold text-black">$199</span>
         <a class="mt-12" href="https://code-templates.lemonsqueezy.com/buy/c6c9383b-4053-4096-bc4a-30230290bf29">
           <input class="hidden" type="text" name="template" value="bundle" />
-          <button class="inline-block max-w-max -rotate-1 rounded bg-linear-to-br from-branding to-svelte px-4 py-1 text-xl font-medium">
+          <button class="from-branding to-svelte inline-block max-w-max -rotate-1 rounded bg-linear-to-br px-4 py-1 text-xl font-medium">
             <span class="text-white">Get The Bundle &rarr;</span>
           </button>
         </a>

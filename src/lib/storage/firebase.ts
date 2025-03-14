@@ -2,7 +2,7 @@ import firebaseConfig from '@/lib/storage/firebaseConfig'
 import admin from 'firebase-admin'
 
 type GetSignedUrlConfig = {
-  version: "v4"
+  version: 'v4'
   action: 'read' | 'write'
   expires: number
   contentType?: string

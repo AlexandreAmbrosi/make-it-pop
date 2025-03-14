@@ -15,7 +15,7 @@
 <Seo title={'Blog'} description={'Latest news and updates from Company'} />
 
 <div class="relative mx-auto flex max-w-7xl flex-col px-8 py-8">
-  <h1 class="mt-4 max-w-max text-3xl font-extrabold text-branding sm:text-4xl">Blog</h1>
+  <h1 class="text-branding mt-4 max-w-max text-3xl font-extrabold sm:text-4xl">Blog</h1>
   <h2 class="mt-4 text-gray-400">Latest news and updates from Company</h2>
   <div class="mt-12 h-[1px] w-full bg-black/5"></div>
   <div class="mt-12 hidden" id="search"></div>
