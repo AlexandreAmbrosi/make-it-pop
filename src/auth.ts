@@ -7,7 +7,6 @@ import Credentials from '@auth/core/providers/credentials'
 import GitHub from '@auth/core/providers/github'
 import Google from '@auth/core/providers/google'
 import { SvelteKitAuth } from '@auth/sveltekit'
-import '@dotenvx/dotenvx/config'
 import { v4 as uuidv4 } from 'uuid'
 import { getEnv } from './lib/utils/env'
 

@@ -14,7 +14,7 @@ const netlifyAdapter = netlify({
 
 const vercelAdapter = vercel({
   split: false,
-  runtime: 'nodejs18.x',
+  runtime: 'nodejs20.x',
 })
 
 const adapters = {
