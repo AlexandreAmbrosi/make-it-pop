@@ -44,7 +44,6 @@
     "wrangler": "^4.0.0"
   },
   "dependencies": {
-    "@auth/core": "^0.38.0",
     "@auth/sveltekit": "^1.7.2",
     "@auth/unstorage-adapter": "^2.8.0",
     "@aws-sdk/client-s3": "^3.609.0",

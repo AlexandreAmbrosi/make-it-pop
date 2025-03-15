@@ -1,4 +1,4 @@
-import { signOut } from '@/auth'
+import { signOut } from '@/auth.server'
 import { redirect } from '@sveltejs/kit'
 import type { Actions, RequestEvent } from './$types'
 
@@ -10,4 +10,4 @@ export async function load(event: RequestEvent) {
   redirect(302, '/')
 }
 
-export const actions = { default: signOut } satisfies Actions
+export const actions: Actions = { default: signOut }

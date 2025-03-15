@@ -1,4 +1,4 @@
-import { adapter, getCode, removeCode, setMailVerified } from '@/lib/db'
+import { adapter, getCode, removeCode } from '@/lib/db'
 import { sendEmail } from '@/lib/utils/email'
 import { webJson, webRedirect } from '@/lib/utils/web'
 import type { RequestEvent } from './$types'

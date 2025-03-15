@@ -87,7 +87,6 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-
   *,
   ::after,
   ::before,
@@ -174,7 +173,7 @@
   @apply hidden;
 }
 
-.modal-state:checked+.modal,
+.modal-state:checked + .modal,
 .modal-open.modal {
   @apply visible translate-y-0 scale-100 opacity-100;
 }
@@ -183,7 +182,7 @@ html:has(.modal-state:checked, .modal-open) {
   @apply overflow-hidden;
 }
 
-.modal-state:checked+.modal .modal-content,
+.modal-state:checked + .modal .modal-content,
 .modal-open .modal-content {
   @apply translate-y-0 scale-100;
 }

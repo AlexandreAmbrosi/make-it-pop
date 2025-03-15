@@ -3,7 +3,6 @@
   import { signIn } from '@auth/sveltekit/client'
   import GoogleIcon from '~icons/devicon/google'
   import GitHubIcon from '~icons/devicon/github'
-  import FacebookIcon from '~icons/devicon/facebook'
   import Seo from '@/components/SEO.svelte'
 
   const providers: { id: string; name: string }[] = $page.data.providerMap
@@ -68,9 +67,6 @@
           {/if}
           {#if provider.id === 'github'}
             <GitHubIcon />
-          {/if}
-          {#if provider.id === 'facebook'}
-            <FacebookIcon />
           {/if}
           <span> Continue with {provider.name}</span>
         </button>

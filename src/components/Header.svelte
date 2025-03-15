@@ -62,7 +62,7 @@
     <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname.includes('/docs') && 'font-semibold'].filter(Boolean).join(' ')} href="/docs">
       Docs
     </a>
-    <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname === '/changelog' && 'font-semibold'].filter(Boolean).join(' ')} href="/docs">
+    <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname === '/changelog' && 'font-semibold'].filter(Boolean).join(' ')} href="/changelog">
       Changelog
     </a>
     <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname === '/dashboard' && 'font-semibold'].filter(Boolean).join(' ')} href="/dashboard">
