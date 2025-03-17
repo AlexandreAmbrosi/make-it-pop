@@ -22,7 +22,7 @@
 </script>
 
 <div class="relative mx-auto flex max-w-7xl flex-row items-center justify-between px-8 pt-2">
-  <a href="/" class="flex flex-row items-center gap-x-2">
+  <a href="/" class="z-10 flex flex-row items-center gap-x-2">
     <Logo />
     <span class="font-semibold text-[#9810fa]">ACME</span>
   </a>

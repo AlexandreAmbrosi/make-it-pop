@@ -22,7 +22,7 @@
 
 <footer class="relative mx-auto mt-8 flex max-w-7xl flex-col p-8 xl:grid xl:grid-cols-5">
   <div class="flex flex-col space-y-8 xl:col-span-2">
-    <a href="/" class="flex flex-row items-center gap-x-2">
+    <a href="/" class="z-10 flex flex-row items-center gap-x-2">
       <Logo />
       <span class="font-semibold text-[#9810fa]">{brand_name}</span>
     </a>
