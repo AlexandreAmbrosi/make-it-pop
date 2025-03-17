@@ -53,8 +53,8 @@
   >
     <div class="absolute inset-0 z-10 overflow-auto pr-8 pb-10">
       <div class="relative lg:text-sm lg:leading-6">
-        <div class="sticky top-0 h-8">
-          <div class="mt-4 flex flex-row items-center justify-between lg:hidden">
+        <div class="sticky top-0 mt-8 h-8">
+          <div class="flex flex-row items-center justify-between lg:hidden">
             <h5 class="text-branding pl-4 font-semibold">Documentation</h5>
             <button onclick={toggleSidebar} class="text-xs">
               <IconCross height="14" width="14" />
