@@ -10,7 +10,7 @@
     className?: string
   }
 
-  let { minimal = false, brand_name = 'LaunchFast', className = 'bg-launchfast' }: Props = $props()
+  let { minimal = false, brand_name = 'ACME', className = 'bg-launchfast' }: Props = $props()
 </script>
 
 <form method="post" action="/api/stripe/checkout">

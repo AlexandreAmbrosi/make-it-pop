@@ -1,16 +1,16 @@
 <main>
   <section class="px-8 py-12">
     <div class="mx-auto max-w-[1040px] text-center">
-      <a class="bg-primary/5 text-primary mb-4 inline-flex rounded-lg px-5 py-2 text-sm" href="/blog">We just raised funding $16M →</a>
-      <h1 class="mx-auto w-full max-w-[600px] text-2xl font-black sm:text-4xl">All-in-One Starter Kit for SvelteKit</h1>
-      <p class="mx-auto mt-5 w-full max-w-[800px] font-medium lg:text-xl">
+      <a class="text-primary mb-4 inline-flex rounded-lg border border-gray-400 px-5 py-2 text-sm shadow-sm hover:bg-black hover:text-white" href="/blog"
+        >🎉 We're now SOC 2 compliance &rarr;</a
+      >
+      <h1 class="mx-auto mt-4 w-full max-w-[600px] text-3xl font-black sm:text-6xl">All-in-One Starter Kit for SvelteKit</h1>
+      <p class="mx-auto mt-4 w-full max-w-[800px] text-gray-600 lg:text-xl">
         This is a demo of the SaaS built with LaunchFast SvelteKit Starter Kit. Having this at the start of your SaaS journey will save you a lot of time and effort.
       </p>
       <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <a
-          target="_blank"
-          class="inline-flex rounded-lg bg-black px-8 py-3 font-bold text-white"
-          href="https://buy.polar.sh/polar_cl_vdjbGVc7If9dPpY9H9WsHXZ_ISqFZAYD6BZX3zYuXr4">Buy template → $99</a
+        <a target="_blank" class="inline-flex rounded-lg bg-black px-8 py-3 font-bold text-white" href="https://buy.polar.sh/polar_cl_vdjbGVc7If9dPpY9H9WsHXZ_ISqFZAYD6BZX3zYuXr4"
+          >Buy template → $99</a
         ><a class="rounded-lg border px-8 py-3 font-bold" href="/docs">Documentation</a>
       </div>
     </div>
@@ -18,7 +18,7 @@
       class="h-[6 22px] xl:backdr op-blur-[20px] backdrop-blur-0 relative mx-auto mt-12 w-full max-w-[1008px] rounded-[12.8px] border-[1.6px] border-white/40 bg-white/30 p-5 pt-5"
     >
       <div class="shadow-hero-img relative z-10 m-auto w-full max-w-[966px] rounded-[9.6px]">
-        <img loading="lazy" decoding="async" class="mx-auto w-full rounded-[10px] border" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" />
+        <img loading="eager" class="mx-auto w-full rounded-[10px] border bg-gray-100" width="1200" height="600" src="https://picsum.photos/1200/600" />
       </div>
     </div>
   </section>

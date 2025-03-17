@@ -19,7 +19,7 @@
 
   let {
     minimal = false,
-    brand_name = 'LaunchFast',
+    brand_name = 'ACME',
     className = 'bg-launchfast',
     product_url = 'https://launchfast.lemonsqueezy.com/checkout/buy/30dd570f-3598-440d-a29a-1e002bda0eb6?checkout[discount_code]=M0OTIWMA',
   }: Props = $props()

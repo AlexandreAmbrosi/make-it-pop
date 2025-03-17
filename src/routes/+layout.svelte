@@ -17,8 +17,13 @@
 
 <Seo />
 <Toaster />
+<div class="bg-black/5 px-4 py-2 text-center text-sm text-balance">
+  <p>
+    Note: You are previewing the demo of <span class="font-bold">SvelteKit Starter Kit</span> by <a class="underline" href="https://www.launchfa.st">LaunchFast</a>.
+  </p>
+</div>
 <Header />
 <Divider className="mt-2 border-none bg-gray-100" />
 {@render children()}
 <Divider className="mt-2 border-none bg-gray-100" />
-<Footer twitter="rishi_raj_jain_" brand_name="LaunchFast" />
+<Footer twitter="rishi_raj_jain_" brand_name="ACME" />

@@ -1,71 +1,93 @@
 ---
-title: 'OS: A Step-by-Step Guide'
-description: 'How to TODO?'
+title: '(Demo) Deploying an Next.js App: A Step-by-Step Guide'
+description: 'Learn how to deploy your Next.js application with ease.'
 author: 'Rishi Raj Jain'
 published: true
-head_image: 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/general'
-blog_image: 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/general'
+head_image: 'https://picsum.photos/900/600?c=1'
+blog_image: 'https://picsum.photos/900/600?c=1'
 created_at: 2024-04-17T00:00:00.000+00:00
 ---
 
-<img data-pagefind-meta="image[src]" width="1600" height="900" alt="TODO: A Step-by-Step Guide" decoding="async" class="mt-4 border rounded bg-cover bg-center bg-no-repeat transform will-change-auto" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" />
+# Deploying an Astro App
 
-OS In this guide, you will learn how to TODO. You will go through the process of TODO.
+In this guide, you will learn how to deploy an Astro application step by step. We'll cover setting up your project, configuring it for deployment, and deploying it to a hosting provider.
 
 ## Prerequisites
 
 You'll need the following:
 
 - [Node.js 18](https://nodejs.org/en/blog/announcements/v18-release-announce) or later
+- A GitHub account
+- A hosting provider such as [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/)
 
 ## Create a new Astro application
 
-Let’s get started by creating a new Astro project. Execute the following command:
+First, create a new Astro project using the following command:
 
 ```bash
 npm create astro@latest my-app
 ```
 
-`npm create astro` is the recommended way to scaffold an Astro project quickly.
+Follow the prompts and select the following options:
 
-When prompted, choose:
+- `Empty` for the project template.
+- `Yes` for TypeScript.
+- `Strict` for TypeScript settings.
+- `Yes` to install dependencies.
+- `Yes` to initialize a Git repository.
 
-- `Empty` when prompted on how to start the new project.
-- `Yes` when prompted if plan to write Typescript.
-- `Strict` when prompted how strict Typescript should be.
-- `Yes` when prompted to install dependencies.
-- `Yes` when prompted to initialize a git repository.
-
-Once that’s done, you can move into the project directory and start the app:
+Navigate to the project directory and start the development server:
 
 ```bash
 cd my-app
 npm run dev
 ```
 
-The app should be running on [localhost:4321](http://localhost:4321/).
+Your app should now be running at [localhost:4321](http://localhost:4321/).
 
-## Change TODO
+## Configure Deployment Settings
 
-TODO
+Before deploying, ensure that your project is configured correctly. Add a `package.json` script for building your application:
 
-```astro
----
-import App from "./App.astro"; 
----
-
-<h1>Astro</h1>
-<span>New</span> 
+```json
+"scripts": {
+  "build": "astro build",
+  "preview": "astro preview"
+}
 ```
 
-## Build and Test your Astro application locally
+## Deploy to Vercel
 
-To test the application in application, prepare a build and run the preview server using the command below:
+To deploy to Vercel, install the CLI tool:
 
 ```bash
-npm run build && npm run preview
+npm install -g vercel
 ```
+
+Then, deploy your project:
+
+```bash
+vercel
+```
+
+Follow the prompts, and your site will be live in seconds!
+
+## Deploy to Netlify
+
+For Netlify, install the CLI tool:
+
+```bash
+npm install -g netlify-cli
+```
+
+Then, deploy your project:
+
+```bash
+netlify deploy --prod
+```
+
+This will generate a live URL for your Astro application.
 
 ## Conclusion
 
-In this guide, you learned how to TODO.
+In this guide, you learned how to deploy an Astro application using Vercel and Netlify. Now, your project is live and ready for users!

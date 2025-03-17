@@ -18,15 +18,22 @@
 {/if}
 
 <div data-pagefind-body class="relative mx-auto flex max-w-2xl flex-col px-8 py-8">
-  <h1 class="text-branding text-3xl font-extrabold">{data.post.title}</h1>
+  <h1 class="text-3xl font-extrabold">{data.post.title}</h1>
   {#if data.post.show_author !== false}
     <div class="flex flex-row items-center justify-between">
       <Author name="Rishi Raj Jain" image="https://ik.imagekit.io/vjeqenuhn/static/headshot.jpeg" />
       <SocialSharing title={data.post.title} url={new URL(`/blog/${data.post._meta.path.replace('.svelte', '')}`, config.url).toString()} />
     </div>
   {/if}
-  <img alt={data.post.title} src={data.post.blog_image} loading="eager" class="rounded py-4" />
-  <article class="prose">
+  <img
+    alt={data.post.title}
+    src={data.post.blog_image}
+    width="900"
+    height="600"
+    loading="eager"
+    class="mt-4 transform rounded bg-gray-100 bg-cover bg-center bg-no-repeat will-change-auto"
+  />
+  <article class="prose prose-gray mt-4">
     {@html data.post.mdx}
   </article>
   <div class="mt-8 h-[1px] w-full bg-gray-100"></div>

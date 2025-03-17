@@ -2,6 +2,7 @@
   import GitHubIcon from 'virtual:icons/devicon/github'
   import TwitterIcon from 'virtual:icons/devicon/twitter'
   import LinkedInIcon from 'virtual:icons/devicon/linkedin'
+  import Logo from './Logo.svelte'
 
   interface Props {
     /*
@@ -9,20 +10,21 @@
 
     <Footer
       twitter="rishi_raj_jain_"
-      brand_name="launchfa.st"
+      brand_name="ACME"
     />
   */
     brand_name: string
     twitter?: string
   }
 
-  let { brand_name, twitter = 'rishi_raj_jain_' }: Props = $props()
+  let { brand_name = 'ACME', twitter = 'rishi_raj_jain_' }: Props = $props()
 </script>
 
 <footer class="relative mx-auto mt-8 flex max-w-7xl flex-col p-8 xl:grid xl:grid-cols-5">
   <div class="flex flex-col space-y-8 xl:col-span-2">
-    <a href="/">
-      <img decoding="async" loading="lazy" width="140" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/symbol-logo" alt={brand_name} />
+    <a href="/" class="flex flex-row items-center gap-x-2">
+      <Logo />
+      <span class="font-semibold text-[#9810fa]">{brand_name}</span>
     </a>
     <p class="max-w-xs text-sm text-gray-500">The complete Astro, SvelteKit, Next.js full-stack starter kits to help you launch fast.</p>
     <div class="flex items-center space-x-2">

@@ -5,17 +5,8 @@
   import IconHamburger from '~icons/hugeicons/menu-09'
   import IconDown from '~icons/oui/arrow-down'
   import User from './User.svelte'
+  import Logo from './Logo.svelte'
 
-  interface Props {
-    /*
-    A component that can be used anywhere in your app
-
-    <Header logo="https://rishi.app/static/favicon-image.jpg" />
-  */
-    logo?: string
-  }
-
-  let { logo = 'https://ik.imagekit.io/vjeqenuhn/launchfast-website/symbol-logo' }: Props = $props()
   const toggleMenu = () => {
     const headerMenuElm = document.getElementById('header-menu')
     if (headerMenuElm) {
@@ -28,32 +19,12 @@
       }
     }
   }
-
-  // onMount(() => {
-  //   const createPagefindListener = () => {
-  //     if (window.PagefindUI) {
-  //       new window.PagefindUI({
-  //         element: '#search',
-  //       })
-  //     } else {
-  //       var script = document.createElement('script')
-  //       script.onload = createPagefindListener
-  //       script.src = '/pagefind/pagefind-ui.js'
-  //       document.head.appendChild(script)
-  //       var stylesheet = document.createElement('link')
-  //       stylesheet.rel = 'stylesheet'
-  //       stylesheet.href = '/pagefind/pagefind-ui.css'
-  //       document.head.appendChild(stylesheet)
-  //       document.getElementById('search')?.classList.remove('hidden')
-  //     }
-  //   }
-  //   createPagefindListener()
-  // })
 </script>
 
 <div class="relative mx-auto flex max-w-7xl flex-row items-center justify-between px-8 pt-2">
   <a href="/" class="flex flex-row items-center gap-x-2">
-    <img alt="LaunchFast Logo" src={logo} class="max-w-[140px]" decoding="async" loading="lazy" />
+    <Logo />
+    <span class="font-semibold text-[#9810fa]">ACME</span>
   </a>
   <div class="hidden flex-row items-center gap-x-8 sm:flex">
     <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname.includes('/blog') && 'font-semibold'].filter(Boolean).join(' ')} href="/blog">
