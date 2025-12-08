@@ -33,19 +33,44 @@ export async function POST({ request }: RequestEvent) {
             let cleanHtml = html.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gim, "")
                 .replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gim, "");
 
+            // 1b. Try OpenGraph.io API if key is present
+            let ogImage = null;
+            const ogApiKey = env.OPENGRAPH_APP_ID;
+
+            if (ogApiKey) {
+                try {
+                    const encodedUrl = encodeURIComponent(url);
+                    const ogResponse = await fetch(`https://opengraph.io/api/1.1/site/${encodedUrl}?app_id=${ogApiKey}`);
+                    if (ogResponse.ok) {
+                        const ogData = await ogResponse.json();
+                        ogImage = ogData.hybridGraph?.image || ogData.openGraph?.image?.url || null;
+                    }
+                } catch (e) {
+                    console.error('OpenGraph.io API failed:', e);
+                }
+            }
+
+            // Fallback: Extract OG Image locally if API failed or no key
+            if (!ogImage) {
+                const ogImageMatch = html.match(/<meta\s+(?:property|name)=["'](?:og:image|twitter:image)["']\s+content=["'](.*?)["']/i);
+                ogImage = ogImageMatch ? ogImageMatch[1] : null;
+
+                // Resolve relative URLs
+                if (ogImage && !ogImage.startsWith('http')) {
+                    try {
+                        ogImage = new URL(ogImage, url).toString();
+                    } catch (e) {
+                        ogImage = null;
+                    }
+                }
+            }
+
             // Extract body text
-            pageText = `Title: ${title}\nDescription: ${metaDesc}\nContent: ${cleanHtml.replace(/<[^>]+>/g, ' ').slice(0, 15000)}`; // limit context
+            pageText = `Title: ${title}\nDescription: ${metaDesc}\nOG Image: ${ogImage}\nContent: ${cleanHtml.replace(/<[^>]+>/g, ' ').slice(0, 15000)}`; // limit context
         } catch (fetchError) {
             console.error('Fetcher Error:', fetchError);
             return json({ error: 'Failed to access the provided URL. Please try entering details manually.' }, { status: 422 });
         }
-
-        // 2. Generate Smart Screenshot URL
-        // We use Microlink's free tier for high-quality screenshots. 
-        // options: screenshot=true, meta=false, embed=screenshot.url ensures we get the raw image link if possible, 
-        // but for robustness we construct the API url that SERVES the image.
-        const encodedUrl = encodeURIComponent(url);
-        const screenshotUrl = `https://api.microlink.io?url=${encodedUrl}&screenshot=true&meta=false&embed=screenshot.url`;
 
         // 3. Call Gemini
         const genAI = new GoogleGenerativeAI(env.GOOGLE_AI_KEY || '');
@@ -63,21 +88,35 @@ export async function POST({ request }: RequestEvent) {
             - "shortDescription": A punchy, 1-sentence marketing description (max 100 chars).
             - "pricing": One of ["Free", "Freemium", "Paid", "Contact"].
             - "tags": An array of 3-5 relevant functional tags (e.g. "Design", "Database", "AI").
-            - "imageUrl": "${screenshotUrl}" (Always use this screenshot URL I provided).
+            - "imageUrl": The best image URL found. Prioritize the "OG Image" provided in the content above. If none, look for a logo or main product shot in the content. Return null if no good image found.
 
             Return ONLY valid JSON.
         `;
 
-        const result = await model.generateContent(prompt);
+        // Retry logic for 429 errors
+        let result;
+        const maxRetries = 3;
+        for (let i = 0; i < maxRetries; i++) {
+            try {
+                result = await model.generateContent(prompt);
+                break; // Success
+            } catch (e: any) {
+                if ((e.status === 429 || e.response?.status === 429) && i < maxRetries - 1) {
+                    const delay = Math.pow(2, i) * 2000; // 2s, 4s, 8s
+                    console.warn(`Gemini 429 Hit. Retrying in ${delay}ms...`);
+                    await new Promise(r => setTimeout(r, delay));
+                    continue;
+                }
+                throw e; // Rethrow if not 429 or retries exhausted
+            }
+        }
+
+        if (!result) throw new Error('Failed to generate content after retries');
+
         const responseText = result.response.text();
 
         const cleanedText = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
         const aiData = JSON.parse(cleanedText);
-
-        // Force the screenshot URL if Gemini somehow missed it, though prompt instruction is strong.
-        if (!aiData.imageUrl || aiData.imageUrl === 'null') {
-            aiData.imageUrl = screenshotUrl;
-        }
 
         return json({ success: true, data: aiData });
 
