@@ -3,7 +3,6 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { env } from '$env/dynamic/private';
 import { db } from '$lib/db/drizzle';
 import { tools } from '$lib/db/schema';
-import { desc } from 'drizzle-orm';
 
 export async function POST({ request }: RequestEvent) {
     try {
