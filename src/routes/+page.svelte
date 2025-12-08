@@ -1,197 +1,128 @@
+<script lang="ts">
+  import { Button } from '$lib/components/ui/button';
+  import { Input } from '$lib/components/ui/input';
+  import { Textarea } from '$lib/components/ui/textarea';
+  import { ArrowRight, Wrench, Sparkles, Newspaper, GraduationCap } from 'lucide-svelte';
+  
+  // Placeholder images - in real app, use asset paths
+  const alexandreImg = "https://github.com/alexandreambrosi.png"; // Fallback to github user image if valid, or just a placeholder
+</script>
+
 <main>
-  <section class="px-8 py-12">
-    <div class="mx-auto max-w-[1040px] text-center">
-      <a class="text-primary mb-4 inline-flex rounded-lg border border-gray-400 px-5 py-2 text-sm shadow-sm hover:bg-black hover:text-white" href="/blog"
-        >🎉 We're now SOC 2 compliance &rarr;</a
-      >
-      <h1 class="mx-auto mt-4 w-full max-w-[600px] text-3xl font-black sm:text-6xl">All-in-One Starter Kit for SvelteKit</h1>
-      <p class="mx-auto mt-4 w-full max-w-[800px] text-gray-600 lg:text-xl">
-        This is a demo of the SaaS built with LaunchFast SvelteKit Starter Kit. Having this at the start of your SaaS journey will save you a lot of time and effort.
+  <!-- Hero Section -->
+  <section class="px-8 py-20 text-center bg-gray-50">
+    <div class="mx-auto max-w-4xl">
+      <h1 class="text-5xl font-black tracking-tight sm:text-7xl mb-6">
+        The Digital Design Bible
+      </h1>
+      <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+        Your ultimate platform for curated tools, endless inspiration, industry news, and cutting-edge learning for digital creators.
       </p>
-      <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <a target="_blank" class="inline-flex rounded-lg bg-black px-8 py-3 font-bold text-white" href="https://buy.polar.sh/polar_cl_vdjbGVc7If9dPpY9H9WsHXZ_ISqFZAYD6BZX3zYuXr4"
-          >Buy template → $99</a
-        ><a class="rounded-lg border px-8 py-3 font-bold" href="/docs">Documentation</a>
-      </div>
-    </div>
-    <div
-      class="h-[6 22px] xl:backdr op-blur-[20px] backdrop-blur-0 relative mx-auto mt-12 w-full max-w-[1008px] rounded-[12.8px] border-[1.6px] border-white/40 bg-white/30 p-5 pt-5"
-    >
-      <div class="shadow-hero-img relative z-10 m-auto w-full max-w-[966px] rounded-[9.6px]">
-        <img loading="eager" class="mx-auto w-full rounded-[10px] border bg-gray-100" width="1200" height="600" src="https://picsum.photos/1200/600" />
-      </div>
-    </div>
-  </section>
-  <section id="features" class="bg-[#F9FAFD] px-4 py-12 sm:px-8">
-    <div class="mx-auto mb-16 max-w-[756px] text-center">
-      <span class="text-body-sm bg-primary/5 text-primary mb-4 inline-flex rounded-lg px-5 py-2 font-medium sm:text-lg">Core Features</span>
-      <h2 class="text-heading-5 xl:text-heading-3 font-black lg:text-3xl">Launch your next SaaS with SvelteKit in few hours</h2>
-    </div>
-    <div class="mx-auto w-full max-w-[1216px]">
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <div class="border-stroke hover:shadow-card rounded-[20px] border bg-white p-4 duration-300 ease-in sm:p-9">
-          <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg leading-10 font-bold xl:text-[26px]">SvelteKit + Content Collections</h3>
-          <p class="mt-3 font-medium xl:text-lg">Create a stylish, high-performance documentation &amp; blogging website with SvelteKit and Content Collections.</p>
-        </div>
-        <div class="border-stroke hover:shadow-card rounded-[20px] border bg-white p-4 duration-300 ease-in sm:p-9">
-          <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg leading-10 font-bold xl:text-[26px]">Key eCommerce Features</h3>
-          <p class="mt-3 font-medium xl:text-lg">
-            All essential features you need to build a stunning eCommerce site such as easy product listings, checkout, accounts, search, and more.
-          </p>
-        </div>
-        <div class="border-stroke hover:shadow-card rounded-[20px] border bg-white p-4 duration-300 ease-in sm:p-9">
-          <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg leading-10 font-bold xl:text-[26px]">Build, Develop, Extend</h3>
-          <p class="mt-3 font-medium xl:text-lg">
-            Build your store and jumpstart your business quickly. Essentials are ready rest you can customize, extend and improve based on your need.
-          </p>
-        </div>
-        <div class="border-stroke hover:shadow-card rounded-[20px] border bg-white p-4 duration-300 ease-in sm:p-9">
-          <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg leading-10 font-bold xl:text-[26px]">Collect Payments</h3>
-          <p class="mt-3 font-medium xl:text-lg">Stripe integration is ready to use. Ensure a secure, user-friendly, and efficient checkout experience for your eCommerce store.</p>
-        </div>
-        <div class="border-stroke hover:shadow-card rounded-[20px] border bg-white p-4 duration-300 ease-in sm:p-9">
-          <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg leading-10 font-bold xl:text-[26px]">Integrations and Plugins</h3>
-          <p class="mt-3 font-medium xl:text-lg">
-            Essential integrations are added and ready to use such as: Sanity, Algolia, Stripe, DB and Nextauth to ensure a feature-rich eCommerce experience.
-          </p>
-        </div>
-        <div class="border-stroke hover:shadow-card rounded-[20px] border bg-white p-4 duration-300 ease-in sm:p-9">
-          <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <h3 class="mt-3 text-lg leading-10 font-bold xl:text-[26px]">Lifetime Free Updates</h3>
-          <p class="mt-3 font-medium xl:text-lg">Free updates with advanced new features and continuous upgrades to make your eCommerce store better without any cost.</p>
-        </div>
-      </div>
-      <div class="mt-9 grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2">
-        <div class="border-stroke hover:shadow-card flex flex-col gap-6 rounded-[20px] border bg-white p-4 duration-300 ease-in sm:flex-row sm:p-9">
-          <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <div class="w-full">
-            <h4 class="mb-2 text-lg font-bold xl:text-xl">Built-with Cutting Edge Tech</h4>
-            <p class="font-medium">built with advanced modern web technologies, ensuring a modern and efficient eCommerce experience.</p>
-          </div>
-        </div>
-        <div class="border-stroke hover:shadow-card flex flex-col gap-6 rounded-[20px] border bg-white p-4 duration-300 ease-in sm:flex-row sm:p-9">
-          <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <div class="w-full">
-            <h4 class="mb-2 text-lg font-bold xl:text-xl">Fully Responsive</h4>
-            <p class="font-medium">Fully responsive which ensures a flawless experience across all platforms and screen sizes.</p>
-          </div>
-        </div>
-        <div class="border-stroke hover:shadow-card flex flex-col gap-6 rounded-[20px] border bg-white p-4 duration-300 ease-in sm:flex-row sm:p-9">
-          <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <div class="w-full">
-            <h4 class="mb-2 text-lg font-bold xl:text-xl">High-quality Design</h4>
-            <p class="font-medium">
-              Comes with high-quality designs, interactive and stunning visuals, and layouts. It gives your shop a more professional aesthetics for a better user experience.
-            </p>
-          </div>
-        </div>
-        <div class="border-stroke hover:shadow-card flex flex-col gap-6 rounded-[20px] border bg-white p-4 duration-300 ease-in sm:flex-row sm:p-9">
-          <img loading="lazy" decoding="async" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" class="size-[60px] rounded-full object-cover" />
-          <div class="w-full">
-            <h4 class="mb-2 text-lg font-bold xl:text-xl">Detailed Documentation</h4>
-            <p class="font-medium">
-              The detailed documentation includes from getting started to setting up the whole website. So, you can customize, navigate, and manage your site smoothly.
-            </p>
-          </div>
-        </div>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <Button href="/toolz" size="lg" class="w-full sm:w-auto font-bold bg-black text-white hover:bg-gray-800">
+          <Wrench class="mr-2 h-4 w-4" /> Explore Toolz
+        </Button>
+        <Button href="/inspird" size="lg" variant="outline" class="w-full sm:w-auto font-bold">
+           <Sparkles class="mr-2 h-4 w-4" /> Get Inspired
+        </Button>
+        <Button href="/learn" size="lg" variant="secondary" class="w-full sm:w-auto font-bold">
+          <GraduationCap class="mr-2 h-4 w-4" /> Start Learning
+        </Button>
       </div>
     </div>
   </section>
-  <section class="px-4 py-12 sm:px-8">
-    <div class="mx-auto mb-12 max-w-[595px] text-center">
-      <h3 class="text-heading-5 mb-5 font-bold lg:text-3xl xl:text-[38px] xl:leading-[48px]">Build and Launch Your SaaS</h3>
-      <p class="font-medium text-[#2E2E2E] sm:text-lg">Includes all the essentials you need to kickstart your next SaaS with modern features and tech-stacks</p>
-    </div>
-    <div class="mx-auto w-full max-w-[1216px]">
-      <div class="rounded-3xl bg-[#FFF6F4] p-5 sm:p-10.5">
-        <div class="grid grid-cols-1 lg:grid-cols-3">
-          <div class="false false mx-auto w-full max-w-[312px] py-12 lg:max-w-full lg:py-5 lg:pr-12">
-            <div class="mb-8">
-              <img
-                loading="lazy"
-                decoding="async"
-                width="50"
-                height="50"
-                class="size-[50px] rounded-full object-cover"
-                src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general"
-              />
-            </div>
-            <h4 class="mb-3 text-[26px] leading-[38px] font-bold">Content Collections to manage content</h4>
-            <p class="font-medium">Content Collections makes the content managing process easier, you can directly edit the markdown like a CMS.</p>
+
+  <!-- What you'll find -->
+  <section class="px-8 py-20">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-3xl font-bold text-center mb-16">Everything you need to create</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Toolz Card -->
+        <a href="/toolz" class="group block p-8 rounded-2xl border border-gray-200 hover:border-black transition-all bg-white hover:shadow-xl">
+          <div class="h-12 w-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors">
+            <Wrench class="h-6 w-6 text-blue-600 group-hover:text-white" />
           </div>
-          <div class="border-gray-4 false false mx-auto w-full max-w-[312px] border-y py-12 lg:max-w-full lg:border-x lg:border-y-0 lg:px-12 lg:py-5">
-            <div class="mb-8">
-              <img
-                loading="lazy"
-                decoding="async"
-                width="50"
-                height="50"
-                class="size-[50px] rounded-full object-cover"
-                src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general"
-              />
-            </div>
-            <h4 class="mb-3 text-[26px] leading-[38px] font-bold">Stripe (and Lemon Squeezy) integration to collect payments</h4>
-            <p class="font-medium">
-              Stripe and LemonSqueezy integration simplifies payment processing, billing and shipping information. Stripe is a secure and efficient solution for SaaS transactions
-              with ease.
-            </p>
+          <h3 class="text-xl font-bold mb-2">Toolz</h3>
+          <p class="text-gray-600 mb-4">A curated directory of the best digital tools, power-charged by AI recommendations.</p>
+          <span class="text-sm font-semibold flex items-center group-hover:underline">Explore <ArrowRight class="ml-1 h-3 w-3" /></span>
+        </a>
+
+        <!-- Inspird Card -->
+        <a href="/inspird" class="group block p-8 rounded-2xl border border-gray-200 hover:border-purple-600 transition-all bg-white hover:shadow-xl">
+          <div class="h-12 w-12 bg-purple-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-600 transition-colors">
+            <Sparkles class="h-6 w-6 text-purple-600 group-hover:text-white" />
           </div>
-          <div class="false false mx-auto w-full max-w-[312px] py-12 lg:max-w-full lg:py-5 lg:pl-12">
-            <div class="mb-8">
-              <img
-                loading="lazy"
-                decoding="async"
-                width="50"
-                height="50"
-                class="size-[50px] rounded-full object-cover"
-                src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general"
-              />
-            </div>
-            <h4 class="mb-3 text-[26px] leading-[38px] font-bold">Bring in any database</h4>
-            <p class="font-medium">LaunchFast allows you to bring in any database such as Redis, PostgreSQL, Firebase, MongoDB or SQLite.</p>
+          <h3 class="text-xl font-bold mb-2">Inspird</h3>
+          <p class="text-gray-600 mb-4">Hand-picked design inspiration from the best creators across the web.</p>
+          <span class="text-sm font-semibold flex items-center group-hover:underline">Get Inspired <ArrowRight class="ml-1 h-3 w-3" /></span>
+        </a>
+
+        <!-- Newz Card -->
+        <a href="/newz" class="group block p-8 rounded-2xl border border-gray-200 hover:border-green-600 transition-all bg-white hover:shadow-xl">
+          <div class="h-12 w-12 bg-green-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-600 transition-colors">
+            <Newspaper class="h-6 w-6 text-green-600 group-hover:text-white" />
           </div>
-        </div>
+          <h3 class="text-xl font-bold mb-2">Newz</h3>
+          <p class="text-gray-600 mb-4">Stay updated with the latest trends and news in the digital design world.</p>
+          <span class="text-sm font-semibold flex items-center group-hover:underline">Read Newz <ArrowRight class="ml-1 h-3 w-3" /></span>
+        </a>
+
+        <!-- Learn Card -->
+        <a href="/learn" class="group block p-8 rounded-2xl border border-gray-200 hover:border-orange-600 transition-all bg-white hover:shadow-xl">
+          <div class="h-12 w-12 bg-orange-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors">
+            <GraduationCap class="h-6 w-6 text-orange-600 group-hover:text-white" />
+          </div>
+          <h3 class="text-xl font-bold mb-2">Learn</h3>
+          <p class="text-gray-600 mb-4">Master new skills with our finest courses and quizzes.</p>
+          <span class="text-sm font-semibold flex items-center group-hover:underline">Start Learning <ArrowRight class="ml-1 h-3 w-3" /></span>
+        </a>
       </div>
     </div>
   </section>
-  <section class="px-4 py-12 sm:px-8">
-    <div class="mx-auto flex max-w-[1216px] flex-col gap-20">
-      <div class="flex w-full flex-col gap-8 even:flex-col-reverse sm:flex-row sm:justify-between sm:even:flex-row-reverse">
-        <div class="w-full">
-          <span class="font-light">Add, update, delete products seamlessly</span>
-          <h3 class="xl:text-heading-3 text-2xl font-bold lg:text-3xl">Manage Your Products from Sanity Dashboard</h3>
-          <p class="mt-5">
-            Sanity dashboard allows you to manage products and content effortlessly. Easily add, update, or delete products and offer a slick user experience in your store.
-          </p>
-          <a href="/dashboard" class="mt-10 inline-flex items-center gap-2 rounded-lg border px-8 py-3 font-bold">Explore Now →</a>
-        </div>
-        <div class="w-full"><img alt="" loading="lazy" decoding="async" class="h-auto w-full" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" /></div>
+
+  <!-- About Creator -->
+  <section class="px-8 py-20 bg-gray-50">
+    <div class="mx-auto max-w-5xl flex flex-col md:flex-row items-center gap-12">
+      <div class="w-full md:w-1/3">
+        <img src={alexandreImg} alt="Alexandre Ambrosi" class="w-full max-w-[300px] mx-auto rounded-2xl shadow-lg rotate-3 hover:rotate-0 transition-transform duration-300" />
       </div>
-      <div class="flex w-full flex-col gap-8 sm:flex-row sm:justify-between sm:even:flex-row-reverse">
-        <div class="w-full">
-          <span class="font-light">Ready to Rock</span>
-          <h3 class="xl:text-heading-3 text-2xl font-bold lg:text-3xl">Pre-built Pages &amp; Seamless Integrations</h3>
-          <p class="mt-5">
-            Kickstart your website with pre-built SvelteKit pages like a shopping page, cart, user login, and checkout. Integrate third-party tools and others for better
-            functionality.
-          </p>
-          <a href="/dashboard" class="mt-10 inline-flex items-center gap-2 rounded-lg border px-8 py-3 font-bold">Explore Now →</a>
-        </div>
-        <div class="w-full"><img alt="" loading="lazy" decoding="async" class="h-auto w-full" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" /></div>
+      <div class="w-full md:w-2/3 text-center md:text-left">
+        <h2 class="text-3xl font-bold mb-6">Meet the Creator</h2>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+          Hi, I'm <span class="font-bold">Alexandre Ambrosi</span>. I built Make It Pop to be the resource I wish I had when starting out. 
+          It gathers everything a digital creator needs in one place, filtered through a lens of quality and utility.
+        </p>
+        <a href="https://www.alexandreambrosi.com/" target="_blank" class="inline-flex items-center font-bold text-black border-b-2 border-black hover:text-gray-600 hover:border-gray-600 transition-colors">
+          Visit my portfolio <ArrowRight class="ml-2 h-4 w-4" />
+        </a>
       </div>
-      <div class="flex w-full flex-col gap-8 even:flex-col-reverse sm:flex-row sm:justify-between sm:even:flex-row-reverse">
-        <div class="w-full">
-          <span class="font-light">Deploy Anywhere</span>
-          <h3 class="xl:text-heading-3 text-2xl font-bold lg:text-3xl">One-click Deployment on Vercel or Any PaaS</h3>
-          <p class="mt-5">Easily deploy your based eCommerce store with a single click on Vercel or any Platform-as-a-Service (PaaS) provider.</p>
-          <a href="/dashboard" class="mt-10 inline-flex items-center gap-2 rounded-lg border px-8 py-3 font-bold">Explore Now →</a>
-        </div>
-        <div class="w-full"><img alt="" loading="lazy" decoding="async" class="h-auto w-full" src="https://ik.imagekit.io/vjeqenuhn/launchfast-website/general" /></div>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <section class="px-8 py-20">
+    <div class="mx-auto max-w-2xl">
+      <h2 class="text-3xl font-bold text-center mb-12">Get in touch</h2>
+      <div class="bg-white p-8 rounded-2xl border shadow-sm">
+        <form class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label for="name" class="text-sm font-medium">Name</label>
+              <Input id="name" placeholder="John Doe" />
+            </div>
+            <div class="space-y-2">
+              <label for="email" class="text-sm font-medium">Email</label>
+              <Input id="email" type="email" placeholder="john@example.com" />
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label for="message" class="text-sm font-medium">Message</label>
+            <Textarea id="message" placeholder="How can we help you?" class="min-h-[150px]" />
+          </div>
+          <Button type="submit" class="w-full font-bold">Send Message</Button>
+        </form>
       </div>
     </div>
   </section>
