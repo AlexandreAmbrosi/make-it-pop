@@ -1,0 +1,41 @@
+[2025-12-08T16:22:21.366Z] Request received
+[2025-12-08T16:22:21.367Z] Key present: true
+[2025-12-08T16:22:21.696Z] Error: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Stack: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at async generateContent (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at async POST (eval at instantiateModule (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:52965:24), <anonymous>:62:20)
+    at async Module.render_endpoint (eval at instantiateModule (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:52965:24), <anonymous>:49:18)
+    at async resolve (eval at instantiateModule (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:52965:24), <anonymous>:355:22)
+    at async Module.respond (eval at instantiateModule (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:52965:24), <anonymous>:250:22)
+    at async file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/@sveltejs/kit/src/exports/vite/dev/index.js:547:22
+[2025-12-08T16:23:07.825Z] Request received
+[2025-12-08T16:23:07.825Z] Key present: true
+[2025-12-08T16:23:08.021Z] Error: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent: [404 Not Found] models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Stack: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent: [404 Not Found] models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at async generateContent (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at async POST (eval at instantiateModule (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:52965:24), <anonymous>:62:20)
+    at async Module.render_endpoint (eval at instantiateModule (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:52965:24), <anonymous>:49:18)
+    at async resolve (eval at instantiateModule (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:52965:24), <anonymous>:355:22)
+    at async Module.respond (eval at instantiateModule (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:52965:24), <anonymous>:250:22)
+    at async file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/@sveltejs/kit/src/exports/vite/dev/index.js:547:22
+[2025-12-08T16:23:48.404Z] Request received
+[2025-12-08T16:23:48.404Z] Key present: true
+[2025-12-08T16:23:48.795Z] Error: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [404 Not Found] models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Stack: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [404 Not Found] models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+    at handleResponseNotOk (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async makeRequest (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at async generateContent (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at async POST (eval at instantiateModule (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:52965:24), <anonymous>:62:20)
+    at async Module.render_endpoint (eval at instantiateModule (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:52965:24), <anonymous>:49:18)
+    at async resolve (eval at instantiateModule (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:52965:24), <anonymous>:355:22)
+    at async Module.respond (eval at instantiateModule (file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:52965:24), <anonymous>:250:22)
+    at async file:///E:/Documents/Make%20it%20Pop/Dev/make-it-pop/node_modules/@sveltejs/kit/src/exports/vite/dev/index.js:547:22
+[2025-12-08T16:26:06.053Z] Request received
+[2025-12-08T16:26:06.053Z] Key present: true

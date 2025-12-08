@@ -11,8 +11,12 @@
   let isAsking = $state(false);
   let aiResponse = $state('');
   
-  // Use data.tools for the grid
-  let tools = $derived(data.tools || []);
+  // Use data.tools for the grid, but allow AI override
+  let tools = $state(data.tools || []);
+  
+  $effect(() => {
+    tools = data.tools || [];
+  });
 
   let askQuery = $state('');
 
@@ -26,10 +30,24 @@
              body: JSON.stringify({ query: askQuery, mode: 'chat' })
          });
          const result = await res.json();
+
+         if (!res.ok) {
+             throw new Error(result.error || 'Failed to fetch');
+         }
+
          aiResponse = result.message || "Here are some tools";
+         
+         // In frontend, result.tools handles the filtering
+         // Even if empty, we MUST update 'tools' to show that nothing was found (or just the message)
+         if (result.tools) {
+            tools = result.tools;
+         }
+         
          mode = 'search'; // Switch back to see result
      } catch (e) {
          console.error(e);
+         aiResponse = "Sorry, I encountered an issue connecting to the AI brain. Please try again.";
+         mode = 'search';
      } finally {
          isAsking = false;
      }
