@@ -1,0 +1,119 @@
+# Emails
+
+## "resend" or "smtp2go" or "postmark"
+EMAIL_PROVIDER="resend"
+
+## Resend Environment Variable
+RESEND_API_KEY="..."
+
+## SMTP2GO Environment Variable
+SMTP2GO_API_KEY="..."
+
+## Postmark Environment Variable
+POSTMARK_API_KEY="..."
+
+## When a user will sign up using credentials,
+## Visiting this URL will allow them to register them as verified in your db
+## An email is sent to the user with the following url appended with a randomly generated token query parameter
+EMAIL_VERIFICATION_ENDPOINT_URL="https://launchfast-sveltekit.vercel.app/api/email/verify"
+EMAIL_PASSWORD_RESET_URL="https://launchfast-sveltekit.vercel.app/forgot-password"
+
+# Database
+
+## "pg" OR "redis" OR "mongodb" OR "sqlite" OR "firestore"
+DATABASE_TYPE="pg"
+
+## Redis (/Upstash) Environment Variable
+## (no use) REDIS_URL="redis://default:...@...upstash.io:..."
+
+## Postgres (/Neon) Environment Variable
+POSTGRES_URL="postgresql://postgres.gfnzbygnmudrojmnwdmy:VincenzoDemarchi01@aws-1-eu-west-1.pooler.supabase.com:5432/postgres"
+
+## MongoDB Environment Variable
+## (no use) MONGODB_URL="mongodb+srv://<username>:<password>@<prefix>.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+## SQLite Environment Variables
+## (no use) SQLITE_URL="libsql://make-it-pop-alexandreambrosi.aws-eu-west-1.turso.io"
+## (no use) SQLITE_AUTH_TOKEN="eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3NDMyNjcwMTMsImlkIjoiOTliYzI5MGYtNTc5Yi00OWMxLWFmOGEtMTg3MWQxNzFiYmRkIiwicmlkIjoiNWZhNTAyZDItMDIzNy00MTMyLWIwNjAtNGYxODI1ZjEwNmZiIn0.MclsmX99YwYn5lJ0JnvAus2edbEeUbd3-u-VgP4nE0txcGMsBE9Hn3RjtezvBLllASopM3CFU02IlicH-lYuBg"
+
+# Storage
+
+## "s3" or "supabase" or "firebase"
+STORAGE_PROVIDER="none"
+
+## Supabase
+## (no use) SUPABASE_BUCKET_NAME="..."
+## (no use) SUPABASE_URL="https://....supabase.co"
+## (no use) SUPABASE_ANON_KEY="............"
+
+## AWS S3 (/Cloudflare R2)
+AWS_KEY_ID="..." # Set to Cloudflare's R2 Secret Key if using Cloudflare R2
+AWS_SECRET_ACCESS_KEY=".../...+" # Set to Cloudflare's R2 Secret Access Key if using Cloudflare R2
+AWS_S3_BUCKET_NAME="...-bucket-0" # Set to Cloudflare's R2 Bucket Name if using Cloudflare R2
+AWS_REGION_NAME="eu-north-1" # Set to us-east-1 only if using Cloudflare R2
+CLOUDFLARE_R2_ACCOUNT_ID="..."
+
+## Firebase
+## (no use) FIREBASE_PROJECT_ID="..."
+## (no use) FIREBASE_PRIVATE_KEY_ID="..."
+## (no use) FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+## (no use) FIREBASE_CLIENT_EMAIL="firebase-adminsdk-..@...iam.gserviceaccount.com"
+## (no use) FIREBASE_CLIENT_ID="..."
+## (no use) FIREBASE_STORAGE_BUCKET="gs://...appspot.com"
+
+# Authentication
+
+## Auth.js Environment Variables
+AUTH_TRUST_HOST=true
+AUTH_SECRET="7yZeXfMzPsescmgf8gxbh1cAnKd2BtYsYWGuJqY5dd8=" # generate using `openssl rand -base64 32`
+
+## Google OAuth 2.0 Environment Variables
+AUTH_GOOGLE_ID="...apps.googleusercontent.com"
+AUTH_GOOGLE_SECRET="..."
+
+## GitHub OAuth 2.0 Environment Variables
+AUTH_GITHUB_ID="..."
+AUTH_GITHUB_SECRET="..."
+
+## Facebook OAuth 2.0 Environment Variables
+AUTH_FACEBOOK_ID="..."
+AUTH_FACEBOOK_SECRET="..."
+
+# Payments
+
+## Stripe Environment Variables
+STRIPE_SECRET_KEY="sk_test_..."
+STRIPE_WEBHOOK_SIG="..."
+
+# AI
+
+## OpenAI Environment Variable
+OPENAI_API_KEY="sk-..."
+
+## Google AI Environment Variable
+GOOGLE_AI_KEY="AIzaSyAHI9HQ_5Dpn_55MoR145AbLoyuIxRxvjU"
+
+# Social Media
+
+## Telegram Bot Environment Variable
+TELEGRAM_BOT_TOKEN="..."
+
+# Website
+
+## Website URL
+SITE_URL="https://launchfast-sveltekit.vercel.app"
+
+## Blog pages search, "enable" or "disable"
+BLOG_SEARCH="enable"
+
+## Admin Request Verification Key
+PRIVATE_ACCESS_KEY="..." # generate using `openssl rand -base64 32`
+
+## Server Specific Configuration Environment Variables
+NODE_VERSION="20"
+HOST="0.0.0.0"
+PORT="5173"
+
+# Deployment Platform Environment Variable
+## "vercel" OR "netlify" OR "amplify" OR "fly" OR "node"
+DEPLOYMENT_PLATFORM="vercel"

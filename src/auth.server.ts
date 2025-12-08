@@ -25,7 +25,8 @@ export const { handle, signIn, signOut } = SvelteKitAuth(async (event) => {
       strategy: 'database',
     },
     providers: getProviders(event),
-    trustHost: Boolean(getEnv('AUTH_TRUST_HOST', event)),
+    secret: getEnv('AUTH_SECRET', event),
+    trustHost: true,
     useSecureCookies: getEnv('NODE_ENV', event) === 'production',
     jwt: {
       async encode({ token }) {

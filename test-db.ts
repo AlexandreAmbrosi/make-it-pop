@@ -1,29 +1,27 @@
+import { drizzle } from 'drizzle-orm/postgres-js';
+import postgres from 'postgres';
+import * as schema from './src/lib/db/schema';
 import 'dotenv/config';
-import pg from 'pg';
-const { Pool } = pg;
 
-async function testConnection() {
-    const url = process.env.POSTGRES_URL;
-    if (!url) {
-        console.error('POSTGRES_URL is missing');
-        return;
+async function main() {
+    const connectionString = process.env.POSTGRES_URL;
+    if (!connectionString) {
+        console.error("POSTGRES_URL not found in env");
+        process.exit(1);
     }
-    console.log('Testing connection with pg...');
 
-    const pool = new Pool({
-        connectionString: url,
-        ssl: { rejectUnauthorized: false } // Common fix for some managed DBs
-    });
-
+    console.log("Testing connection...");
     try {
-        const client = await pool.connect();
-        const res = await client.query('SELECT 1 as result');
-        console.log('Connection successful:', res.rows[0]);
-        client.release();
-        await pool.end();
-    } catch (error) {
-        console.error('Connection failed:', error);
+        const client = postgres(connectionString);
+        const db = drizzle(client, { schema });
+        // Simple query
+        await client`SELECT 1`;
+        console.log("✅ Database connection successful!");
+        process.exit(0);
+    } catch (e) {
+        console.error("❌ Database connection failed:", e);
+        process.exit(1);
     }
 }
 
-testConnection();
+main();

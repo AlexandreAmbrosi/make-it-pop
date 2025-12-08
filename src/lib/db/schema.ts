@@ -104,3 +104,40 @@ export const articles = pgTable('articles', {
     createdAt: timestamp('created_at').defaultNow(),
     updatedAt: timestamp('updated_at').defaultNow()
 });
+
+// Auth & Storage Tables (Required for Custom Adapter)
+export const storage = pgTable('storage', {
+    key: text('key').primaryKey(),
+    value: text('value'), // Unstorage value
+});
+
+export const userInfo = pgTable('user_info', {
+    email: text('email').primaryKey(),
+    name: text('name'),
+    imageRef: text('image_ref'),
+});
+
+export const login = pgTable('login', {
+    email: text('email').primaryKey(),
+    password: text('password'),
+});
+
+export const tokens = pgTable('tokens', {
+    email: text('email').primaryKey(),
+    code: text('code'),
+});
+
+export const access = pgTable('access', {
+    email: text('email').primaryKey(),
+    code: text('code'),
+});
+
+export const emailsVerified = pgTable('emails_verified', {
+    email: text('email').primaryKey(),
+    code: text('code'),
+});
+
+export const waitlist = pgTable('waitlist', {
+    email: text('email').primaryKey(),
+});
+

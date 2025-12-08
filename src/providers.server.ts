@@ -13,8 +13,8 @@ import { getEnv } from './lib/utils/env'
 export const getProviders = (event?: RequestEvent): Provider[] => {
   return [
     Google({
-      clientId: getEnv('GOOGLE_CLIENT_ID', event),
-      clientSecret: getEnv('GOOGLE_CLIENT_SECRET', event),
+      clientId: getEnv('AUTH_GOOGLE_ID', event),
+      clientSecret: getEnv('AUTH_GOOGLE_SECRET', event),
       authorization: {
         params: {
           prompt: 'consent',
@@ -24,8 +24,8 @@ export const getProviders = (event?: RequestEvent): Provider[] => {
       },
     }),
     GitHub({
-      clientId: getEnv('GITHUB_CLIENT_ID', event),
-      clientSecret: getEnv('GITHUB_CLIENT_SECRET', event),
+      clientId: getEnv('AUTH_GITHUB_ID', event),
+      clientSecret: getEnv('AUTH_GITHUB_SECRET', event),
     }),
     Credentials({
       credentials: {
