@@ -10,104 +10,101 @@ export async function POST({ request }: RequestEvent) {
             return json({ error: 'URL is required' }, { status: 400 });
         }
 
-        // 1. Fetch Page Content
-        let pageText = '';
+        // 1. Fetch Page Metadata & Screenshot via Microlink
+        let microlinkData = null;
+        let finalImage = 'https://placehold.co/600x400?text=No+Image'; // Robust fallback
+        let finalImageSource = 'placeholder'; // og | logo | screenshot | placeholder
+
         try {
-            const res = await fetch(url, {
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (compatible; MakeItPopBot/1.0; +http://makeitpop.app)'
-                }
-            });
-            if (!res.ok) throw new Error(`Failed to fetch ${url}`);
-            const html = await res.text();
+            const encodedUrl = encodeURIComponent(url);
+            // Requesting meta, screenshot, and using a generous timeout
+            const microlinkRes = await fetch(`https://api.microlink.io/?url=${encodedUrl}&screenshot=true&meta=true&filter=image,screenshot,title,description,logo`);
 
-            // Simple strip tags (regex is fragile but sufficient for MVP context injection)
-            // We focus on title, meta description, and body content
-            const titleMatch = html.match(/<title>(.*?)<\/title>/i);
-            const title = titleMatch ? titleMatch[1] : '';
+            if (microlinkRes.ok) {
+                const jsonRes = await microlinkRes.json();
+                const { data } = jsonRes;
 
-            const metaDescMatch = html.match(/<meta\s+name=["']description["']\s+content=["'](.*?)["']/i);
-            const metaDesc = metaDescMatch ? metaDescMatch[1] : '';
+                microlinkData = {
+                    title: data.title,
+                    description: data.description,
+                    image: data.image?.url,
+                    logo: data.logo?.url,
+                    screenshot: data.screenshot?.url
+                };
 
-            // Remove scripts and styles
-            let cleanHtml = html.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gim, "")
-                .replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gim, "");
-
-            // 1b. Try OpenGraph.io API if key is present
-            let ogImage = null;
-            const ogApiKey = env.OPENGRAPH_APP_ID;
-
-            if (ogApiKey) {
-                try {
-                    const encodedUrl = encodeURIComponent(url);
-                    const ogResponse = await fetch(`https://opengraph.io/api/1.1/site/${encodedUrl}?app_id=${ogApiKey}`);
-                    if (ogResponse.ok) {
-                        const ogData = await ogResponse.json();
-                        ogImage = ogData.hybridGraph?.image || ogData.openGraph?.image?.url || null;
-                    }
-                } catch (e) {
-                    console.error('OpenGraph.io API failed:', e);
+                // Priority Logic: Logo/Image -> Screenshot -> Placeholder
+                if (microlinkData.image) {
+                    finalImage = microlinkData.image;
+                    finalImageSource = 'og';
+                } else if (microlinkData.logo) {
+                    finalImage = microlinkData.logo;
+                    finalImageSource = 'logo';
+                } else if (microlinkData.screenshot) {
+                    finalImage = microlinkData.screenshot;
+                    finalImageSource = 'screenshot';
                 }
             }
-
-            // Fallback: Extract OG Image locally if API failed or no key
-            if (!ogImage) {
-                const ogImageMatch = html.match(/<meta\s+(?:property|name)=["'](?:og:image|twitter:image)["']\s+content=["'](.*?)["']/i);
-                ogImage = ogImageMatch ? ogImageMatch[1] : null;
-
-                // Resolve relative URLs
-                if (ogImage && !ogImage.startsWith('http')) {
-                    try {
-                        ogImage = new URL(ogImage, url).toString();
-                    } catch (e) {
-                        ogImage = null;
-                    }
-                }
-            }
-
-            // Extract body text
-            pageText = `Title: ${title}\nDescription: ${metaDesc}\nOG Image: ${ogImage}\nContent: ${cleanHtml.replace(/<[^>]+>/g, ' ').slice(0, 15000)}`; // limit context
-        } catch (fetchError) {
-            console.error('Fetcher Error:', fetchError);
-            return json({ error: 'Failed to access the provided URL. Please try entering details manually.' }, { status: 422 });
+        } catch (e) {
+            console.error('Microlink Fetch failed:', e);
+            // Fallback continues with default finalImage
         }
+
+        // 2. Fetch Text Content for AI Context (Still useful for accurate description/tags)
+        // We can do a quick text scrape or just rely on the meta description if scraping is flaky. 
+        // For robustness, let's keep the lightweight fetch if possible, but don't fail hard if it breaks.
+        let pageContext = "";
+        try {
+            const htmlRes = await fetch(url, { headers: { 'User-Agent': 'MakeItPopBot/1.0' } });
+            if (htmlRes.ok) {
+                const html = await htmlRes.text();
+                // Very basic strip tags for context
+                pageContext = html.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gim, "")
+                    .replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gim, "")
+                    .replace(/<[^>]+>/g, ' ').slice(0, 8000);
+            }
+        } catch (ignored) { }
+
+        const contextText = `
+            Title: ${microlinkData?.title || ''}
+            Description: ${microlinkData?.description || ''}
+            Context: ${pageContext}
+            PRIORITY IMAGE URL: ${finalImage}
+        `;
 
         // 3. Call Gemini
         const genAI = new GoogleGenerativeAI(env.GOOGLE_AI_KEY || '');
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
         const prompt = `
-            Analyze this webpage content for a digital tool/SaaS.
+            Analyze this digital tool/SaaS.
             
             URL: ${url}
-            Page Content:
-            ${pageText}
+            ${contextText}
 
-            Extract the following details into a valid JSON object:
-            - "name": The clear name of the tool.
-            - "shortDescription": A punchy, 1-sentence marketing description (max 100 chars).
-            - "pricing": One of ["Free", "Freemium", "Paid", "Contact"].
-            - "tags": An array of 3-5 relevant functional tags (e.g. "Design", "Database", "AI").
-            - "imageUrl": The best image URL found. Prioritize the "OG Image" provided in the content above. If none, look for a logo or main product shot in the content. Return null if no good image found.
+            Extract details into JSON:
+            - "name": Tool name.
+            - "shortDescription": Punchy 1-sentence marketing text.
+            - "pricing": ["Free", "Freemium", "Paid", "Contact"].
+            - "type": ["Online Tool", "Web extension", "App/Software", "Plugin", "Resources", "AI Tool"].
+            - "tags": Array of 3-5 tags.
+            - "imageUrl": "${finalImage}" (ALWAYS use this exact URL provided as PRIORITY IMAGE URL).
 
             Return ONLY valid JSON.
         `;
 
-        // Retry logic for 429 errors
+        // Retry logic for 429
         let result;
-        const maxRetries = 3;
+        const maxRetries = 2;
         for (let i = 0; i < maxRetries; i++) {
             try {
                 result = await model.generateContent(prompt);
-                break; // Success
+                break;
             } catch (e: any) {
-                if ((e.status === 429 || e.response?.status === 429) && i < maxRetries - 1) {
-                    const delay = Math.pow(2, i) * 2000; // 2s, 4s, 8s
-                    console.warn(`Gemini 429 Hit. Retrying in ${delay}ms...`);
-                    await new Promise(r => setTimeout(r, delay));
+                if (e.status === 429 || e.response?.status === 429) {
+                    await new Promise(r => setTimeout(r, 2000 * (i + 1)));
                     continue;
                 }
-                throw e; // Rethrow if not 429 or retries exhausted
+                throw e;
             }
         }
 
@@ -118,10 +115,13 @@ export async function POST({ request }: RequestEvent) {
         const cleanedText = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
         const aiData = JSON.parse(cleanedText);
 
+        // Inject source for frontend
+        aiData.imageSource = finalImageSource;
+
         return json({ success: true, data: aiData });
 
-    } catch (e) {
+    } catch (e: any) {
         console.error("AI Ingestion Error:", e);
-        return json({ error: 'AI analysis failed' }, { status: 500 });
+        return json({ error: `AI analysis failed: ${e.message || e}` }, { status: 500 });
     }
 }

@@ -28,6 +28,7 @@ export const actions: Actions = {
         const shortDescription = data.get('shortDescription') as string;
         const imageUrl = data.get('imageUrl') as string;
         const pricing = data.get('pricing') as string;
+        const type = data.get('type') as string; // Online Tool, Web extension, etc
         const tagsRaw = data.get('tags') as string;
         const isActive = data.get('isActive') === 'on';
 
@@ -44,6 +45,7 @@ export const actions: Actions = {
                     url,
                     shortDescription,
                     imageUrl,
+                    type,
                     pricing,
                     tags,
                     isActive
@@ -54,6 +56,7 @@ export const actions: Actions = {
                     url,
                     shortDescription,
                     imageUrl,
+                    type,
                     pricing,
                     tags,
                     isActive,

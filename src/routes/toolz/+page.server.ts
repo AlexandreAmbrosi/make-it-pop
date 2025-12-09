@@ -19,12 +19,9 @@ export const load: PageServerLoad = async ({ url }) => {
         ));
     }
 
-    /* 
-       Note: Filtering by array 'tags' in Drizzle/Postgres can be complex with simple operators.
-       For now, we'll fetch active tools and let the UI filter or implement proper array overlap later.
-       If we want to strictly filter by category on server:
-       // filters.push(sql`${tools.tags} @> ARRAY[${category}]`);
-    */
+    if (category && category !== 'All') {
+        filters.push(eq(tools.type, category));
+    }
 
     try {
         const data = await db.select().from(tools)

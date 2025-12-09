@@ -37,6 +37,9 @@
           <span class="px-5 font-medium">{$userProfile.name}</span>
         {/if}
         <span class="mt-1 px-5 text-sm text-gray-400">{$userProfile.email}</span>
+        {#if $userProfile?.email && ['ambrosi.alexandre01@gmail.com'].includes($userProfile.email)}
+          <a class="mt-3 border-t px-5 pt-3 font-semibold text-violet-600 hover:text-violet-700" href="/admin/toolz"> Admin Dashboard </a>
+        {/if}
         <a class="mt-3 border-t px-5 pt-3" href="/protected"> Protected </a>
         <a class="mt-3 border-t px-5 pt-3" href="/partial_protected_and_paid"> Partial Protected and Paid </a>
         <a class="mt-3 border-t px-5 pt-3" href="/protected_and_paid"> Protected and Paid </a>

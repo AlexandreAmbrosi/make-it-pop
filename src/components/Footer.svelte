@@ -35,16 +35,15 @@
     </div>
   </div>
   <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-3 xl:mt-0">
-     <div class="md:grid md:grid-cols-2 md:gap-8">
-       <div>
-         <h3 class="text-sm font-semibold">Explore</h3>
-         <div class="mt-4 flex flex-col space-y-4">
-           <a class="text-sm text-gray-500 hover:text-gray-900" href="/toolz">Toolz</a>
-           <a class="text-sm text-gray-500 hover:text-gray-900" href="/inspird">Inspird</a>
-           <a class="text-sm text-gray-500 hover:text-gray-900" href="/newz">Newz</a>
-           <a class="text-sm text-gray-500 hover:text-gray-900" href="/learn">Learn</a>
-         </div>
-       </div>
-     </div>
+    <div class="md:grid md:grid-cols-2 md:gap-8">
+      <div>
+        <h3 class="text-sm font-semibold">Explore</h3>
+        <div class="mt-4 flex flex-col space-y-4">
+          <a class="text-sm text-gray-500 hover:text-gray-900" href="/toolz">Toolz</a>
+          <a class="text-sm text-gray-500 hover:text-gray-900" href="/newz">Newz</a>
+          <a class="text-sm text-gray-500 hover:text-gray-900" href="/learn">Learn</a>
+        </div>
+      </div>
+    </div>
   </div>
 </footer>

@@ -42,7 +42,7 @@ export async function POST({ request }: RequestEvent) {
             Return a valid JSON object with:
             - "strictToolIds": [IDs of strict matches]
             - "relatedToolIds": [IDs of related matches]
-            - "message": "If strict matches found: Explain why they fit. If ONLY related matches found: 'I couldn't find an exact match for that, but you might like these related tools because...'."
+            - "message": "A high-impact, enthusiastic, and concise response. Explain strictly WHY these tools are the perfect match. Use bold text for tool names. Make the user feel efficient."
 
             Return ONLY valid JSON.
         `;
@@ -64,19 +64,35 @@ export async function POST({ request }: RequestEvent) {
 
         // 5. Select Tools
         const fullTools = await db.select().from(tools);
-        let recommendedTools: typeof fullTools = [];
+        let strictTools: typeof fullTools = [];
+        let relatedTools: typeof fullTools = [];
 
-        // Priority to strict matches
-        if (aiData.strictToolIds && aiData.strictToolIds.length > 0) {
-            recommendedTools = fullTools.filter(t => aiData.strictToolIds.includes(t.id));
-        } else if (aiData.relatedToolIds && aiData.relatedToolIds.length > 0) {
-            // Fallback to related
-            recommendedTools = fullTools.filter(t => aiData.relatedToolIds.includes(t.id));
+        if (aiData.strictToolIds?.length > 0) {
+            strictTools = fullTools.filter(t => aiData.strictToolIds.includes(t.id));
+        }
+
+        if (aiData.relatedToolIds?.length > 0) {
+            relatedTools = fullTools.filter(t => aiData.relatedToolIds.includes(t.id));
+        }
+
+        // If we have strict tools, we primarily show them. Related are extras.
+        // If NO strict tools, related tools become the primary search result (?) 
+        // User request implies splitting them. 
+        // Let's decide: "tools" (main results) + "relatedTools" (extra section)
+
+        let mainResults = strictTools;
+        let extraResults = relatedTools;
+
+        // Fallback: If no strict tools found at all, related tools become the main result
+        if (mainResults.length === 0 && extraResults.length > 0) {
+            mainResults = extraResults;
+            extraResults = [];
         }
 
         return json({
             message: aiData.message || "Here are the tools I found for you.",
-            tools: recommendedTools
+            tools: mainResults,
+            relatedTools: extraResults
         });
 
     } catch (e) {

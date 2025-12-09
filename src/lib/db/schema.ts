@@ -12,6 +12,7 @@ export const tools = pgTable('tools', {
     shortDescription: text('short_description').notNull(),
     url: text('url').notNull(),
     imageUrl: text('image_url'),
+    type: text('type'), // Online Tool, Web extension, App/Software, Plugin, Resources, AI Tool
     pricing: text('pricing'), // free, paid, freemium
     metadata: jsonb('metadata'), // flexible extras
     tags: text('tags').array(),
