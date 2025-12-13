@@ -63,5 +63,21 @@ export const actions: Actions = {
         }
 
         throw redirect(303, '/admin/newz');
+    },
+
+    delete: async ({ request }) => {
+        const data = await request.formData();
+        const id = data.get('id') as string;
+
+        if (!id) return fail(400, { missing: true });
+
+        try {
+            await db.delete(articles).where(eq(articles.id, id));
+        } catch (e) {
+            console.error(e);
+            return fail(500, { message: 'Database error' });
+        }
+
+        throw redirect(303, '/admin/newz');
     }
 };

@@ -16,6 +16,15 @@ export async function GET(event: RequestEvent) {
   if (file) {
     try {
       const filePublicURL = await storage.retrieve(file)
+
+      const shouldRedirect = url.searchParams.get('redirect') === 'true'
+      if (shouldRedirect && filePublicURL) {
+        return new Response(null, {
+          status: 302,
+          styles: { Location: filePublicURL } // Typo fix: headers, not styles
+        });
+      }
+
       // Return a JSON response with the file's public URL and a 200 status code.
       return webJson({ filePublicURL }, 200, {})
     } catch (e) {

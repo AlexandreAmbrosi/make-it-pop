@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores'
-  import { LayoutDashboard, PenTool, Lightbulb, GraduationCap, Settings, LogOut } from 'lucide-svelte'
+  import { LayoutDashboard, PenTool, Lightbulb, GraduationCap, Settings, LogOut, Newspaper } from 'lucide-svelte'
   import { Button } from '$lib/components/ui/button'
 
   let { children } = $props()
@@ -8,6 +8,7 @@
   const links = [
     { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/admin/toolz', label: 'Toolz', icon: PenTool },
+    // { href: '/admin/newz', label: 'Newz', icon: Newspaper },
     { href: '/admin/learn', label: 'Courses', icon: GraduationCap },
     { href: '/admin/settings', label: 'Settings', icon: Settings },
   ]

@@ -45,14 +45,14 @@
         </a>
 
         <!-- Newz Card -->
-        <a href="/newz" class="group block rounded-2xl border border-gray-200 bg-white p-8 transition-all hover:border-green-600 hover:shadow-xl">
+        <!-- <a href="/newz" class="group block rounded-2xl border border-gray-200 bg-white p-8 transition-all hover:border-green-600 hover:shadow-xl">
           <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-green-100 transition-colors group-hover:bg-green-600">
             <Newspaper class="h-6 w-6 text-green-600 group-hover:text-white" />
           </div>
           <h3 class="mb-2 text-xl font-bold">Newz</h3>
           <p class="mb-4 text-gray-600">Stay updated with the latest trends and news in the digital design world.</p>
           <span class="flex items-center text-sm font-semibold group-hover:underline">Read Newz <ArrowRight class="ml-1 h-3 w-3" /></span>
-        </a>
+        </a> -->
 
         <!-- Learn Card -->
         <a href="/learn" class="group block rounded-2xl border border-gray-200 bg-white p-8 transition-all hover:border-orange-600 hover:shadow-xl">

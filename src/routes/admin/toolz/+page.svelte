@@ -177,7 +177,7 @@
                   {/if}
                 </div>
                 <!-- Editable Name -->
-                <div class="w-full" onclick={() => startEdit(tool, 'name')}>
+                <div class="w-full" role="button" tabindex="0" onclick={() => startEdit(tool, 'name')} onkeydown={(e) => e.key === 'Enter' && startEdit(tool, 'name')}>
                   {#if editingCell?.id === tool.id && editingCell?.field === 'name'}
                     <input
                       id={`edit-${tool.id}-name`}
@@ -195,7 +195,7 @@
                 </div>
               </div>
             </td>
-            <td class="px-6 py-4" onclick={() => startEdit(tool, 'type')}>
+            <td class="cursor-pointer px-6 py-4" role="button" tabindex="0" onclick={() => startEdit(tool, 'type')} onkeydown={(e) => e.key === 'Enter' && startEdit(tool, 'type')}>
               {#if editingCell?.id === tool.id && editingCell?.field === 'type'}
                 <select id={`edit-${tool.id}-type`} bind:value={editValue} onblur={saveEdit} onchange={saveEdit} class="w-full rounded border px-1 py-0.5 text-xs">
                   <option value="Online Tool">Online Tool</option>
@@ -222,7 +222,13 @@
                 </button>
               </form>
             </td>
-            <td class="cursor-pointer rounded px-6 py-4 text-gray-600 capitalize hover:bg-gray-100" onclick={() => startEdit(tool, 'pricing')}>
+            <td
+              class="cursor-pointer rounded px-6 py-4 text-gray-600 capitalize hover:bg-gray-100"
+              role="button"
+              tabindex="0"
+              onclick={() => startEdit(tool, 'pricing')}
+              onkeydown={(e) => e.key === 'Enter' && startEdit(tool, 'pricing')}
+            >
               {#if editingCell?.id === tool.id && editingCell?.field === 'pricing'}
                 <select id={`edit-${tool.id}-pricing`} bind:value={editValue} onblur={saveEdit} onchange={saveEdit} class="w-full rounded border px-1 py-0.5 text-xs">
                   <option value="free">Free</option>

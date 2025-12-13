@@ -1,6 +1,6 @@
 
 import { pgTable, text, timestamp, boolean, uuid, integer, jsonb, primaryKey } from 'drizzle-orm/pg-core';
-import { sql } from 'drizzle-orm';
+import { sql, relations } from 'drizzle-orm';
 
 // Enums
 // categories: 'Design', 'Productivity', 'No-code', etc.
@@ -106,6 +106,20 @@ export const articles = pgTable('articles', {
     updatedAt: timestamp('updated_at').defaultNow()
 });
 
+export const articleDrafts = pgTable('article_drafts', {
+    id: uuid('id').defaultRandom().primaryKey(),
+    status: text('status').default('outline_generated'), // 'outline_generated', 'draft_created', 'completed'
+    workingTitle: text('working_title'),
+    primaryKeyword: text('primary_keyword'),
+    targetAudience: text('target_audience'),
+    tone: text('tone'),
+    rawResources: text('raw_resources'), // The user input (URLs + notes)
+    outlineData: jsonb('outline_data'), // Stores AI outline, title options, etc.
+    articleId: uuid('article_id').references(() => articles.id), // Link to key article once created
+    createdAt: timestamp('created_at').defaultNow(),
+    updatedAt: timestamp('updated_at').defaultNow()
+});
+
 // Auth & Storage Tables (Required for Custom Adapter)
 export const storage = pgTable('storage', {
     key: text('key').primaryKey(),
@@ -142,3 +156,27 @@ export const waitlist = pgTable('waitlist', {
     email: text('email').primaryKey(),
 });
 
+// Relations
+export const coursesRelations = relations(courses, ({ many }) => ({
+    parts: many(courseParts),
+    chapters: many(courseChapters)
+}));
+
+export const coursePartsRelations = relations(courseParts, ({ one, many }) => ({
+    course: one(courses, {
+        fields: [courseParts.courseId],
+        references: [courses.id],
+    }),
+    chapters: many(courseChapters),
+}));
+
+export const courseChaptersRelations = relations(courseChapters, ({ one }) => ({
+    course: one(courses, {
+        fields: [courseChapters.courseId],
+        references: [courses.id],
+    }),
+    part: one(courseParts, {
+        fields: [courseChapters.partId],
+        references: [courseParts.id],
+    }),
+}));

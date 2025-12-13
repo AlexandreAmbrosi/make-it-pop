@@ -29,9 +29,9 @@
     <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname.includes('/toolz') && 'font-semibold'].filter(Boolean).join(' ')} href="/toolz">
       Toolz
     </a>
-    <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname.includes('/newz') && 'font-semibold'].filter(Boolean).join(' ')} href="/newz">
+    <!-- <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname.includes('/newz') && 'font-semibold'].filter(Boolean).join(' ')} href="/newz">
       Newz
-    </a>
+    </a> -->
     <a class={['hover:text-launchfast text-sm text-gray-800 hover:underline', $page.url.pathname.includes('/learn') && 'font-semibold'].filter(Boolean).join(' ')} href="/learn">
       Learn
     </a>
@@ -61,7 +61,7 @@
     <div class="flex flex-col gap-y-4 p-5">
       <a class={['/' === $page.url.pathname && 'font-semibold'].filter(Boolean).join(' ')} href="/">Home</a>
       <a class={[$page.url.pathname.includes('/toolz') && 'font-semibold'].filter(Boolean).join(' ')} href="/toolz">Toolz</a>
-      <a class={[$page.url.pathname.includes('/newz') && 'font-semibold'].filter(Boolean).join(' ')} href="/newz">Newz</a>
+      <!-- <a class={[$page.url.pathname.includes('/newz') && 'font-semibold'].filter(Boolean).join(' ')} href="/newz">Newz</a> -->
       <a class={[$page.url.pathname.includes('/learn') && 'font-semibold'].filter(Boolean).join(' ')} href="/learn">Learn</a>
     </div>
   </div>

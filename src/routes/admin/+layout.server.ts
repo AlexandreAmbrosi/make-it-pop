@@ -1,8 +1,6 @@
-
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
-
-const ADMIN_EMAILS = ['ambrosi.alexandre01@gmail.com'];
+import { ADMIN_EMAILS } from '$lib/utils/auth.server';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
     const session = await locals.auth();

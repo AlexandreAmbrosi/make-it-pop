@@ -1,5 +1,6 @@
 <script lang="ts">
   import { afterNavigate, beforeNavigate } from '$app/navigation'
+  import { page } from '$app/stores'
   import { Toaster } from '$lib/components/ui/sonner'
   import '@/app.css'
   import Footer from '@/components/Footer.svelte'
@@ -19,6 +20,10 @@
 <Seo />
 <Toaster />
 <!-- Removed demo banner -->
-<Header />
+{#if !$page.url.pathname.startsWith('/learn/course/') && !$page.url.pathname.startsWith('/admin') && !$page.url.pathname.startsWith('/learn/courses')}
+  <Header />
+{/if}
 {@render children()}
-<Footer brand_name="Make It Pop" twitter="alexandreambrosi" />
+{#if !$page.url.pathname.startsWith('/learn/course/') && !$page.url.pathname.startsWith('/admin') && !$page.url.pathname.startsWith('/learn/courses')}
+  <Footer brand_name="Make It Pop" twitter="alexandreambrosi" />
+{/if}

@@ -3,6 +3,8 @@ import type { Cookies } from '@sveltejs/kit'
 import { createHash, randomBytes, scryptSync, timingSafeEqual } from 'node:crypto'
 
 // Generate a random token
+export const ADMIN_EMAILS = ['ambrosi.alexandre01@gmail.com'];
+
 export function generateRandomToken() {
   return randomBytes(20).toString('hex')
 }
