@@ -1,14 +1,18 @@
 <script lang="ts">
-  import 'emoji-picker-element'
   import { onMount, createEventDispatcher } from 'svelte'
 
   const dispatch = createEventDispatcher()
   let picker: HTMLElement
 
-  onMount(() => {
-    picker.addEventListener('emoji-click', (event: any) => {
-      dispatch('emoji-click', event.detail)
-    })
+  onMount(async () => {
+    // Dynamically import to avoid SSR errors (requestAnimationFrame not defined)
+    await import('emoji-picker-element')
+
+    if (picker) {
+      picker.addEventListener('emoji-click', (event: any) => {
+        dispatch('emoji-click', event.detail)
+      })
+    }
   })
 </script>
 

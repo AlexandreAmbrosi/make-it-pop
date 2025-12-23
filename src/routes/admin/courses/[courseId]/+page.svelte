@@ -5,7 +5,7 @@
   import TiptapEditor from '$lib/components/editor/TiptapEditor.svelte'
   import { dndzone, type DndEvent } from 'svelte-dnd-action'
   import { flip } from 'svelte/animate'
-  import { GripVertical, Plus, Trash2, FileText, Folder, ChevronRight, ChevronLeft, List } from 'lucide-svelte'
+  import { GripVertical, Plus, Trash2, FileText, Folder, ChevronRight, ChevronLeft, List, Check, ExternalLink } from 'lucide-svelte'
   import * as Popover from '$lib/components/ui/popover'
   import EmojiPicker from '$lib/components/ui/EmojiPicker.svelte'
 
@@ -32,12 +32,44 @@
     {} as Record<string, typeof lessons>,
   )
 
+  let saveStatus: 'saved' | 'saving' | 'unsaved' = 'saved'
+  let saveTimer: NodeJS.Timeout
+  let showSavedMessage = false
+  let savedMessageTimer: NodeJS.Timeout
+  let skipAutoSave = false
+
+  let lastSavedContent = ''
+  let lastSavedTitle = ''
+
   // Sync title changes back to lessons array for sidebar updates
   $: if (selectedLessonId && selectedLessonTitle) {
     const idx = lessons.findIndex((l) => l.id === selectedLessonId)
     if (idx !== -1 && lessons[idx].title !== selectedLessonTitle) {
       lessons[idx].title = selectedLessonTitle
       lessons = [...lessons]
+    }
+  }
+
+  // Auto-save watcher
+  $: if (selectedLessonContent || selectedLessonTitle) {
+    if (skipAutoSave) {
+      skipAutoSave = false
+    } else if (selectedLessonId && saveStatus !== 'saving') {
+      // Check if content actually changed
+      const contentChanged = selectedLessonContent !== lastSavedContent
+      const titleChanged = selectedLessonTitle !== lastSavedTitle
+
+      if (contentChanged || titleChanged) {
+        // If we were showing 'Saved', hide it immediately when new changes happen
+        showSavedMessage = false
+        clearTimeout(savedMessageTimer)
+
+        saveStatus = 'unsaved'
+        clearTimeout(saveTimer)
+        saveTimer = setTimeout(() => {
+          saveLesson(false)
+        }, 2000)
+      }
     }
   }
 
@@ -102,18 +134,30 @@
   }
 
   function selectLesson(id: string) {
+    // Clear any pending save for the previous lesson
+    clearTimeout(saveTimer)
+    saveStatus = 'saved' // Reset status for the new lesson
+    showSavedMessage = false
+    clearTimeout(savedMessageTimer)
+    skipAutoSave = true
+
     selectedLessonId = id
     const l = lessons.find((x) => x.id === id)
     selectedLessonContent = l?.content || ''
     selectedLessonTitle = l?.title || ''
+
+    // Initialize last saved state
+    lastSavedContent = selectedLessonContent
+    lastSavedTitle = selectedLessonTitle
   }
 
-  async function saveLesson() {
+  async function saveLesson(manual = true) {
     if (!selectedLessonId) return
 
-    // Get content from bound variable
-    // const currentLesson = lessons.find((l) => l.id === selectedLessonId)
-    // const title = currentLesson?.title // In case we want to edit title too
+    saveStatus = 'saving'
+    // Hide previous success message if any
+    showSavedMessage = false
+    clearTimeout(savedMessageTimer)
 
     const res = await fetch(`/api/lessons/${selectedLessonId}`, {
       method: 'PUT',
@@ -130,8 +174,21 @@
       if (idx !== -1) {
         lessons[idx] = updated
       }
-      alert('Saved!')
+      saveStatus = 'saved'
+
+      // Update last saved state
+      lastSavedContent = selectedLessonContent
+      lastSavedTitle = selectedLessonTitle
+
+      // Show transient success message
+      showSavedMessage = true
+      savedMessageTimer = setTimeout(() => {
+        showSavedMessage = false
+      }, 3000)
+
+      if (manual) alert('Saved!')
     } else {
+      saveStatus = 'unsaved'
       alert('Failed to save')
     }
   }
@@ -180,8 +237,36 @@
       </div>
     </div>
     <div class="flex gap-2">
-      <a href={viewLiveUrl} target="_blank" class="px-3 py-1 text-sm text-blue-600 hover:underline">View Live</a>
-      <button class="rounded-md bg-black px-4 py-2 text-sm text-white" on:click={saveLesson}>Save Changes</button>
+      <a
+        href={viewLiveUrl}
+        target="_blank"
+        class="flex items-center gap-2 rounded-md border bg-white px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-black"
+      >
+        <span>View Live</span>
+        <ExternalLink class="h-3 w-3" />
+      </a>
+      <div class="flex items-center gap-4">
+        <div class="flex h-8 items-center justify-end px-2" style="min-width: 140px;">
+          <span
+            class="flex items-center gap-1 text-xs text-gray-500 transition-opacity duration-300"
+            class:opacity-0={saveStatus === 'saved' && !showSavedMessage}
+            class:opacity-100={saveStatus === 'saving' || (saveStatus === 'saved' && showSavedMessage)}
+          >
+            {#if saveStatus === 'saving'}
+              Saving changes...
+            {:else if saveStatus === 'saved' && showSavedMessage}
+              Changes saved <Check class="h-3 w-3 text-green-500" />
+            {/if}
+          </span>
+        </div>
+        <button
+          class="rounded-md bg-black px-4 py-2 text-sm text-white transition-opacity {saveStatus === 'saving' ? 'cursor-not-allowed opacity-50' : 'hover:bg-gray-800'}"
+          on:click={() => saveLesson(true)}
+          disabled={saveStatus === 'saving'}
+        >
+          {saveStatus === 'saving' ? 'Saving...' : 'Save Changes'}
+        </button>
+      </div>
     </div>
   </header>
 

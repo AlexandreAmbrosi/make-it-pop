@@ -56,6 +56,7 @@
     PanelRightOpen,
     PanelTopOpen,
     PanelBottomOpen,
+    MonitorPlay,
   } from 'lucide-svelte'
 
   import { common, createLowlight } from 'lowlight'
@@ -117,7 +118,7 @@
       ]
     },
     renderHTML({ HTMLAttributes }) {
-      return ['div', { class: 'iframe-wrapper' }, ['iframe', mergeAttributes(HTMLAttributes, { class: 'w-full h-[400px] border-none rounded-lg bg-gray-100' })]]
+      return ['div', { class: 'iframe-wrapper' }, ['iframe', mergeAttributes(HTMLAttributes, { class: 'w-full aspect-video border-none rounded-lg bg-gray-100' })]]
     },
     addCommands() {
       return {
@@ -207,6 +208,25 @@
     } else {
       editor.chain().focus().setIframe({ src: url }).run()
     }
+  }
+
+  const setLink = () => {
+    const previousUrl = editor.getAttributes('link').href
+    const url = window.prompt('URL', previousUrl)
+
+    // cancelled
+    if (url === null) {
+      return
+    }
+
+    // empty
+    if (url === '') {
+      editor.chain().focus().extendMarkRange('link').unsetLink().run()
+      return
+    }
+
+    // update link
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
   }
 
   const handleImageUpload = async (file: File) => {
@@ -299,7 +319,7 @@
           openOnClick: false,
         }),
         Youtube.configure({
-          controls: false,
+          controls: true,
           nocookie: true,
         }),
         Placeholder.configure({
@@ -543,8 +563,9 @@
         <button class="rounded p-1 text-sm hover:bg-gray-200" on:click={addImage} title="Add Image">
           <ImageIcon class="h-4 w-4" />
         </button>
+        <button class="rounded p-1 text-sm hover:bg-gray-200 {editor.isActive('link') ? 'bg-gray-200' : ''}" on:click={setLink} title="Link"><LinkIcon class="h-4 w-4" /></button>
         <button class="rounded p-1 text-sm hover:bg-gray-200" on:click={addEmbed} title="Embed Video/Design">
-          <LinkIcon class="h-4 w-4" />
+          <MonitorPlay class="h-4 w-4" />
         </button>
       </div>
 
@@ -573,7 +594,7 @@
     {#if editable}
       <input type="text" bind:value={title} class="mb-4 w-full border-none bg-transparent text-3xl font-bold outline-none placeholder:text-gray-300" placeholder="Lesson Title" />
     {/if}
-    <div class="editor-content max-w-full flex-1 overflow-hidden" bind:this={element} />
+    <div class="editor-content max-w-full flex-1 overflow-hidden" bind:this={element}></div>
   </div>
 
   <!-- Table Floating Menu (Manual Positioning) -->
@@ -651,39 +672,92 @@
   :global(ul[data-type='taskList']) {
     list-style: none;
     padding: 0;
-    margin: 0.5rem 0;
+    margin: 1rem 0;
   }
   :global(li[data-type='taskItem']) {
     display: flex;
-    align-items: flex-start; /* Align to top for multiline */
+    flex-direction: row;
+    align-items: center; /* Center aligned vertically */
     gap: 0.75rem;
-    margin: 0.2rem 0;
+    margin: 0.25rem 0;
   }
-  :global(li[data-type='taskItem'] input) {
-    margin: 0.25rem 0 0 0; /* Slight visual tweak to align with text baseline */
-    cursor: pointer;
-    appearance: none;
-    background-color: #fff;
+  /* Remove prose markers */
+  :global(li[data-type='taskItem']::before),
+  :global(li[data-type='taskItem']::marker) {
+    content: none !important;
+    display: none;
+  }
+
+  /* Custom Checkbox Container */
+  :global(li[data-type='taskItem'] label) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 0;
-    width: 1.1em;
-    height: 1.1em;
-    border: 1px solid #d1d5db;
-    border-radius: 0.25em;
+    user-select: none;
+    cursor: pointer;
+    contenteditable: false;
+  }
+
+  :global(li[data-type='taskItem'] input) {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: transparent;
+    cursor: pointer;
+    width: 1.15rem;
+    height: 1.15rem;
+    border: 1.5px solid #d1d5db; /* Gray-300 */
+    border-radius: 0.35rem; /* Slightly rounded */
+    transition: all 0.2s ease;
     display: grid;
     place-content: center;
+    margin: 0; /* Reset margins */
   }
+
+  /* Hover state */
+  :global(li[data-type='taskItem'] input:hover) {
+    border-color: #9ca3af; /* Gray-400 */
+    background-color: #f9fafb; /* Gray-50 */
+  }
+
+  /* Checked state box */
+  :global(li[data-type='taskItem'] input:checked) {
+    background-color: #000; /* Primary brand color (Black) */
+    border-color: #000;
+  }
+
+  /* Checkmark Icon using Mask for crisp SVG rendering */
   :global(li[data-type='taskItem'] input::before) {
     content: '';
-    width: 0.65em;
-    height: 0.65em;
+    width: 0.65rem;
+    height: 0.65rem;
+    background-color: white;
     transform: scale(0);
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em #2563eb; /* Blue check */
-    transform-origin: center;
-    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transition: transform 0.1s ease-in-out;
+
+    /* SVG Checkmark */
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
   }
+
   :global(li[data-type='taskItem'] input:checked::before) {
     transform: scale(1);
+  }
+
+  /* Checked Text Styling - Strikethrough & Faded */
+  :global(li[data-type='taskItem'][data-checked='true'] > div) {
+    text-decoration: line-through;
+    color: #9ca3af; /* Gray-400 */
+    opacity: 0.8;
+    transition:
+      opacity 0.2s,
+      color 0.2s;
   }
 
   /* Reduce default spacing for standard lists too */

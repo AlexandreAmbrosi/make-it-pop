@@ -17,8 +17,6 @@
 
 <Seo />
 <Toaster />
-<Seo />
-<Toaster />
 <!-- Removed demo banner -->
 {#if !$page.url.pathname.startsWith('/learn/course/') && !$page.url.pathname.startsWith('/admin') && !$page.url.pathname.startsWith('/learn/courses')}
   <Header />

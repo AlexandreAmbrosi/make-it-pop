@@ -106,8 +106,80 @@
     justify-content: center;
   }
   :global(article iframe) {
-    max-width: 100%;
+    width: 100%;
+    aspect-ratio: 16/9;
     margin: 0 auto;
     border-radius: 0.5rem;
+  }
+
+  /* Task List Styles (Matching Editor) */
+  :global(article ul[data-type='taskList']) {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+  :global(article li[data-type='taskItem']) {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.25rem 0;
+  }
+  /* Remove prose markers */
+  :global(article li[data-type='taskItem']::before),
+  :global(article li[data-type='taskItem']::marker) {
+    content: none !important;
+    display: none;
+  }
+
+  :global(article li[data-type='taskItem'] label) {
+    margin: 0;
+    user-select: none;
+  }
+
+  :global(article li[data-type='taskItem'] input) {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: transparent;
+    cursor: pointer;
+    width: 1.15rem;
+    height: 1.15rem;
+    border: 1.5px solid #d1d5db;
+    border-radius: 0.35rem;
+    transition: all 0.2s ease;
+    display: grid;
+    place-content: center;
+    margin: 0;
+  }
+
+  :global(article li[data-type='taskItem'] input:checked) {
+    background-color: #000;
+    border-color: #000;
+  }
+
+  :global(article li[data-type='taskItem'] input::before) {
+    content: '';
+    width: 0.65rem;
+    height: 0.65rem;
+    background-color: white;
+    transform: scale(0);
+    transition: transform 0.1s ease-in-out;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+  }
+
+  :global(article li[data-type='taskItem'] input:checked::before) {
+    transform: scale(1);
+  }
+
+  :global(article li[data-type='taskItem'][data-checked='true'] > div) {
+    text-decoration: line-through;
+    color: #9ca3af;
+    opacity: 0.8;
   }
 </style>
