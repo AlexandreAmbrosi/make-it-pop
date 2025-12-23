@@ -1,0 +1,1 @@
+export const COURSE_PROSE_CLASS = 'prose prose-slate prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-gray-900 prose-p:text-gray-600 prose-p:leading-7 prose-a:text-violet-600 prose-a:no-underline hover:prose-a:underline prose-pre:bg-gray-50 prose-pre:border prose-pre:text-gray-900 max-w-none';

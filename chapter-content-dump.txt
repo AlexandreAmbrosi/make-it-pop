@@ -1,0 +1,5 @@
+
+        <h1>Introduction to Design</h1>
+        <p>Design is not just about making things look good. It is about solving problems and communicating ideas effectively.</p>
+        <p>In this course, we will explore the core principles that make designs work.</p>
+    

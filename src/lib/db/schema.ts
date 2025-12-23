@@ -56,6 +56,7 @@ export const courseParts = pgTable('course_parts', {
     courseId: uuid('course_id').references(() => courses.id).notNull(),
     title: text('title').notNull(),
     slug: text('slug').notNull(),
+    icon: text('icon'),
     order: integer('order').notNull(), // 1, 2, 3...
     createdAt: timestamp('created_at').defaultNow(),
     updatedAt: timestamp('updated_at').defaultNow(),

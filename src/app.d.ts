@@ -23,4 +23,13 @@ declare global {
   }
 }
 
-export {}
+
+export { }
+
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    iframe: {
+      setIframe: (options: { src: string }) => ReturnType
+    }
+  }
+}

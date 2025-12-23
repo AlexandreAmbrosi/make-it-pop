@@ -9,7 +9,7 @@
     { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/admin/toolz', label: 'Toolz', icon: PenTool },
     // { href: '/admin/newz', label: 'Newz', icon: Newspaper },
-    { href: '/admin/learn', label: 'Courses', icon: GraduationCap },
+    { href: '/admin/courses', label: 'Courses', icon: GraduationCap },
     { href: '/admin/settings', label: 'Settings', icon: Settings },
   ]
 </script>
@@ -56,7 +56,7 @@
       </div>
     </header>
 
-    <div class="p-8">
+    <div class={$page.params.courseId ? 'p-0' : 'p-8'}>
       {@render children()}
     </div>
   </main>

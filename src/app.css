@@ -126,6 +126,53 @@
   }
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-display text-gray-900 antialiased;
+  }
+}
+
+/* Global Styles for Course Content (Tiptap Output) */
+
+/* Basic Callout Styling */
+.callout {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  border-left: 4px solid;
+}
+.callout-info {
+  background-color: #eff6ff;
+  border-color: #3b82f6;
+}
+.callout-warning {
+  background-color: #fff7ed;
+  border-color: #f97316;
+}
+.callout-tip {
+  background-color: #f0fdf4;
+  border-color: #22c55e;
+}
+
+/* Task List Styling */
+ul[data-type='taskList'] {
+  list-style: none;
+  padding: 0;
+}
+li[data-type='taskItem'] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+li[data-type='taskItem'] input {
+  margin: 0;
+  cursor: pointer;
+}
 @layer base {
   * {
     @apply border-border;
