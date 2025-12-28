@@ -1,0 +1,162 @@
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-ExtraLightItalic.woff2') format('woff2'),
+        url('CelexGrotesk-ExtraLightItalic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-Italic.woff2') format('woff2'),
+        url('CelexGrotesk-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-BoldItalic.woff2') format('woff2'),
+        url('CelexGrotesk-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-SemiBoldItalic.woff2') format('woff2'),
+        url('CelexGrotesk-SemiBoldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-Regular.woff2') format('woff2'),
+        url('CelexGrotesk-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-Thin.woff2') format('woff2'),
+        url('CelexGrotesk-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-ExtraLight.woff2') format('woff2'),
+        url('CelexGrotesk-ExtraLight.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-Black.woff2') format('woff2'),
+        url('CelexGrotesk-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-Light.woff2') format('woff2'),
+        url('CelexGrotesk-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk Book';
+    src: url('CelexGrotesk-Book.woff2') format('woff2'),
+        url('CelexGrotesk-Book.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-LightItalic.woff2') format('woff2'),
+        url('CelexGrotesk-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-Bold.woff2') format('woff2'),
+        url('CelexGrotesk-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-ThinItalic.woff2') format('woff2'),
+        url('CelexGrotesk-ThinItalic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk Book';
+    src: url('CelexGrotesk-BookItalic.woff2') format('woff2'),
+        url('CelexGrotesk-BookItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-SemiBold.woff2') format('woff2'),
+        url('CelexGrotesk-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-BlackItalic.woff2') format('woff2'),
+        url('CelexGrotesk-BlackItalic.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-Medium.woff2') format('woff2'),
+        url('CelexGrotesk-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Celex Grotesk';
+    src: url('CelexGrotesk-MediumItalic.woff2') format('woff2'),
+        url('CelexGrotesk-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+

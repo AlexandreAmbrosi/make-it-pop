@@ -3,6 +3,47 @@
 @plugin '@tailwindcss/typography';
 @plugin 'tailwindcss-animate';
 
+/* Font Registrations */
+@font-face {
+  font-family: 'Celex Grotesk';
+  src: url('/fonts/CelexGrotesk-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Celex Grotesk';
+  src: url('/fonts/CelexGrotesk-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Celex Grotesk';
+  src: url('/fonts/CelexGrotesk-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Celex Grotesk';
+  src: url('/fonts/CelexGrotesk-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'WS Paradose';
+  src: url('/fonts/WsParadose.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --color-astro: #bc52ee;
   --color-svelte: #f96743;
@@ -39,10 +80,100 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --font-display: Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-display: 'Celex Grotesk', Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'WS Paradose', serif;
 
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-accordion-down: accordion-down 0.2s ease-out;
+
+  /* Custom Color Palette */
+  --color-blue-50: #f1effe;
+  --color-blue-100: #d4cdfc;
+  --color-blue-200: #bfb5fa;
+  --color-blue-300: #a294f8;
+  --color-blue-400: #907ff6;
+  --color-blue-500: #745ff4;
+  --color-blue-600: #6a56de;
+  --color-blue-700: #5243ad;
+  --color-blue-800: #403486;
+  --color-blue-900: #312866;
+
+  --color-sky-50: #eef4fe;
+  --color-sky-100: #ccdefc;
+  --color-sky-200: #b3cefb;
+  --color-sky-300: #90b8f9;
+  --color-sky-400: #7aaaf8;
+  --color-sky-500: #5995f6;
+  --color-sky-600: #5188e0;
+  --color-sky-700: #3f6aaf;
+  --color-sky-800: #315287;
+  --color-sky-900: #253f67;
+
+  --color-cyan-50: #effcfd;
+  --color-cyan-100: #ccf5f9;
+  --color-cyan-200: #b4f0f6;
+  --color-cyan-300: #92e9f2;
+  --color-cyan-400: #7de5ef;
+  --color-cyan-500: #5cdeeb;
+  --color-cyan-600: #54cad6;
+  --color-cyan-700: #419ea7;
+  --color-cyan-800: #337a81;
+  --color-cyan-900: #275d63;
+
+  --color-green-50: #f3fdf1;
+  --color-green-100: #d9fad2;
+  --color-green-200: #c7f8bd;
+  --color-green-300: #adf49f;
+  --color-green-400: #9df28c;
+  --color-green-500: #85ef6f;
+  --color-green-600: #79d965;
+  --color-green-700: #5eaa4f;
+  --color-green-800: #49833d;
+  --color-green-900: #38642f;
+
+  --color-lime-50: #fefef1;
+  --color-lime-100: #fcfdd3;
+  --color-lime-200: #fafcbe;
+  --color-lime-300: #f8faa1;
+  --color-lime-400: #f6f98e;
+  --color-lime-500: #f4f872;
+  --color-lime-600: #dee268;
+  --color-lime-700: #adb051;
+  --color-lime-800: #86883f;
+  --color-lime-900: #666830;
+
+  --color-yellow-50: #fdf6ed;
+  --color-yellow-100: #fae3c8;
+  --color-yellow-200: #f7d6ae;
+  --color-yellow-300: #f4c389;
+  --color-yellow-400: #f1b772;
+  --color-yellow-500: #eea54f;
+  --color-yellow-600: #d99648;
+  --color-yellow-700: #a97538;
+  --color-yellow-800: #835b2b;
+  --color-yellow-900: #644521;
+
+  --color-red-50: #fdeeee;
+  --color-red-100: #facccc;
+  --color-red-200: #f7b3b3;
+  --color-red-300: #f49090;
+  --color-red-400: #f17a7a;
+  --color-red-500: #ee5959;
+  --color-red-600: #d95151;
+  --color-red-700: #a93f3f;
+  --color-red-800: #833131;
+  --color-red-900: #642525;
+
+  --color-violet-50: #fdf0fd;
+  --color-violet-100: #f9d1f9;
+  --color-violet-200: #f7bbf7;
+  --color-violet-300: #f39df3;
+  --color-violet-400: #f189f1;
+  --color-violet-500: #ed6ced;
+  --color-violet-600: #d862d8;
+  --color-violet-700: #a84da8;
+  --color-violet-800: #823b82;
+  --color-violet-900: #642d64;
 
   @keyframes accordion-down {
     from {
@@ -78,6 +209,18 @@
   }
 }
 
+/* Bento Grid Utilities */
+@utility bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+
+@utility bento-card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -87,6 +230,7 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -104,24 +248,25 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 219 19% 9%;
+    /* Updated to #14171C */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 219 19% 9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
+    --popover-foreground: 219 19% 9%;
+    --primary: 219 19% 9%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary-foreground: 219 19% 9%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
     --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent-foreground: 219 19% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 219 19% 9%;
     --radius: 0.5rem;
   }
 }
@@ -132,7 +277,8 @@
 
 @layer base {
   body {
-    @apply font-display text-gray-900 antialiased;
+    @apply font-display antialiased text-[#14171C];
+    /* Updated text color */
   }
 }
 
@@ -145,14 +291,17 @@
   border-radius: 0.5rem;
   border-left: 4px solid;
 }
+
 .callout-info {
   background-color: #eff6ff;
   border-color: #3b82f6;
 }
+
 .callout-warning {
   background-color: #fff7ed;
   border-color: #f97316;
 }
+
 .callout-tip {
   background-color: #f0fdf4;
   border-color: #22c55e;
@@ -163,16 +312,19 @@ ul[data-type='taskList'] {
   list-style: none;
   padding: 0;
 }
+
 li[data-type='taskItem'] {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
 li[data-type='taskItem'] input {
   margin: 0;
   cursor: pointer;
 }
+
 @layer base {
   * {
     @apply border-border;
@@ -220,7 +372,7 @@ li[data-type='taskItem'] input {
   @apply hidden;
 }
 
-.modal-state:checked + .modal,
+.modal-state:checked+.modal,
 .modal-open.modal {
   @apply visible translate-y-0 scale-100 opacity-100;
 }
@@ -229,7 +381,7 @@ html:has(.modal-state:checked, .modal-open) {
   @apply overflow-hidden;
 }
 
-.modal-state:checked + .modal .modal-content,
+.modal-state:checked+.modal .modal-content,
 .modal-open .modal-content {
   @apply translate-y-0 scale-100;
 }

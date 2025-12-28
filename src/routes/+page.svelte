@@ -1,118 +1,72 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button'
-  import { Input } from '$lib/components/ui/input'
-  import { Textarea } from '$lib/components/ui/textarea'
-  import { ArrowRight, Wrench, Sparkles, Newspaper, GraduationCap } from 'lucide-svelte'
+  import Navbar from '$lib/components/Navbar.svelte'
+  import WhyItWorks from '$lib/components/WhyItWorks.svelte'
+  import { ArrowRight, Sparkles } from 'lucide-svelte'
 
-  // Placeholder images - in real app, use asset paths
-  const alexandreImg = 'https://github.com/alexandreambrosi.png' // Fallback to github user image if valid, or just a placeholder
+  // Hero Image
+  const heroImg = '/assets/hero.jpg'
 </script>
 
-<main>
-  <!-- Hero Section -->
-  <section class="bg-gray-50 px-8 py-20 text-center">
-    <div class="mx-auto max-w-4xl">
-      <h1 class="mb-6 text-5xl font-black tracking-tight sm:text-7xl">The Digital Design Bible</h1>
-      <p class="mx-auto mb-10 max-w-2xl text-xl text-gray-600">
-        Your ultimate platform for curated tools, endless inspiration, industry news, and cutting-edge learning for digital creators.
-      </p>
+<main class="bg-background min-h-screen p-4">
+  <div class="mx-auto max-w-[1400px]">
+    <!-- Bento Grid Container -->
+    <div class="bento-grid">
+      <!-- Top Row: Navbar -->
+      <Navbar />
 
-      <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <Button href="/toolz" size="lg" class="w-full bg-black font-bold text-white hover:bg-gray-800 sm:w-auto">
-          <Wrench class="mr-2 h-4 w-4" /> Explore Toolz
-        </Button>
-        <Button href="/learn" size="lg" variant="secondary" class="w-full font-bold sm:w-auto">
-          <GraduationCap class="mr-2 h-4 w-4" /> Start Learning
-        </Button>
+      <!-- Hero Section -->
+      <div
+        class="bento-card relative col-span-12 min-h-[500px] overflow-hidden text-white md:col-span-12"
+        style="background: linear-gradient(270deg, rgba(20, 23, 28, 0.00) 32.56%, #14171C 107.32%), url('/assets/hero.jpg') lightgray 50% / cover no-repeat;"
+      >
+        <!-- Content -->
+        <div class="relative z-10 flex h-full flex-col justify-center gap-[1.5rem] px-[4rem] py-[6rem]">
+          <h1 class="max-w-4xl text-[80px] leading-[80px] font-[400] text-white" style="font-family: 'WS Paradose', serif; leading-trim: both; text-edge: cap;">
+            Design <span class="italic">scalable</span><br />
+            <span class="italic">products</span> in weeks<span class="italic">,</span><br />
+            not <span class="italic">years</span>
+          </h1>
+
+          <p class="max-w-xl text-lg font-light text-gray-300 md:text-xl">
+            Everything you need to design your SAAS or any online business—even as a complete beginner or a newly created startup.
+          </p>
+
+          <div class="flex flex-col gap-4 sm:flex-row">
+            <a
+              href="/toolz"
+              class="flex items-center justify-center rounded-full border border-white/20 bg-transparent px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black"
+            >
+              Explore Toolz
+            </a>
+            <button class="flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-bold text-black transition-transform hover:scale-105">
+              Start courses for free
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why It Works Section -->
+      <WhyItWorks />
+
+      <!-- Social Proof / Logos (Placeholder based on layout) -->
+      <div class="bento-card col-span-12 flex flex-col items-center justify-between gap-8 bg-green-50 px-8 py-12 md:flex-row">
+        <div class="flex flex-col gap-2">
+          <p class="text-sm font-medium text-[#14171C]">
+            308 entrepreneurs and<br />startups love the courses
+          </p>
+          <span class="inline-block w-fit rounded-full bg-green-400 px-2 py-0.5 text-[10px] font-bold text-[#14171C]">+12 this month</span>
+        </div>
+
+        <div class="flex flex-1 justify-end gap-12 opacity-50 grayscale">
+          <!-- Placeholders for partner logos -->
+          <div class="h-8 w-8 rotate-45 border border-black"></div>
+          <div class="h-8 w-8 rotate-45 border border-black"></div>
+          <div class="h-8 w-8 rotate-45 border border-black"></div>
+          <div class="h-8 w-8 rotate-45 border border-black"></div>
+          <div class="h-8 w-8 rotate-45 border border-black"></div>
+          <div class="h-8 w-8 rotate-45 border border-black"></div>
+        </div>
       </div>
     </div>
-  </section>
-
-  <!-- What you'll find -->
-  <section class="px-8 py-20">
-    <div class="mx-auto max-w-7xl">
-      <h2 class="mb-16 text-center text-3xl font-bold">Everything you need to create</h2>
-
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-        <!-- Toolz Card -->
-        <a href="/toolz" class="group block rounded-2xl border border-gray-200 bg-white p-8 transition-all hover:border-black hover:shadow-xl">
-          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 transition-colors group-hover:bg-blue-600">
-            <Wrench class="h-6 w-6 text-blue-600 group-hover:text-white" />
-          </div>
-          <h3 class="mb-2 text-xl font-bold">Toolz</h3>
-          <p class="mb-4 text-gray-600">A curated directory of the best digital tools, power-charged by AI recommendations.</p>
-          <span class="flex items-center text-sm font-semibold group-hover:underline">Explore <ArrowRight class="ml-1 h-3 w-3" /></span>
-        </a>
-
-        <!-- Newz Card -->
-        <!-- <a href="/newz" class="group block rounded-2xl border border-gray-200 bg-white p-8 transition-all hover:border-green-600 hover:shadow-xl">
-          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-green-100 transition-colors group-hover:bg-green-600">
-            <Newspaper class="h-6 w-6 text-green-600 group-hover:text-white" />
-          </div>
-          <h3 class="mb-2 text-xl font-bold">Newz</h3>
-          <p class="mb-4 text-gray-600">Stay updated with the latest trends and news in the digital design world.</p>
-          <span class="flex items-center text-sm font-semibold group-hover:underline">Read Newz <ArrowRight class="ml-1 h-3 w-3" /></span>
-        </a> -->
-
-        <!-- Learn Card -->
-        <a href="/learn" class="group block rounded-2xl border border-gray-200 bg-white p-8 transition-all hover:border-orange-600 hover:shadow-xl">
-          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-100 transition-colors group-hover:bg-orange-600">
-            <GraduationCap class="h-6 w-6 text-orange-600 group-hover:text-white" />
-          </div>
-          <h3 class="mb-2 text-xl font-bold">Learn</h3>
-          <p class="mb-4 text-gray-600">Master new skills with our finest courses and quizzes.</p>
-          <span class="flex items-center text-sm font-semibold group-hover:underline">Start Learning <ArrowRight class="ml-1 h-3 w-3" /></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- About Creator -->
-  <section class="bg-gray-50 px-8 py-20">
-    <div class="mx-auto flex max-w-5xl flex-col items-center gap-12 md:flex-row">
-      <div class="w-full md:w-1/3">
-        <img src={alexandreImg} alt="Alexandre Ambrosi" class="mx-auto w-full max-w-[300px] rotate-3 rounded-2xl shadow-lg transition-transform duration-300 hover:rotate-0" />
-      </div>
-      <div class="w-full text-center md:w-2/3 md:text-left">
-        <h2 class="mb-6 text-3xl font-bold">Meet the Creator</h2>
-        <p class="mb-6 text-lg leading-relaxed text-gray-700">
-          Hi, I'm <span class="font-bold">Alexandre Ambrosi</span>. I built Make It Pop to be the resource I wish I had when starting out. It gathers everything a digital creator
-          needs in one place, filtered through a lens of quality and utility.
-        </p>
-        <a
-          href="https://www.alexandreambrosi.com/"
-          target="_blank"
-          class="inline-flex items-center border-b-2 border-black font-bold text-black transition-colors hover:border-gray-600 hover:text-gray-600"
-        >
-          Visit my portfolio <ArrowRight class="ml-2 h-4 w-4" />
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Form -->
-  <section class="px-8 py-20">
-    <div class="mx-auto max-w-2xl">
-      <h2 class="mb-12 text-center text-3xl font-bold">Get in touch</h2>
-      <div class="rounded-2xl border bg-white p-8 shadow-sm">
-        <form class="space-y-6">
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div class="space-y-2">
-              <label for="name" class="text-sm font-medium">Name</label>
-              <Input id="name" placeholder="John Doe" />
-            </div>
-            <div class="space-y-2">
-              <label for="email" class="text-sm font-medium">Email</label>
-              <Input id="email" type="email" placeholder="john@example.com" />
-            </div>
-          </div>
-          <div class="space-y-2">
-            <label for="message" class="text-sm font-medium">Message</label>
-            <Textarea id="message" placeholder="How can we help you?" class="min-h-[150px]" />
-          </div>
-          <Button type="submit" class="w-full font-bold">Send Message</Button>
-        </form>
-      </div>
-    </div>
-  </section>
+  </div>
 </main>
