@@ -22,6 +22,6 @@
   <Header />
 {/if}
 {@render children()}
-{#if !$page.url.pathname.startsWith('/learn/course/') && !$page.url.pathname.startsWith('/admin') && !$page.url.pathname.startsWith('/learn/courses')}
+{#if !$page.url.pathname.startsWith('/learn/course/') && !$page.url.pathname.startsWith('/admin') && !$page.url.pathname.startsWith('/learn/courses') && $page.url.pathname !== '/'}
   <Footer brand_name="Make It Pop" twitter="alexandreambrosi" />
 {/if}

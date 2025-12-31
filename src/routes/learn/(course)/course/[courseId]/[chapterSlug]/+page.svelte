@@ -7,6 +7,37 @@
   let { data } = $props()
   // data.chapter -> { title, content, html, ... }
   // data.pagination -> { prev, next }
+
+  // Initialize Tabs Interactivity
+  $effect(() => {
+    // Re-run when content changes
+    data.chapter
+
+    const tabGroups = document.querySelectorAll('[data-block="tabs"]')
+
+    tabGroups.forEach((group) => {
+      // Ensure default active state if missing
+      if (!group.hasAttribute('data-active-tab')) {
+        group.setAttribute('data-active-tab', '0')
+      }
+
+      // Find tabs inside the tablist
+      const tabList = group.querySelector('[data-role="tablist"]')
+      const tabs = tabList?.querySelectorAll('[data-role="tab"]') || []
+
+      tabs.forEach((tab, i) => {
+        // Simple click handler: Update state, let CSS handle visibility
+        tab.addEventListener('click', () => {
+          // Update ARIA
+          tabs.forEach((t) => t.setAttribute('aria-selected', 'false'))
+          tab.setAttribute('aria-selected', 'true')
+
+          // Update Container State
+          group.setAttribute('data-active-tab', i.toString())
+        })
+      })
+    })
+  })
 </script>
 
 <article class={COURSE_PROSE_CLASS}>
@@ -63,12 +94,72 @@
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
   }
-  :global(article td),
-  :global(article th) {
+
+  /* STATIC GLOBAL STYLES FOR TABS VISIBILITY */
+  /* This ensures CSP compliance and robust rendering */
+
+  /* Default: Hide panels that are NOT the active one */
+  :global(article .js-tab-panel) {
+    display: none;
+  }
+
+  /* Fallback: If data-active-tab is missing on root, show the first panel */
+  :global(article [data-block='tabs']:not([data-active-tab]) .js-tab-panel:nth-of-type(1)) {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* Active Tab Logic: Show the Nth panel if activeTab is N */
+  :global(article [data-block='tabs'][data-active-tab='0'] .js-tab-panel:nth-of-type(1)) {
+    display: block !important;
+    visibility: visible !important;
+  }
+  :global(article [data-block='tabs'][data-active-tab='1'] .js-tab-panel:nth-of-type(2)) {
+    display: block !important;
+    visibility: visible !important;
+  }
+  :global(article [data-block='tabs'][data-active-tab='2'] .js-tab-panel:nth-of-type(3)) {
+    display: block !important;
+    visibility: visible !important;
+  }
+  :global(article [data-block='tabs'][data-active-tab='3'] .js-tab-panel:nth-of-type(4)) {
+    display: block !important;
+    visibility: visible !important;
+  }
+  :global(article [data-block='tabs'][data-active-tab='4'] .js-tab-panel:nth-of-type(5)) {
+    display: block !important;
+    visibility: visible !important;
+  }
+  :global(article [data-block='tabs'][data-active-tab='5'] .js-tab-panel:nth-of-type(6)) {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* Ensure others stay hidden */
+  :global(article [data-block='tabs'][data-active-tab='0'] .js-tab-panel:not(:nth-of-type(1))) {
+    display: none !important;
+  }
+  :global(article [data-block='tabs'][data-active-tab='1'] .js-tab-panel:not(:nth-of-type(2))) {
+    display: none !important;
+  }
+  :global(article [data-block='tabs'][data-active-tab='2'] .js-tab-panel:not(:nth-of-type(3))) {
+    display: none !important;
+  }
+  :global(article [data-block='tabs'][data-active-tab='3'] .js-tab-panel:not(:nth-of-type(4))) {
+    display: none !important;
+  }
+  :global(article [data-block='tabs'][data-active-tab='4'] .js-tab-panel:not(:nth-of-type(5))) {
+    display: none !important;
+  }
+
+  :global(article th),
+  :global(article td) {
+    border: 1px solid #e5e7eb;
+    padding: 0.75rem;
+    position: relative;
     box-sizing: border-box;
     min-width: 1em;
     padding: 6px 8px;
-    position: relative;
     vertical-align: top;
     border-right: 1px solid #e5e7eb;
     border-bottom: 1px solid #e5e7eb;
@@ -88,6 +179,71 @@
     text-align: left;
   }
 
+  /* Tabs Styling - Segmented Control Look */
+  :global(article [data-block='tabs']) {
+    margin: 1.5rem 0;
+    border: 1px solid #f3f4f6;
+    border-radius: 0.75rem;
+    padding: 0.5rem;
+    background-color: rgba(249, 250, 251, 0.5);
+  }
+
+  :global(article [data-role='tablist']) {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    overflow-x: auto;
+    border-radius: 0.5rem;
+    background-color: rgba(243, 244, 246, 0.5);
+    padding: 0.25rem;
+    margin-bottom: 0.5rem;
+    scrollbar-width: none;
+  }
+
+  :global(article [data-role='tab']) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    white-space: nowrap;
+  }
+
+  :global(article [data-role='tab']:hover) {
+    background-color: rgba(229, 231, 235, 0.5);
+    color: #374151;
+  }
+
+  /* Active Tab State */
+  :global(article [data-role='tab'][aria-selected='true']) {
+    background-color: white;
+    color: #111827;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  :global(article [data-role='panel']) {
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background: white;
+  }
+
+  /* Hidden Panel - DEPRECATED via CSS Logic, but kept for legacy fallback */
+  :global(article [data-role='panel'].hidden) {
+    display: none;
+  }
+
+  :global(article .js-tab-panel) {
+    padding: 1.5rem;
+  }
   /* Shared Media Styles for consistency */
   :global(article img) {
     max-width: 100%;
@@ -181,5 +337,184 @@
     text-decoration: line-through;
     color: #9ca3af;
     opacity: 0.8;
+  }
+
+  /* Code Block Styling (Matching TiptapEditor VS Code Dark Plus) */
+  /* Using !important to override tailwind typography (prose) defaults which are very specific */
+  :global(article pre) {
+    background-color: #1e1e1e !important;
+    border: 1px solid #1e1e1e !important;
+    color: #d4d4d4 !important;
+    font-family: 'JetBrains Mono', 'Menlo', 'Monaco', 'Courier New', monospace !important;
+    padding: 1rem !important;
+    border-radius: 0.5rem !important;
+    margin: 1.5rem 0 !important;
+    overflow-x: auto;
+    box-shadow: none !important;
+  }
+
+  :global(article code) {
+    background-color: transparent !important;
+    color: inherit !important;
+    font-size: 0.9rem !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+    border: none !important;
+    font-weight: normal !important;
+  }
+
+  /* Remove Prosemirror/Tailwind prose backticks if present */
+  :global(article code::before),
+  :global(article code::after) {
+    content: none !important;
+    display: none !important;
+  }
+
+  /* VS Code Dark Plus Theme Colors - Ensure these override prose text colors */
+  /* VS Code Dark Plus Theme Colors - Parity with TiptapEditor */
+  :global(article .hljs-comment),
+  :global(article .hljs-quote) {
+    color: #6a9955 !important;
+    font-style: italic !important;
+  }
+
+  :global(article .hljs-doctag),
+  :global(article .hljs-keyword),
+  :global(article .hljs-formula) {
+    color: #c586c0 !important;
+  }
+
+  :global(article .hljs-keyword.function),
+  :global(article .hljs-keyword.class) {
+    color: #569cd6 !important;
+  }
+
+  :global(article .hljs-section),
+  :global(article .hljs-name),
+  :global(article .hljs-selector-tag),
+  :global(article .hljs-deletion),
+  :global(article .hljs-subst) {
+    color: #569cd6 !important;
+  }
+
+  :global(article .hljs-literal) {
+    color: #569cd6 !important;
+  }
+
+  :global(article .hljs-string),
+  :global(article .hljs-regexp),
+  :global(article .hljs-addition),
+  :global(article .hljs-attribute),
+  :global(article .hljs-meta .hljs-string) {
+    color: #ce9178 !important;
+  }
+
+  :global(article .hljs-attr),
+  :global(article .hljs-variable),
+  :global(article .hljs-template-variable),
+  :global(article .hljs-type),
+  :global(article .hljs-selector-class),
+  :global(article .hljs-selector-attr),
+  :global(article .hljs-selector-pseudo),
+  :global(article .hljs-number) {
+    color: #9cdcfe !important;
+  }
+
+  :global(article .hljs-number) {
+    color: #b5cea8 !important;
+  }
+
+  :global(article .hljs-symbol),
+  :global(article .hljs-bullet),
+  :global(article .hljs-link),
+  :global(article .hljs-meta),
+  :global(article .hljs-selector-id),
+  :global(article .hljs-title) {
+    color: #dcdcaa !important;
+  }
+
+  :global(article .hljs-built_in),
+  :global(article .hljs-title.class_),
+  :global(article .hljs-class .hljs-title) {
+    color: #4ec9b0 !important;
+  }
+
+  :global(article .hljs-emphasis) {
+    font-style: italic !important;
+  }
+
+  :global(article .hljs-strong) {
+    font-weight: bold !important;
+  }
+  /* Standard List Spacing - Parity with Editor */
+  :global(article ul:not([data-type='taskList'])),
+  :global(article ol) {
+    margin-top: 0.25em !important;
+    margin-bottom: 0.25em !important;
+    padding-left: 1.5em !important;
+  }
+
+  :global(article li:not([data-type='taskItem'])) {
+    margin-top: 0.1em !important;
+    margin-bottom: 0.1em !important;
+  }
+
+  :global(article li p) {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  /* Expandable / Accordion Styling */
+  :global(article summary) {
+    list-style: none !important;
+  }
+
+  :global(article summary::-webkit-details-marker) {
+    display: none !important;
+  }
+
+  :global(article summary::before) {
+    content: '' !important;
+    display: inline-block !important;
+    width: 1.25em !important;
+    height: 1.25em !important;
+    margin-right: 0.5em !important;
+    background-color: #4b5563 !important;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    mask-size: contain !important;
+    mask-repeat: no-repeat !important;
+    mask-position: center !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  :global(article details[open] summary::before) {
+    transform: rotate(90deg) !important;
+  }
+
+  /* Content Padding and Sizing for Expandable */
+  :global(article details > *:not(summary)) {
+    margin-left: 1.5rem !important;
+    margin-right: 1.5rem !important;
+    width: calc(100% - 3rem) !important;
+    box-sizing: border-box !important;
+  }
+
+  :global(article details > summary + *) {
+    margin-top: 1.5rem !important;
+  }
+
+  :global(article details > *:last-child) {
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Nested media just fills parent */
+  :global(article details > *:not(summary) img),
+  :global(article details > *:not(summary) video),
+  :global(article details > *:not(summary) .iframe-wrapper) {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 !important;
   }
 </style>

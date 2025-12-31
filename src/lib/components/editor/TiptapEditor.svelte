@@ -7,10 +7,14 @@
   import Youtube from '@tiptap/extension-youtube'
   import Placeholder from '@tiptap/extension-placeholder'
   import Typography from '@tiptap/extension-typography'
-  import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+  import { CustomCodeBlock } from '$lib/components/editor/extensions/CustomCodeBlock'
   import TextAlign from '@tiptap/extension-text-align'
   import TaskList from '@tiptap/extension-task-list'
-  import TaskItem from '@tiptap/extension-task-item'
+  import { CustomTaskItem } from '$lib/components/editor/extensions/CustomTaskItem'
+  import { CustomDetails } from '$lib/components/editor/extensions/CustomDetails'
+  import { CustomSummary } from '$lib/components/editor/extensions/CustomSummary'
+  import { CustomTabs } from '$lib/components/editor/extensions/CustomTabs'
+  import { CustomTabPanel } from '$lib/components/editor/extensions/CustomTabPanel'
   import { Table } from '@tiptap/extension-table'
   import { TableRow } from '@tiptap/extension-table-row'
   import { TableCell } from '@tiptap/extension-table-cell'
@@ -248,9 +252,9 @@
         const finalUrl = publicUrl || signedUrl.split('?')[0]
         editor.chain().focus().setImage({ src: finalUrl }).run()
       }
-    } catch (e) {
+    } catch (e: any) {
       console.error('Upload failed', e)
-      alert('Upload failed')
+      alert(`Upload failed: ${e.message || 'Unknown error'}`)
     }
   }
 
@@ -311,7 +315,7 @@
         StarterKit.configure({
           codeBlock: false,
         }),
-        CodeBlockLowlight.configure({
+        CustomCodeBlock.configure({
           lowlight,
         }),
         Image,
@@ -330,9 +334,13 @@
           types: ['heading', 'paragraph', 'image'],
         }),
         TaskList,
-        TaskItem.configure({
+        CustomTaskItem.configure({
           nested: true,
         }),
+        CustomDetails,
+        CustomSummary,
+        CustomTabs,
+        CustomTabPanel,
         Table.configure({
           resizable: true,
         }),
@@ -381,8 +389,9 @@
         GenericEmbed,
         TextStyle,
         Color,
-        Underline,
+        // Underline, // Removed duplicate
         FontFamily,
+        // Link, // Removed duplicate
         // Removed BubbleMenu extension to handle manual positioning
       ],
       content,
@@ -432,11 +441,48 @@
   const setCallout = (type: 'info' | 'warning' | 'tip') => {
     editor.chain().focus().toggleWrap('callout', { type }).run()
   }
+
+  const addDetails = () => {
+    // Insert details with summary and empty paragraph
+    editor
+      .chain()
+      .focus()
+      .insertContent([
+        {
+          type: 'details',
+          content: [
+            { type: 'summary', content: [{ type: 'text', text: 'Details' }] },
+            { type: 'paragraph', content: [] },
+          ],
+        },
+      ])
+      .run()
+  }
+
+  const addTabs = () => {
+    editor
+      .chain()
+      .focus()
+      .insertContent({
+        type: 'tabs',
+        attrs: { titles: ['Tab 1', 'Tab 2'], activeTab: 0 },
+        content: [
+          { type: 'tabPanel', content: [{ type: 'paragraph' }] },
+          { type: 'tabPanel', content: [{ type: 'paragraph' }] },
+        ],
+      })
+      .run()
+  }
 </script>
 
 <svelte:window on:scroll={onScrollOrResize} on:resize={onScrollOrResize} />
 
 <div class="relative flex min-h-full flex-col bg-white">
+  <!-- DEBUG: Visible Content Length -->
+  <div class="fixed right-4 bottom-4 z-50 rounded border border-red-200 bg-red-100 p-2 text-xs text-red-600 shadow-lg">
+    DEBUG: Content Length: {content.length}
+  </div>
+
   {#if editor && editable}
     <!-- Horizontal Sticky Toolbar -->
     <div class="sticky top-0 z-20 flex w-full flex-wrap items-center gap-1 border-b bg-gray-50 p-2 shadow-sm">
@@ -567,6 +613,12 @@
         <button class="rounded p-1 text-sm hover:bg-gray-200" on:click={addEmbed} title="Embed Video/Design">
           <MonitorPlay class="h-4 w-4" />
         </button>
+        <button class="rounded p-1 text-sm hover:bg-gray-200" on:click={addDetails} title="Expandable / Accordion">
+          <PanelBottomOpen class="h-4 w-4" />
+        </button>
+        <button class="rounded p-1 text-sm hover:bg-gray-200" on:click={addTabs} title="Tabs">
+          <PanelTopOpen class="h-4 w-4" />
+        </button>
       </div>
 
       <!-- Callouts -->
@@ -668,96 +720,79 @@
     border-color: #22c55e;
   }
 
-  /* Task List Styling */
+  /* Task List Styling - Synced with Reader View and Hardened */
+  /* Removing .ProseMirror prefix to ensure matching if container structure varies */
   :global(ul[data-type='taskList']) {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 1rem 0 !important;
   }
+
   :global(li[data-type='taskItem']) {
-    display: flex;
-    flex-direction: row;
-    align-items: center; /* Center aligned vertically */
-    gap: 0.75rem;
-    margin: 0.25rem 0;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    margin: 0.25rem 0 !important;
   }
+
   /* Remove prose markers */
   :global(li[data-type='taskItem']::before),
   :global(li[data-type='taskItem']::marker) {
     content: none !important;
-    display: none;
+    display: none !important;
   }
 
-  /* Custom Checkbox Container */
   :global(li[data-type='taskItem'] label) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    user-select: none;
-    cursor: pointer;
-    contenteditable: false;
-  }
-
-  :global(li[data-type='taskItem'] input) {
-    appearance: none;
-    -webkit-appearance: none;
-    background-color: transparent;
-    cursor: pointer;
-    width: 1.15rem;
-    height: 1.15rem;
-    border: 1.5px solid #d1d5db; /* Gray-300 */
-    border-radius: 0.35rem; /* Slightly rounded */
-    transition: all 0.2s ease;
-    display: grid;
-    place-content: center;
-    margin: 0; /* Reset margins */
+    margin: 0 !important;
+    user-select: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important; /* Ensure label doesn't collapse */
   }
 
   /* Hover state */
-  :global(li[data-type='taskItem'] input:hover) {
-    border-color: #9ca3af; /* Gray-400 */
-    background-color: #f9fafb; /* Gray-50 */
+  :global(li[data-type='taskItem'] input:hover),
+  :global(li[data-type='taskItem'] input[type='checkbox']:hover) {
+    border-color: #9ca3af !important; /* Gray-400 */
+    background-color: #f9fafb !important; /* Gray-50 */
   }
 
-  /* Checked state box */
-  :global(li[data-type='taskItem'] input:checked) {
-    background-color: #000; /* Primary brand color (Black) */
-    border-color: #000;
+  :global(li[data-type='taskItem'] input:checked),
+  :global(li[data-type='taskItem'] input[type='checkbox']:checked) {
+    background-color: #000 !important;
+    border-color: #000 !important;
   }
 
-  /* Checkmark Icon using Mask for crisp SVG rendering */
-  :global(li[data-type='taskItem'] input::before) {
-    content: '';
-    width: 0.65rem;
-    height: 0.65rem;
-    background-color: white;
-    transform: scale(0);
-    transition: transform 0.1s ease-in-out;
+  :global(li[data-type='taskItem'] input::before),
+  :global(li[data-type='taskItem'] input[type='checkbox']::before) {
+    content: '' !important;
+    width: 0.65rem !important;
+    height: 0.65rem !important;
+    background-color: white !important;
+    transform: scale(0) !important;
+    transition: transform 0.1s ease-in-out !important;
 
     /* SVG Checkmark */
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
-    mask-size: contain;
-    -webkit-mask-size: contain;
-    mask-repeat: no-repeat;
-    -webkit-mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-position: center;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    mask-size: contain !important;
+    -webkit-mask-size: contain !important;
+    mask-repeat: no-repeat !important;
+    -webkit-mask-repeat: no-repeat !important;
+    mask-position: center !important;
+    -webkit-mask-position: center !important;
   }
 
-  :global(li[data-type='taskItem'] input:checked::before) {
-    transform: scale(1);
+  :global(li[data-type='taskItem'] input:checked::before),
+  :global(li[data-type='taskItem'] input[type='checkbox']:checked::before) {
+    transform: scale(1) !important;
   }
 
-  /* Checked Text Styling - Strikethrough & Faded */
   :global(li[data-type='taskItem'][data-checked='true'] > div) {
-    text-decoration: line-through;
-    color: #9ca3af; /* Gray-400 */
-    opacity: 0.8;
-    transition:
-      opacity 0.2s,
-      color 0.2s;
+    text-decoration: line-through !important;
+    color: #9ca3af !important;
+    opacity: 0.8 !important;
   }
 
   /* Reduce default spacing for standard lists too */
@@ -805,6 +840,104 @@
     width: 100%;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem; /* Rounded corners */
+  }
+
+  /* --- Code Block Styling (VS Code Dark Plus) --- */
+  :global(.ProseMirror pre) {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    font-family: 'JetBrains Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+  }
+
+  :global(.ProseMirror pre code) {
+    display: block;
+    background: none;
+    color: inherit;
+    font-size: 0.875rem;
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+
+  /* Syntax Highlighting */
+  :global(.hljs-comment),
+  :global(.hljs-quote) {
+    color: #6a9955;
+    font-style: italic;
+  }
+
+  :global(.hljs-doctag),
+  :global(.hljs-keyword),
+  :global(.hljs-formula) {
+    color: #c586c0; /* Violet/Pink for control flow */
+  }
+
+  /* Additional keywords often blue in VS Code */
+  :global(.hljs-keyword.function),
+  :global(.hljs-keyword.class) {
+    color: #569cd6;
+  }
+
+  :global(.hljs-section),
+  :global(.hljs-name),
+  :global(.hljs-selector-tag),
+  :global(.hljs-deletion),
+  :global(.hljs-subst) {
+    color: #569cd6; /* Blue */
+  }
+
+  :global(.hljs-literal) {
+    color: #569cd6;
+  }
+
+  :global(.hljs-string),
+  :global(.hljs-regexp),
+  :global(.hljs-addition),
+  :global(.hljs-attribute),
+  :global(.hljs-meta .hljs-string) {
+    color: #ce9178; /* Orange */
+  }
+
+  :global(.hljs-attr),
+  :global(.hljs-variable),
+  :global(.hljs-template-variable),
+  :global(.hljs-type),
+  :global(.hljs-selector-class),
+  :global(.hljs-selector-attr),
+  :global(.hljs-selector-pseudo),
+  :global(.hljs-number) {
+    color: #9cdcfe; /* Light Blue */
+  }
+
+  :global(.hljs-number) {
+    color: #b5cea8; /* Greenish/Light Green */
+  }
+
+  :global(.hljs-symbol),
+  :global(.hljs-bullet),
+  :global(.hljs-link),
+  :global(.hljs-meta),
+  :global(.hljs-selector-id),
+  :global(.hljs-title) {
+    color: #dcdcaa; /* Yellow */
+  }
+
+  :global(.hljs-built_in),
+  :global(.hljs-title.class_),
+  :global(.hljs-class .hljs-title) {
+    color: #4ec9b0; /* Teal */
+  }
+
+  :global(.hljs-emphasis) {
+    font-style: italic;
+  }
+
+  :global(.hljs-strong) {
+    font-weight: bold;
   }
   :global(.ProseMirror td),
   :global(.ProseMirror th) {
@@ -885,5 +1018,81 @@
     box-shadow:
       0 4px 6px -1px rgb(0 0 0 / 0.1),
       0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+
+  /* Reduce Standard List Spacing */
+  :global(.ProseMirror ul),
+  :global(.ProseMirror ol) {
+    margin-top: 0.25em !important;
+    margin-bottom: 0.25em !important;
+    padding-left: 1.5em !important;
+  }
+
+  :global(.ProseMirror li) {
+    margin-top: 0.1em !important;
+    margin-bottom: 0.1em !important;
+  }
+
+  :global(.ProseMirror li p) {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  /* Expandable / Accordion Styling */
+  :global(.ProseMirror details) {
+    border-color: #e5e7eb !important;
+  }
+
+  :global(.ProseMirror summary) {
+    list-style: none !important;
+  }
+
+  :global(.ProseMirror summary::-webkit-details-marker) {
+    display: none !important;
+  }
+
+  :global(.ProseMirror summary::before) {
+    content: '' !important;
+    display: inline-block !important;
+    width: 1.25em !important;
+    height: 1.25em !important;
+    margin-right: 0.5em !important;
+    background-color: #4b5563 !important; /* Content/Text Color */
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    mask-size: contain !important;
+    mask-repeat: no-repeat !important;
+    mask-position: center !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  :global(.ProseMirror details[open] summary::before) {
+    transform: rotate(90deg) !important;
+  }
+
+  /* Content Padding and Sizing for Expandable */
+  :global(.ProseMirror details > *:not(summary)) {
+    margin-left: 1.5rem !important;
+    margin-right: 1.5rem !important;
+    width: calc(100% - 3rem) !important;
+    box-sizing: border-box !important;
+  }
+
+  :global(.ProseMirror details > summary + *) {
+    margin-top: 1.5rem !important;
+  }
+
+  :global(.ProseMirror details > *:last-child) {
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Nested media just fills parent */
+  :global(.ProseMirror details > *:not(summary) img),
+  :global(.ProseMirror details > *:not(summary) video),
+  :global(.ProseMirror details > *:not(summary) .iframe-wrapper) {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 !important;
   }
 </style>

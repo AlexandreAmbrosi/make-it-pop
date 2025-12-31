@@ -3,7 +3,9 @@
   const tail = '/assets/bubble-tail-1.svg'
 </script>
 
-<div class="bento-card relative col-span-12 flex h-auto flex-col overflow-hidden overflow-x-hidden rounded-lg bg-[#fdeeee] pb-12 md:col-span-12 lg:block lg:h-[550px] lg:pb-0">
+<div
+  class="velocity-skew bento-card relative col-span-12 flex h-auto flex-col overflow-hidden overflow-x-hidden rounded-lg bg-[#fdeeee] pb-8 md:col-span-12 lg:block lg:h-[550px] lg:pb-0"
+>
   <!-- Main Heading -->
   <h2
     class="lg:text-6lg relative top-0 left-0 mt-12 mb-12 w-full px-8 text-5xl leading-none text-[#ee5959] lg:absolute lg:top-1/2 lg:left-12 lg:mt-0 lg:mb-0 lg:w-auto lg:-translate-y-1/2 lg:px-0"
@@ -118,7 +120,7 @@
         I lose a lot of time going back and forth on design decisions.
       </p>
     </div>
-    <div class="flex w-full shrink-0 scale-x-[-1] items-center px-4 py-0">
+    <div class="flex shrink-0 scale-x-[-1] items-center self-end px-4 py-0 lg:scale-x-100 lg:self-start">
       <div class="h-3 w-3 shrink-0">
         <img alt="" class="block h-full w-full max-w-none" src={tail} />
       </div>

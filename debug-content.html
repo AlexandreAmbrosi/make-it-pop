@@ -1,0 +1,28 @@
+<h1>Introduction to Design</h1><p>Design is not just about making things look good. It is about solving problems and communic<a target="_blank" rel="noopener noreferrer nofollow" href="https://classic.warcraftlogs.com/reports/NBVRAJXypQD7bGhr?fight=68&amp;type=damage-done&amp;modal=fight-selection">ating ideas e</a>ffectively.</p><div data-youtube-video=""><iframe width="640" height="480" allowfullscreen="true" autoplay="false" disablekbcontrols="false" enableiframeapi="false" endtime="0" ivloadpolicy="0" loop="false" modestbranding="false" origin="" playlist="" rel="1" src="https://www.youtube-nocookie.com/embed/8aICdB61kRE?rel=1" start="0"></iframe></div><p></p><pre><code>azeaze</code></pre><p></p><table style="min-width: 75px;"><colgroup><col style="min-width: 25px;"><col style="min-width: 25px;"><col style="min-width: 25px;"></colgroup><tbody><tr><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td></tr><tr><th colspan="1" rowspan="1" data-background-color="#cd1818" style="background-color: rgb(205, 24, 24);"><p></p></th><th colspan="1" rowspan="1"><p></p></th><th colspan="1" rowspan="1" data-background-color="#815a5a" style="background-color: rgb(129, 90, 90);"><p></p></th></tr><tr><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td></tr><tr><td colspan="1" rowspan="1"><p>zetzeyzy</p></td><td colspan="1" rowspan="1"><p>tzeaztezetzetzetze</p></td><td colspan="1" rowspan="1"><p></p></td></tr><tr><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td></tr><tr><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td></tr><tr><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td></tr><tr><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td></tr><tr><td colspan="1" rowspan="1" data-background-color="#cd1818" style="background-color: rgb(205, 24, 24);"><p></p></td><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td></tr></tbody></table><p></p><img src="/uploads/courses-1766518599124-DSC00217.JPG"><h2>What you will learn</h2><p>In this chapter, we will cover:</p><ul><li><p>The definition of design</p></li><li><p>The difference between art and design</p></li><li><p>The core pillars of visual communication</p></li></ul><blockquote><p><strong>Note:</strong> Good design is invisible. Bad design is everywhere.</p></blockquote><p>Let's get started on this journey to becoming a better visual thinker.</p><p></p><pre><code>&lt;script lang="ts"&gt;
+  import { ArrowUpRight } from 'lucide-svelte'
+  import { page } from '$app/stores'
+  import { onMount } from 'svelte'
+  import gsap from 'gsap'
+  import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+
+  onMount(() =&gt; {
+    gsap.registerPlugin(ScrollTrigger)
+
+    const showAnim = gsap
+      .from('#homepage-navbar', {
+        yPercent: -130, // Just enough to hide
+        paused: true,
+        duration: 0.3, // Standard speed
+        ease: 'power2.out', // Smooth standard easing
+      })
+      .progress(1)
+
+    // Show/Hide on Scroll Direction (Delayed until after Hero)
+    ScrollTrigger.create({
+      start: '500 top', // Trigger after 500px scroll
+      end: 'max',
+      onUpdate: (self) =&gt; {
+        self.direction === -1 ? showAnim.play() : showAnim.reverse()
+      },
+    })
+</code></pre><p></p>
