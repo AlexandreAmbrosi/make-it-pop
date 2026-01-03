@@ -5,12 +5,25 @@
   import { onMount } from 'svelte'
   import gsap from 'gsap'
   import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+  import { getClientSession } from '$lib/utils/session'
 
   let isMobileMenuOpen = $state(false)
   let isScrolled = $state(false)
+
+  // Random Hover CTAs
+  const ctas = ['Discover!', 'Explore!', "I'll explain everything", "Let's gooo", 'Curious?', 'Check it out', 'Worth a look', 'Pop it!', '*click*', "That's a CTA btw"]
+  const getRandomCta = () => ctas[Math.floor(Math.random() * ctas.length)]
+
+  let inspirCta = $state(getRandomCta())
+  let toolzCta = $state(getRandomCta())
+  let learnCta = $state(getRandomCta())
+  let accountCta = $state(getRandomCta())
   let menuTl: gsap.core.Timeline
 
   onMount(() => {
+    // Initialize session for other components (like dashboard)
+    getClientSession()
+
     gsap.registerPlugin(ScrollTrigger)
 
     ScrollTrigger.create({
@@ -110,7 +123,9 @@
 
 <!-- Mobile Header (Sticky & Auto-Hide) -->
 <div id="mobile-header" class="fixed top-6 right-6 left-6 z-[70] flex items-center justify-between rounded-md bg-white px-4 py-3 shadow-none transition-transform lg:hidden">
-  <img src="/assets/logo.svg" alt="Make It Pop" class="mobile-logo w-[120px]" />
+  <a href="/" class="origin-left transition-transform duration-300 hover:scale-95">
+    <img src="/assets/logo.svg" alt="Make It Pop" class="mobile-logo w-[120px]" />
+  </a>
   <button onclick={toggleMenu} class="relative h-6 w-6 text-[#14171C]">
     <!-- Burger Icon -->
     <div class="icon-burger absolute inset-0">
@@ -248,33 +263,48 @@
 <nav class={`-mb-4 hidden w-full bg-white py-4 transition-all duration-300 lg:sticky lg:top-0 lg:z-50 lg:block ${isScrolled ? '!pt-2 !pb-2' : ''}`}>
   <div class="mx-auto grid w-full max-w-[1400px] grid-cols-12 gap-[8px] px-4 min-[1450px]:px-0">
     <!-- Logo Tile -->
-    <div class={`bento-card col-span-4 flex items-center justify-start bg-transparent pl-4 transition-all duration-300 ${isScrolled ? 'py-1' : 'py-4'}`}>
+    <a href="/" class={`bento-card col-span-4 flex items-center justify-start bg-transparent pl-4 transition-all duration-300 hover:scale-95 ${isScrolled ? 'py-1' : 'py-4'}`}>
       <img src="/assets/logo.svg" alt="Make It Pop" class={`transition-all duration-300 ${isScrolled ? 'w-[150px]' : 'w-[250px]'}`} />
-    </div>
+    </a>
 
     <!-- Navigation Tiles Container -->
     <div class="col-span-8 flex gap-[8px]">
       <a
         href="/inspird"
-        class={`bento-card group relative flex flex-1 items-center justify-center bg-violet-500 font-medium text-white transition-all duration-300 hover:scale-[1.02] ${isScrolled ? 'h-[50px] text-[18px]' : 'h-[72px] text-[22px]'}`}
+        onmouseenter={() => (inspirCta = getRandomCta())}
+        class={`bento-card group relative flex flex-1 items-center justify-center bg-violet-500 font-medium text-white transition-all duration-300 hover:scale-[1.02] hover:bg-violet-400 ${isScrolled ? 'h-[50px] text-[18px]' : 'h-[72px] text-[22px]'}`}
       >
         <!-- No Arrow for Inspir'd -->
-        Inspir'd
+        <!-- No Arrow for Inspir'd -->
+        <div class="relative h-full w-full overflow-hidden">
+          <span class="absolute inset-0 flex items-center justify-center px-2 transition-transform duration-300 group-hover:-translate-y-full">Inspir'd</span>
+          <span
+            class="absolute inset-0 flex translate-y-full items-center justify-center px-2 text-center font-serif leading-[0.8] transition-transform duration-300 group-hover:translate-y-0"
+            >{inspirCta}</span
+          >
+        </div>
         <span class="absolute top-2 right-2 rounded-full bg-white px-2 py-0.5 text-[8px] font-bold tracking-wider whitespace-nowrap text-[#14171C] uppercase">Coming soon :D</span>
       </a>
 
       <a
         href="/toolz"
-        class={`bento-card group relative flex flex-1 items-center justify-center bg-yellow-500 font-medium text-white transition-all duration-300 hover:scale-[1.02] ${isScrolled ? 'h-[50px] text-[18px]' : 'h-[72px] text-[22px]'}`}
+        onmouseenter={() => (toolzCta = getRandomCta())}
+        class={`bento-card group relative flex flex-1 items-center justify-center overflow-hidden bg-yellow-500 font-medium text-white transition-all duration-300 hover:scale-[1.02] hover:bg-yellow-400 ${isScrolled ? 'h-[50px] text-[18px]' : 'h-[72px] text-[22px]'}`}
       >
-        Toolz
+        <div class="relative h-full w-full overflow-hidden">
+          <span class="absolute inset-0 flex items-center justify-center px-2 transition-transform duration-300 group-hover:-translate-y-full">Toolz</span>
+          <span
+            class="absolute inset-0 flex translate-y-full items-center justify-center px-2 text-center font-serif leading-[0.8] transition-transform duration-300 group-hover:translate-y-0"
+            >{toolzCta}</span
+          >
+        </div>
         <svg
           width="18"
           height="18"
           viewBox="0 0 18 18"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          class="absolute top-1 right-1 h-[18px] w-[18px] text-white opacity-70 transition-opacity group-hover:opacity-100"
+          class="absolute top-1 right-1 h-[18px] w-[18px] text-white opacity-70 transition-all duration-300 group-hover:translate-x-[150%] group-hover:-translate-y-[150%] group-hover:opacity-100"
         >
           <path d="M5.25 12.75L12.75 5.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           <path d="M5.25 5.25H12.75V12.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -283,16 +313,23 @@
 
       <a
         href="/learn"
-        class={`bento-card group relative flex flex-1 items-center justify-center bg-sky-500 font-medium text-white transition-all duration-300 hover:scale-[1.02] ${isScrolled ? 'h-[50px] text-[18px]' : 'h-[72px] text-[22px]'}`}
+        onmouseenter={() => (learnCta = getRandomCta())}
+        class={`bento-card group relative flex flex-1 items-center justify-center overflow-hidden bg-sky-500 font-medium text-white transition-all duration-300 hover:scale-[1.02] hover:bg-sky-400 ${isScrolled ? 'h-[50px] text-[18px]' : 'h-[72px] text-[22px]'}`}
       >
-        Coursez
+        <div class="relative h-full w-full overflow-hidden">
+          <span class="absolute inset-0 flex items-center justify-center px-2 transition-transform duration-300 group-hover:-translate-y-full">Coursez</span>
+          <span
+            class="absolute inset-0 flex translate-y-full items-center justify-center px-2 text-center font-serif leading-[0.8] transition-transform duration-300 group-hover:translate-y-0"
+            >{learnCta}</span
+          >
+        </div>
         <svg
           width="18"
           height="18"
           viewBox="0 0 18 18"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          class="absolute top-1 right-1 h-[18px] w-[18px] text-white opacity-70 transition-opacity group-hover:opacity-100"
+          class="absolute top-1 right-1 h-[18px] w-[18px] text-white opacity-70 transition-all duration-300 group-hover:translate-x-[150%] group-hover:-translate-y-[150%] group-hover:opacity-100"
         >
           <path d="M5.25 12.75L12.75 5.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           <path d="M5.25 5.25H12.75V12.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -302,16 +339,24 @@
       {#if $page.data.session}
         <a
           href="/dashboard"
-          class={`bento-card group relative flex w-fit min-w-max items-center justify-center bg-green-500 px-8 font-medium whitespace-nowrap text-[#23481b] transition-all duration-300 hover:scale-[1.02] ${isScrolled ? 'h-[50px] text-[18px]' : 'h-[72px] text-[22px]'}`}
+          onmouseenter={() => (accountCta = getRandomCta())}
+          class={`bento-card group relative flex w-fit min-w-max items-center justify-center overflow-hidden bg-green-500 px-8 font-medium text-[#23481b] transition-all duration-300 hover:scale-[1.02] ${isScrolled ? 'h-[50px] text-[18px]' : 'h-[72px] text-[22px]'}`}
         >
-          My Account
+          <div class="relative h-full w-full overflow-hidden">
+            <span class="px-2 opacity-0">My Account</span>
+            <span class="absolute inset-0 flex items-center justify-center px-2 transition-transform duration-300 group-hover:-translate-y-full">My Account</span>
+            <span
+              class="absolute inset-0 flex translate-y-full items-center justify-center px-2 text-center font-serif leading-[0.8] transition-transform duration-300 group-hover:translate-y-0"
+              >{accountCta}</span
+            >
+          </div>
           <svg
             width="18"
             height="18"
             viewBox="0 0 18 18"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            class="absolute top-1 right-1 h-[18px] w-[18px] text-[#23481b] opacity-70 transition-opacity group-hover:opacity-100"
+            class="absolute top-1 right-1 h-[18px] w-[18px] text-[#23481b] opacity-70 transition-all duration-300 group-hover:translate-x-[150%] group-hover:-translate-y-[150%] group-hover:opacity-100"
           >
             <path d="M5.25 12.75L12.75 5.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             <path d="M5.25 5.25H12.75V12.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -320,16 +365,24 @@
       {:else}
         <a
           href="/signin"
-          class={`bento-card group relative flex w-fit min-w-max items-center justify-center bg-green-500 px-8 font-medium whitespace-nowrap text-[#23481b] transition-all duration-300 hover:scale-[1.02] ${isScrolled ? 'h-[50px] text-[18px]' : 'h-[72px] text-[22px]'}`}
+          onmouseenter={() => (accountCta = getRandomCta())}
+          class={`bento-card group relative flex w-fit min-w-max items-center justify-center overflow-hidden bg-green-500 px-8 font-medium text-[#23481b] transition-all duration-300 hover:scale-[1.02] ${isScrolled ? 'h-[50px] text-[18px]' : 'h-[72px] text-[22px]'}`}
         >
-          Sign In
+          <div class="relative h-full w-full overflow-hidden">
+            <span class="px-2 opacity-0">Sign In</span>
+            <span class="absolute inset-0 flex items-center justify-center px-2 transition-transform duration-300 group-hover:-translate-y-full">Sign In</span>
+            <span
+              class="absolute inset-0 flex translate-y-full items-center justify-center px-2 text-center font-serif leading-[0.8] transition-transform duration-300 group-hover:translate-y-0"
+              >{accountCta}</span
+            >
+          </div>
           <svg
             width="18"
             height="18"
             viewBox="0 0 18 18"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            class="absolute top-1 right-1 h-[18px] w-[18px] text-[#23481b] opacity-70 transition-opacity group-hover:opacity-100"
+            class="absolute top-1 right-1 h-[18px] w-[18px] text-[#23481b] opacity-70 transition-all duration-300 group-hover:translate-x-[150%] group-hover:-translate-y-[150%] group-hover:opacity-100"
           >
             <path d="M5.25 12.75L12.75 5.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             <path d="M5.25 5.25H12.75V12.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

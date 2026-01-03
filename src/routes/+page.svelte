@@ -1,6 +1,7 @@
 <script lang="ts">
   import Navbar from '$lib/components/Navbar.svelte'
   import WhyItWorks from '$lib/components/WhyItWorks.svelte'
+  import LatestCourse from '$lib/components/LatestCourse.svelte'
   import Footer from '@/components/Footer.svelte'
   import { ArrowRight, Sparkles } from 'lucide-svelte'
   import Lenis from 'lenis'
@@ -8,6 +9,7 @@
   import 'lenis/dist/lenis.css'
   import gsap from 'gsap'
   import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+  import SplitType from 'split-type'
 
   import InDepthCourses from '$lib/components/InDepthCourses.svelte'
 
@@ -22,6 +24,54 @@
 
     // Velocity 3D Effect (Z-Axis) - Desktop Only
     const mm = gsap.matchMedia()
+
+    // Generic Reveal Animation
+    const revealElements = document.querySelectorAll('.reveal')
+
+    revealElements.forEach((elem: any) => {
+      // Check if element is text (h1, h2, p)
+      const isText = ['H1', 'H2', 'H3', 'P'].includes(elem.tagName) || elem.classList.contains('text-reveal')
+
+      const delay = elem.dataset.delay || 0
+
+      if (isText) {
+        // Split text into lines
+        const split = new SplitType(elem, { types: 'lines' })
+
+        // Animate lines
+        gsap.from(split.lines, {
+          scrollTrigger: {
+            trigger: elem,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+          y: '100%',
+          opacity: 0,
+          duration: 1,
+          stagger: 0.1,
+          delay: Number(delay), // Add delay
+          ease: 'power4.out',
+        })
+      } else {
+        // Regular fade up for blocks (buttons, containers)
+        gsap.fromTo(
+          elem,
+          { autoAlpha: 0, y: 50 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 1,
+            delay: Number(delay), // Add delay
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: elem,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+          },
+        )
+      }
+    })
 
     // mm.add('(min-width: 1024px)', () => {
     //   ScrollTrigger.create({
@@ -49,6 +99,18 @@
       requestAnimationFrame(raf)
     }
 
+    // Hero Parallax
+    gsap.to('.parallax-bg', {
+      scrollTrigger: {
+        trigger: '.hero-parallax',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
+      yPercent: 20, // Move down slower than scroll (depth effect)
+      ease: 'none',
+    })
+
     requestAnimationFrame(raf)
   })
 
@@ -59,8 +121,6 @@
   })
 </script>
 
-<Navbar />
-
 <main class="bg-background min-h-screen p-4">
   <div class="mx-auto w-full max-w-[1400px]">
     <!-- Bento Grid Container -->
@@ -68,23 +128,40 @@
       <!-- Top Row: Navbar Removed -->
 
       <!-- Hero Section -->
-      <div
-        class="velocity-skew bento-card relative col-span-12 min-h-[500px] overflow-hidden text-white"
-        style="background: linear-gradient(270deg, rgba(20, 23, 28, 0.00) 32.56%, #14171C 107.32%), url('/assets/hero.jpg') lightgray 50% / cover no-repeat;"
-      >
+      <div class="hero-parallax velocity-skew bento-card relative col-span-12 min-h-[500px] overflow-hidden text-white">
+        <!-- Video Background -->
+        <video
+          src="/Vidéo_générée_à_partir_d_une_image.mp4"
+          poster="/assets/hero.jpg"
+          autoplay
+          muted
+          loop
+          playsinline
+          class="parallax-bg absolute inset-0 z-0 min-h-full min-w-full scale-[1.25] object-cover"
+        ></video>
+
+        <!-- Mobile Overlay (Solid Low Opacity) -->
+        <div class="parallax-bg absolute inset-0 z-0 scale-[1.25] bg-black/[0.33] lg:hidden"></div>
+
+        <!-- Desktop Overlay (Gradient) -->
+        <div
+          class="parallax-bg absolute inset-0 z-0 hidden scale-[1.25] lg:block"
+          style="background: linear-gradient(270deg, rgba(20, 23, 28, 0.00) 32.56%, #14171C 107.32%);"
+        ></div>
+
         <!-- Content -->
         <div class="relative z-10 flex h-full flex-col justify-center gap-[1.5rem] px-8 pt-20 pb-8 lg:px-[4rem] lg:py-[6rem]">
-          <h1 class="text-display-1 max-w-4xl text-white" style="leading-trim: both; text-edge: cap;">
+          <h1 class="reveal text-display-1 max-w-4xl text-white" style="leading-trim: both; text-edge: cap;">
             Design <span class="italic">scalable</span><br />
             <span class="italic">products</span> in weeks<span class="italic">,</span><br />
             not years
           </h1>
 
-          <p class="text-body-large max-w-xl text-gray-300">
+          <p class="reveal text-body-large max-w-xl text-gray-300" data-delay="0.5">
             Everything you need to design your SAAS or any online business—even as a complete beginner or a newly created startup.
           </p>
 
-          <div class="flex flex-col gap-2 sm:flex-row">
+          <div class="reveal flex flex-col gap-2 sm:flex-row">
             <a
               href="/toolz"
               class="flex items-center justify-center rounded-full border border-white/20 bg-transparent px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black"
@@ -101,6 +178,9 @@
       <!-- Why It Works Section -->
       <WhyItWorks />
 
+      <!-- Latest Course Section -->
+      <LatestCourse />
+
       <!-- In-Depth Courses Section -->
       <div class="col-span-12">
         <InDepthCourses />
@@ -108,14 +188,14 @@
 
       <!-- Social Proof / Logos -->
       <div class="velocity-skew bento-card section-padding col-span-12 flex flex-col items-center justify-between gap-8 bg-green-50 md:flex-row">
-        <div class="flex flex-col gap-2">
+        <div class="reveal flex flex-col gap-2">
           <p class="text-body font-medium text-[#14171C]">
             308 entrepreneurs and<br />startups love the courses
           </p>
           <span class="inline-block w-fit rounded-full bg-green-400 px-2 py-0.5 text-[10px] font-bold text-[#14171C]">+12 this month</span>
         </div>
 
-        <div class="flex flex-1 justify-end gap-12 opacity-50 grayscale">
+        <div class="reveal flex flex-1 justify-end gap-12 opacity-50 grayscale">
           <!-- Placeholders for partner logos -->
           <div class="h-8 w-8 rotate-45 border border-black"></div>
           <div class="h-8 w-8 rotate-45 border border-black"></div>
@@ -127,7 +207,7 @@
       </div>
 
       <!-- Footer -->
-      <div class="velocity-skew bento-card col-span-12 rounded-2xl bg-white">
+      <div class="velocity-skew bento-card col-span-12 overflow-hidden rounded-2xl">
         <Footer brand_name="Make It Pop" twitter="alexandreambrosi" />
       </div>
     </div>

@@ -205,6 +205,20 @@
       height: var(--radix-accordion-content-height);
     }
   }
+
+  @keyframes rotate-gradient {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+}
+
+@utility rotating-gradient {
+  animation: rotate-gradient 20s linear infinite;
 }
 
 @utility container {

@@ -1,5 +1,65 @@
 <script lang="ts">
   import { Check } from 'lucide-svelte'
+  import { onMount } from 'svelte'
+  import gsap from 'gsap'
+  import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+
+  let svgContent = ''
+
+  onMount(async () => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    // Initial scale to prevent edge gaps during movement
+    gsap.set('.parallax-section', { overflow: 'hidden' }) // Ensure overflow hidden on section
+
+    // Fetch and inject SVG for animation
+    const response = await fetch('/assets/courses/bg-pattern.svg')
+    svgContent = await response.text()
+
+    // Wait for DOM update
+    setTimeout(() => {
+      const paths = document.querySelectorAll('.parallax-pattern-container path')
+      console.log('Drawing SVG Paths Found:', paths.length)
+
+      paths.forEach((path: any) => {
+        const length = path.getTotalLength()
+        // Force styles to ensure visibility and drawing effect
+        gsap.set(path, {
+          strokeDasharray: length,
+          strokeDashoffset: length,
+          opacity: 1,
+          fill: 'none',
+          stroke: 'white',
+          strokeWidth: 50, // Ensure it's thick enough (original was 74)
+          vectorEffect: 'non-scaling-stroke', // Help with scaling
+        })
+
+        gsap.to(path, {
+          strokeDashoffset: 0,
+          duration: 3.5,
+          repeat: -1,
+          yoyo: true,
+          repeatDelay: 1, // Break between loops
+          ease: 'power1.inOut', // Smooth back and forth
+        })
+      })
+
+      // Initial scale for container to allow movement range
+      gsap.set('.parallax-pattern-container', { scale: 1.2 })
+
+      // Parallax for the whole container (Simple speed modifier)
+      gsap.to('.parallax-pattern-container', {
+        scrollTrigger: {
+          trigger: '.parallax-section',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+        yPercent: 20, // Only vertical movement
+        ease: 'none',
+      })
+    }, 100)
+  })
 
   const courses = [
     {
@@ -38,20 +98,25 @@
   ]
 </script>
 
-<section class="velocity-skew relative w-full py-20">
+<section class="parallax-section velocity-skew relative w-full py-20">
   <!-- Halfway Purple Background -->
   <div class="absolute inset-x-0 top-0 h-[65%] w-full overflow-hidden rounded-[8px] bg-purple-500">
     <!-- Background Vector -->
-    <div class="absolute inset-0 z-0 opacity-30 mix-blend-overlay">
-      <img src="/assets/courses/bg-pattern.svg" alt="" class="h-full w-full object-cover" />
+    <div class="parallax-pattern-container absolute inset-0 z-0 opacity-40 mix-blend-overlay">
+      {#if svgContent}
+        {@html svgContent}
+      {:else}
+        <!-- Fallback/Loading -->
+        <img src="/assets/courses/bg-pattern.svg" alt="" class="h-full w-full object-cover" />
+      {/if}
     </div>
   </div>
 
   <div class="relative z-10 mx-auto w-full max-w-[1400px] px-4">
     <!-- Header -->
     <div class="mb-16 flex flex-col items-center text-center text-white">
-      <h2 class="text-display-1 mb-4">In-depth courses</h2>
-      <p class="text-body-large max-w-2xl opacity-90">
+      <h2 class="reveal text-display-1 mb-4">In-depth courses</h2>
+      <p class="reveal text-body-large max-w-2xl opacity-90">
         Your ultimate platform for curated tools, endless inspiration, industry news, and cutting-edge learning for digital creators.
       </p>
     </div>
@@ -59,7 +124,9 @@
     <!-- Grid -->
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       {#each courses as course}
-        <div class="group relative flex min-h-[500px] flex-col overflow-hidden rounded-2xl bg-[#14171C] shadow-lg transition-transform hover:-translate-y-2 hover:shadow-2xl">
+        <div
+          class="reveal group relative flex min-h-[500px] flex-col overflow-hidden rounded-2xl bg-[#14171C] shadow-lg transition-transform hover:-translate-y-2 hover:shadow-2xl"
+        >
           <!-- Image & Gradient -->
           <div class="absolute inset-0 z-0">
             <img src={course.image} alt={course.title} class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />

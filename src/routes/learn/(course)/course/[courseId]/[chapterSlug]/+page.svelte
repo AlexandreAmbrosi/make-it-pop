@@ -517,4 +517,54 @@
     display: block !important;
     margin: 0 !important;
   }
+
+  /* STEPPER COMPONENT STYLING (Reader) */
+  /* Scoped strictly to [data-block="stepper"] as requested */
+
+  /* Initialize Counter */
+  :global(article [data-block='stepper']) {
+    counter-reset: reader-step-counter;
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-left: 2rem; /* Initial indent for the container */
+    border-left: 2px solid #e5e7eb; /* The vertical line */
+  }
+
+  /* Step Item */
+  :global(article [data-role='step-item']) {
+    position: relative;
+    counter-increment: reader-step-counter;
+    margin-bottom: 2rem;
+    padding-left: 1.5rem; /* Space between line and content */
+  }
+
+  /* Last item shouldn't have bottom margin */
+  :global(article [data-role='step-item']:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* Connection Line Fix: The border is on the parent, so strictly we don't need per-item lines
+     unless we want to stop the line at the last item.
+     A continuous border-left on the container is simpler and often cleaner. */
+
+  /* The Number Circle */
+  :global(article [data-role='step-item']::before) {
+    content: counter(reader-step-counter);
+    position: absolute;
+    left: -3.0625rem; /* Centered on the 2px border */
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #6b7280;
+    z-index: 10;
+  }
 </style>

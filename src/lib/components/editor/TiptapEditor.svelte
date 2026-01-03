@@ -15,6 +15,7 @@
   import { CustomSummary } from '$lib/components/editor/extensions/CustomSummary'
   import { CustomTabs } from '$lib/components/editor/extensions/CustomTabs'
   import { CustomTabPanel } from '$lib/components/editor/extensions/CustomTabPanel'
+  import { CustomStepper, StepItem } from '$lib/components/editor/extensions/CustomStepper'
   import { Table } from '@tiptap/extension-table'
   import { TableRow } from '@tiptap/extension-table-row'
   import { TableCell } from '@tiptap/extension-table-cell'
@@ -341,6 +342,8 @@
         CustomSummary,
         CustomTabs,
         CustomTabPanel,
+        CustomStepper,
+        StepItem,
         Table.configure({
           resizable: true,
         }),
@@ -472,6 +475,10 @@
         ],
       })
       .run()
+  }
+
+  const addStepper = () => {
+    editor.chain().focus().setStepper().run()
   }
 </script>
 
@@ -618,6 +625,9 @@
         </button>
         <button class="rounded p-1 text-sm hover:bg-gray-200" on:click={addTabs} title="Tabs">
           <PanelTopOpen class="h-4 w-4" />
+        </button>
+        <button class="rounded p-1 text-sm hover:bg-gray-200" on:click={addStepper} title="Stepper">
+          <ListOrdered class="h-4 w-4" />
         </button>
       </div>
 

@@ -1,49 +1,62 @@
 <script lang="ts">
-  import GitHubIcon from 'virtual:icons/devicon/github'
-  import TwitterIcon from 'virtual:icons/devicon/twitter'
-  import LinkedInIcon from 'virtual:icons/devicon/linkedin'
-  import Logo from './Logo.svelte'
+  const footerText = '/assets/footer-text.svg'
 
   interface Props {
-    /*
-    A component that can be used anywhere in your app
-
-    <Footer
-      twitter="rishi_raj_jain_"
-      brand_name="ACME"
-    />
-  */
-    brand_name: string
+    brand_name?: string
     twitter?: string
   }
 
-  let { brand_name = 'ACME', twitter = 'rishi_raj_jain_' }: Props = $props()
+  let { brand_name = 'Make It Pop', twitter = 'alexandreambrosi' }: Props = $props()
 </script>
 
-<footer class="relative mx-auto mt-8 flex max-w-7xl flex-col p-8 xl:grid xl:grid-cols-5">
-  <div class="flex flex-col space-y-8 xl:col-span-2">
-    <a href="/" class="z-10 flex flex-row items-center gap-x-2">
-      <Logo />
-      <span class="font-semibold text-[#9810fa]">{brand_name}</span>
-    </a>
-    <p class="max-w-xs text-sm text-gray-500">The Digital Design Bible. Curated tools, inspiration, news and learning for digital creators.</p>
-    <div class="flex items-center space-x-2">
-      <a target="_blank" href={`https://twitter.com/${twitter}`} class="rounded-md p-2 transition-colors hover:bg-gray-100 active:bg-gray-200">
-        <span class="sr-only">Twitter</span>
-        <TwitterIcon width="22" height="22" />
-      </a>
+<footer class="relative flex min-h-[500px] w-full flex-col justify-between overflow-hidden bg-[#f2f4f6] p-8">
+  <!-- Content Grid -->
+  <div class="z-10 flex flex-col justify-between gap-12 lg:flex-row lg:items-start">
+    <!-- Left: Description -->
+    <div class="max-w-[350px]">
+      <p class="text-base leading-relaxed text-[#14171C]" style="font-family: 'Celex Grotesk', sans-serif;">
+        Your ultimate platform for curated tools, endless inspiration, industry news, and cutting-edge learning for digital creators.
+      </p>
     </div>
-  </div>
-  <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-3 xl:mt-0">
-    <div class="md:grid md:grid-cols-2 md:gap-8">
-      <div>
-        <h3 class="text-sm font-semibold">Explore</h3>
-        <div class="mt-4 flex flex-col space-y-4">
-          <a class="text-sm text-gray-500 hover:text-gray-900" href="/toolz">Toolz</a>
-          <a class="text-sm text-gray-500 hover:text-gray-900" href="/newz">Newz</a>
-          <a class="text-sm text-gray-500 hover:text-gray-900" href="/learn">Learn</a>
+
+    <!-- Right: Links -->
+    <div class="flex flex-wrap gap-12 md:gap-24">
+      <!-- Socials -->
+      <div class="flex flex-col gap-4">
+        <h4 class="text-base font-bold text-[#14171C] opacity-70" style="font-family: 'Celex Grotesk', sans-serif;">Socials</h4>
+        <div class="flex flex-col gap-2 text-base text-[#14171C] opacity-40">
+          <a href="https://twitter.com/{twitter}" target="_blank" class="transition-opacity hover:opacity-100">X</a>
+          <a href="#" class="transition-opacity hover:opacity-100">Discord</a>
+          <a href="#" class="transition-opacity hover:opacity-100">Instagram</a>
+          <a href="#" class="transition-opacity hover:opacity-100">LinkedIn</a>
+        </div>
+      </div>
+
+      <!-- Find your way -->
+      <div class="flex flex-col gap-4">
+        <h4 class="text-base font-bold text-[#14171C] opacity-70" style="font-family: 'Celex Grotesk', sans-serif;">Find your way</h4>
+        <div class="flex flex-col gap-2 text-base text-[#14171C] opacity-40">
+          <a href="/inspirations" class="transition-opacity hover:opacity-100">Inspir'd</a>
+          <a href="/toolz" class="transition-opacity hover:opacity-100">Toolz</a>
+          <a href="/learn" class="transition-opacity hover:opacity-100">Coursez</a>
+          <a href="/login" class="transition-opacity hover:opacity-100">Sign In</a>
+          <a href="/register" class="transition-opacity hover:opacity-100">Sign Up</a>
+        </div>
+      </div>
+
+      <!-- Boring Things -->
+      <div class="flex flex-col gap-4">
+        <h4 class="text-base font-bold text-[#14171C] opacity-70" style="font-family: 'Celex Grotesk', sans-serif;">Boring Things</h4>
+        <div class="flex flex-col gap-2 text-base text-[#14171C] opacity-40">
+          <a href="/legal" class="transition-opacity hover:opacity-100">Legal Mentions</a>
+          <a href="/privacy" class="transition-opacity hover:opacity-100">Confidentiality Policy</a>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Big Text Image at Bottom -->
+  <div class="pointer-events-none absolute right-0 bottom-[-10px] left-0 w-full overflow-hidden leading-none">
+    <img src={footerText} alt="MAKE IT POP" class="w-full object-cover opacity-90" />
   </div>
 </footer>
